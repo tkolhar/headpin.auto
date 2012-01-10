@@ -17,4 +17,11 @@ class Home(Base):
         if open_url:
             print('Will get %s' % self.base_url)
             self.selenium.get(self.base_url)
-        
+    
+    @property        
+    def is_username_field_present(self):
+        return self.is_element_present(*self._username_text_field)
+    
+    @property
+    def is_password_field_present(self):
+        return self.is_element_present(*self._password_text_field)

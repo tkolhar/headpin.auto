@@ -3,20 +3,20 @@
 # ***** BEGIN LICENSE BLOCK *****
 # Version: MPL 1.1/GPL 2.0/LGPL 2.1
 #
-# The contents of this file are subject to the Mozilla Public License Version
+# The contents of this file are subject to the redhat Public License Version
 # 1.1 (the "License"); you may not use this file except in compliance with
 # the License. You may obtain a copy of the License at
-# http://www.mozilla.org/MPL/
+# http://www.redhat.org/MPL/
 #
 # Software distributed under the License is distributed on an "AS IS" basis,
 # WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 # for the specific language governing rights and limitations under the
 # License.
 #
-# The Original Code is Mozilla WebQA Selenium Tests.
+# The Original Code is redhat WebQA Selenium Tests.
 #
 # The Initial Developer of the Original Code is
-# Mozilla.
+# redhat.
 # Portions created by the Initial Developer are Copyright (C) 2011
 # the Initial Developer. All Rights Reserved.
 #
@@ -53,23 +53,12 @@ class Base(Page):
 
     _current_page_locator = (By.CSS_SELECTOR, ".paginator .num > a:nth-child(1)")
 
-    _amo_logo_link_locator = (By.CSS_SELECTOR, ".site-title a")
-    _amo_logo_image_locator = (By.CSS_SELECTOR, ".site-title img")
+    _redhat_logo_link_locator = (By.CSS_SELECTOR, "#head header a")
+    _redhat_logo_image_locator = (By.CSS_SELECTOR, "#head header img")
 
-    _mozilla_logo_link_locator = (By.CSS_SELECTOR, "#global-header-tab a")
+    _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
 
-    _breadcrumbs_locator = (By.CSS_SELECTOR, "#breadcrumbs > ol  li")
-    _footer_locator = (By.CSS_SELECTOR, "#footer")
-
-    def login(self, type="normal", user="default"):
-        if type == "normal":
-            self.selenium.get(self.base_url + "/en-US/firefox/users/login")
-            from pages.user import Login
-            login = Login(self.testsetup)
-            login.login_user_normal(user)
-        elif type == "browserID":
-            login = self.header.click_login_browser_id()
-            login.login_user_browser_id(user)
+#    def login(self, type="normal", user="default"):
 
     @property
     def page_title(self):
@@ -77,61 +66,29 @@ class Base(Page):
         return self.selenium.title
 
     @property
-    def amo_logo_title(self):
-        return self.selenium.find_element(*self._amo_logo_link_locator).get_attribute('title')
+    def redhat_logo_title(self):
+        return self.selenium.find_element(*self._redhat_logo_link_locator).get_attribute('title')
 
     @property
-    def amo_logo_image_source(self):
+    def redhat_logo_image_source(self):
         return self.selenium.find_element(*self._amo_logo_image_locator).get_attribute('src')
 
     @property
-    def is_mozilla_logo_visible(self):
-        return self.is_element_visible(*self._mozilla_logo_link_locator)
+    def is_redhat_logo_visible(self):
+        return self.is_element_visible(*self._redhat_logo_image_locator)
 
-    def click_mozilla_logo(self):
-        self.selenium.find_element(*self._mozilla_logo_link_locator).click()
+    def click_redhat_logo(self):
+        self.selenium.find_element(*self._redhat_logo_link_locator).click()
 
     @property
     def current_page(self):
         return int(self.selenium.find_element(*self._current_page_locator).text)
-
-    def credentials_of_user(self, user):
-        return self.parse_yaml_file(self.credentials)[user]
 
     @property
     def header(self):
         return Base.HeaderRegion(self.testsetup)
 
     @property
-    def breadcrumbs(self):
-        return [self.BreadcrumbsRegion(self.testsetup, element)
-                for element in self.selenium.find_elements(*self._breadcrumbs_locator)]
-
-    def _extract_iso_dates(self, date_format, *locator):
-        """
-        Returns a list of iso formatted date strings extracted from
-        the text elements matched by the given xpath_locator and
-        original date_format.
-
-        So for example, given the following elements:
-          <p>Added May 09, 2010</p>
-          <p>Added June 11, 2011</p>
-
-        A call to:
-          _extract_iso_dates("//p", "Added %B %d, %Y", 2)
-
-        Returns:
-          ['2010-05-09T00:00:00','2011-06-11T00:00:00']
-
-        """
-        addon_dates = [element.text for element in self.selenium.find_elements(*locator)]
-
-        iso_dates = [
-            datetime.strptime(s, date_format).isoformat()
-            for s in addon_dates
-        ]
-        return iso_dates
-
     def _extract_integers(self, regex_pattern, *locator):
         """
         Returns a list of integers extracted from the text elements

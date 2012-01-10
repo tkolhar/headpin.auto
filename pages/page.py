@@ -17,7 +17,7 @@ class Page(object):
         Constructor
         '''
         self.testsetup = testsetup
-        self.base_url = os.environ.get("HEADPIN_SERVER")
+        self.base_url = testsetup.base_url
         
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout

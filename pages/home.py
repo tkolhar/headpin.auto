@@ -9,7 +9,7 @@ from pages.base import Base
 class Home(Base):
     _page_title = "Subscription Asset Manager - Subscription Management"
     _username_text_field = (By.ID, "username")
-    _password_text_field = (By.ID, "prd")
+    _password_text_field = (By.ID, "password")
     _login = (By.NAME, "commit")
 
     def __init__(self, testsetup, open_url=True):

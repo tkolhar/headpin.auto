@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 
 from unittestzero import Assert
-from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
-import os
 
 
 class Page(object):
@@ -19,6 +17,7 @@ class Page(object):
         '''
         self.testsetup = testsetup
         self.base_url = testsetup.base_url
+        
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
 

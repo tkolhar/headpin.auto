@@ -12,5 +12,8 @@ class TestHome:
     
     @nondestructive
     def test_Title(self, mozwebqa):
+        '''
+        TCMS XXXXX
+        '''
         home_page = Home(mozwebqa)
-        
+        Assert.true(home_page.is_the_current_page)

@@ -4,6 +4,7 @@ from unittestzero import Assert
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
+import os
 
 
 class Page(object):
@@ -16,7 +17,7 @@ class Page(object):
         Constructor
         '''
         self.testsetup = testsetup
-        self.base_url = testsetup.base_url
+        self.base_url = os.environ.get("HEADPIN_SERVER")
         
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout

@@ -17,3 +17,4 @@ class TestHome:
         '''
         home_page = Home(mozwebqa)
         Assert.true(home_page.is_the_current_page)
+        #Assert.true(home_page)

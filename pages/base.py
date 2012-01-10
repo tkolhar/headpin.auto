@@ -57,9 +57,7 @@ class Base(Page):
     _redhat_logo_image_locator = (By.CSS_SELECTOR, "#head header img")
 
     _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
-
-#    def login(self, type="normal", user="default"):
-
+    
     @property
     def page_title(self):
         WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
@@ -104,21 +102,10 @@ class Base(Page):
 
     class HeaderRegion(Page):
 
-        #other applications
-        _other_applications_locator = (By.ID, "other-apps")
-
-        #Search box
-        _search_button_locator = (By.CSS_SELECTOR, ".search-button")
-        _search_textbox_locator = (By.NAME, "q")
-
-        #Not LoggedIn
-        _login_browser_id_locator = (By.CSS_SELECTOR, "a.browserid-login")
-        _register_locator = (By.CSS_SELECTOR, "#aux-nav li.account a:nth-child(1)")
-
         #LoggedIn
-        _account_controller_locator = (By.CSS_SELECTOR, "#aux-nav .account a.user")
-        _account_dropdown_locator = (By.CSS_SELECTOR, "#aux-nav .account ul")
-        _logout_locator = (By.CSS_SELECTOR, "li.nomenu.logout > a")
+        _account_controller_locator = (By.XPATH, "//li[@class='hello']/a")
+        _logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
+        
 
         def site_nav(self, lookup):
             from pages.regions.header_menu import HeaderMenu

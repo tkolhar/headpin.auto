@@ -28,3 +28,14 @@ class TestHomePage:
     def test_Is_Red_Hat_Logo_Present(self, mozwebqa):
         home_page = Home(mozwebqa)
         Assert.true(home_page.is_redhat_logo_visible)
+        
+    @nondestructive
+    def test_admin_login_logout(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        home_page.login()
+        Assert.true(home_page.is_the_current_page)
+        Assert.true(home_page.header.is_user_logged_in)
+        
+        home_page.header.click_logout()
+        Assert.false(home_page.header.is_user_logged_in)
+        

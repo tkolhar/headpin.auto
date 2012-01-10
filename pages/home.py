@@ -10,7 +10,7 @@ class Home(Base):
     _password_text_field = (By.ID, "password")
     _login = (By.NAME, "commit")
 
-def __init__(self, open_url=True):
-    #Base.__init__(self)
+def __init__(self, testsetup, open_url=True):
+    Base.__init__(self, testsetup)
     if open_url:
         self.selenium.get(self.base_url)

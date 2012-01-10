@@ -13,12 +13,14 @@ class Page(object):
     Base class for all Pages
     '''
 
-    def __init__(self):
+    def __init__(self, testsetup):
         '''
         Constructor
         '''
-        self.base_url = os.environ.get("HEADPIN_SERVER")
-        self.selenium = webdriver.Firefox
+        self.testsetup = testsetup
+        self.base_url = testsetup.base_url
+        self.selenium = testsetup.selenium
+        self.timeout = testsetup.timeout
 
     @property
     def is_the_current_page(self):

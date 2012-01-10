@@ -1,0 +1,4 @@
+*.swap
+*.py[co]
+*pycache*
+results

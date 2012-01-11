@@ -73,8 +73,7 @@ class Page(object):
         return(self.selenium.current_url)
 
     def is_element_present(self, *locator):
-        time.sleep(30)
-        #self.selenium.implicitly_wait(40)
+        self.selenium.implicitly_wait(30)
         try:
             self.selenium.find_element(*locator)
             return True

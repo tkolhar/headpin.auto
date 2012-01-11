@@ -19,7 +19,7 @@ class TestHomePage:
         Assert.true(home_page.is_the_current_page)
     
     @nondestructive
-    def test_Username_Password_Text_Fields_Present(selfself, mozwebqa):
+    def test_Username_Password_Text_Fields_Present(self, mozwebqa):
         home_page = Home(mozwebqa)
         Assert.true(home_page.is_username_field_present)
         Assert.true(home_page.is_password_field_present)

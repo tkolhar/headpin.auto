@@ -2,3 +2,5 @@
 *.py[co]
 *pycache*
 results
+.project
+.pydevproject

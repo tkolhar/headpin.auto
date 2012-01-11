@@ -42,6 +42,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
 import os
+import time
 
 
 class Page(object):
@@ -72,7 +73,8 @@ class Page(object):
         return(self.selenium.current_url)
 
     def is_element_present(self, *locator):
-        self.selenium.implicitly_wait(0)
+        time.sleep(30)
+        #self.selenium.implicitly_wait(40)
         try:
             self.selenium.find_element(*locator)
             return True

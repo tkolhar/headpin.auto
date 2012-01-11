@@ -106,25 +106,7 @@ class Base(Page):
         _account_controller_locator = (By.XPATH, "//li[@class='hello']/a")
         _logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
         
-
-        def site_nav(self, lookup):
-            from pages.regions.header_menu import HeaderMenu
-            return HeaderMenu(self.testsetup, lookup)
-
-        def click_other_application(self, other_app):
-            hover_locator = self.selenium.find_element(*self._other_applications_locator)
-            app_locator = self.selenium.find_element(By.CSS_SELECTOR,
-                                                     "#app-%s > a" % other_app.lower())
-            ActionChains(self.selenium).move_to_element(hover_locator).\
-                move_to_element(app_locator).\
-                click().perform()
-
-        def is_other_application_visible(self, other_app):
-            hover_locator = self.selenium.find_element(*self._other_applications_locator)
-            app_locator = (By.CSS_SELECTOR, "#app-%s" % other_app.lower())
-            ActionChains(self.selenium).move_to_element(hover_locator).perform()
-            return self.is_element_visible(*app_locator)
-
+        '''
         def search_for(self, search_term):
             search_box = self.selenium.find_element(*self._search_textbox_locator)
             search_box.send_keys(search_term)
@@ -135,15 +117,10 @@ class Base(Page):
         @property
         def search_field_placeholder(self):
             return self.selenium.find_element(*self._search_textbox_locator).get_attribute('placeholder')
-
-        def click_login_browser_id(self):
-            self.selenium.find_element(*self._login_browser_id_locator).click()
-            from pages.user import Login
-            return Login(self.testsetup)
-
+        '''
         def click_logout(self):
             self.selenium.find_element(*self._logout_locator).click()
-
+        '''
         def click_edit_profile(self):
             item_locator = (By.CSS_SELECTOR, " li:nth-child(2) a")
             hover_element = self.selenium.find_element(*self._account_controller_locator)
@@ -165,22 +142,12 @@ class Base(Page):
 
             from pages.user import ViewProfile
             return ViewProfile(self.testsetup)
-
-        def click_my_collections(self):
-            item_locator = (By.CSS_SELECTOR, " li:nth-child(3) a")
-            hover_element = self.selenium.find_element(*self._account_controller_locator)
-            click_element = self.selenium.find_element(*self._account_dropdown_locator).find_element(*item_locator)
-            ActionChains(self.selenium).move_to_element(hover_element).\
-                move_to_element(click_element).\
-                click().perform()
-
-            from pages.user import MyCollections
-            return MyCollections(self.testsetup)
+        '''
 
         @property
         def is_user_logged_in(self):
             return self.is_element_visible(*self._account_controller_locator)
-
+    '''
     class BreadcrumbsRegion(Page):
 
         _breadcrumb_locator = (By.CSS_SELECTOR, '#breadcrumbs>ol')  # Base locator
@@ -200,3 +167,4 @@ class Base(Page):
         @property
         def link_value(self):
             return self._root_element.find_element(*self._link_locator).get_attribute('href')
+    '''

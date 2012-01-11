@@ -55,6 +55,7 @@ class Page(object):
         Constructor
         '''
         self.testsetup = testsetup
+        testsetup.base_url = os.environ.get("HEADPIN_SERVER")
         self.base_url = testsetup.base_url
         
         self.selenium = testsetup.selenium

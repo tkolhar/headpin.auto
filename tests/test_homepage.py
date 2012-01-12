@@ -37,5 +37,6 @@ class TestHomePage:
         Assert.true(home_page.header.is_user_logged_in)
         
         home_page.header.click_logout()
-        Assert.false(home_page.header.is_user_logged_in)
+        Assert.true(home_page.is_username_field_present)
+        Assert.true(home_page.is_password_field_present)
         

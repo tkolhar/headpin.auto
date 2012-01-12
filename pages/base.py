@@ -48,6 +48,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.page import Page
 
+import time
+
 
 class Base(Page):
 
@@ -85,6 +87,10 @@ class Base(Page):
     @property
     def header(self):
         return Base.HeaderRegion(self.testsetup)
+    
+    @property
+    def tabs(self):
+        return Base.TabRegion(self.testsetup)
 
     @property
     def _extract_integers(self, regex_pattern, *locator):
@@ -106,47 +112,87 @@ class Base(Page):
         _account_controller_locator = (By.XPATH, "//li[@class='hello']/a")
         _logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
         
-        '''
-        def search_for(self, search_term):
-            search_box = self.selenium.find_element(*self._search_textbox_locator)
-            search_box.send_keys(search_term)
-            self.selenium.find_element(*self._search_button_locator).click()
-            from pages.search import SearchHome
-            return SearchHome(self.testsetup)
-
-        @property
-        def search_field_placeholder(self):
-            return self.selenium.find_element(*self._search_textbox_locator).get_attribute('placeholder')
-        '''
         def click_logout(self):
             self.selenium.find_element(*self._logout_locator).click()
-        '''
-        def click_edit_profile(self):
-            item_locator = (By.CSS_SELECTOR, " li:nth-child(2) a")
-            hover_element = self.selenium.find_element(*self._account_controller_locator)
-            click_element = self.selenium.find_element(*self._account_dropdown_locator).find_element(*item_locator)
-            ActionChains(self.selenium).move_to_element(hover_element).\
-                move_to_element(click_element).\
-                click().perform()
-
-            from pages.user import EditProfile
-            return EditProfile(self.testsetup)
-
-        def click_view_profile(self):
-            item_locator = (By.CSS_SELECTOR, " li:nth-child(1) a")
-            hover_element = self.selenium.find_element(*self._account_controller_locator)
-            click_element = self.selenium.find_element(*self._account_dropdown_locator).find_element(*item_locator)
-            ActionChains(self.selenium).move_to_element(hover_element).\
-                move_to_element(click_element).\
-                click().perform()
-
-            from pages.user import ViewProfile
-            return ViewProfile(self.testsetup)
-        '''
 
         @property
         def is_user_logged_in(self):
             return self.is_element_visible(*self._account_controller_locator)
+    
+    class TabRegion(Page):
+        ''' 
+        Define elements of the tab region and 
+        appropriate actions on those elements.
+        '''
+        _dashboard_tab_locator = (By.XPATH, "//a[.='Dashboard']")
+        
+        _content_management_tab_locator = (By.XPATH, "//a[.='Content Management']")
+        _providers_content_management_subtab_locator = (By.XPATH, "//a[.='Providers']")
+        
+        _systems_tab_locator = (By.XPATH, "//a[.='Systems']")
+        _all_systems_subtab_locator = (By.XPATH, "//a[.='All']")
+        _by_environments_systems_subtab_locator = (By.XPATH, "//a[.='By Environments']")
+        _activiation_keys_systems_subtab_locator = (By.XPATH, "//a[.='Activation Keys']")
+        
+        _organizations_tab_locator = (By.XPATH, "//a[.='Organizations']")
+        _list_organizations_subtab_locator = (By.XPATH, "//a[.='List']")
+        _subscriptions_organizations_subtab_locator = (By.XPATH, "//a[.='Subscriptions']")
+        
+        _administration_tab_locator = (By.XPATH, "//a[.='Administration']")
+        _users_admin_subtab_locator = (By.XPATH, "//a[.='Users']")
+        _roles_admin_subtab_locator = (By.XPATH, "//a[.='Roles']")
+        
+        def click_tab(self, tab):
+            '''
+            Determine which locator to use
+            '''
+            click_locator = ""
+            hover_locator = ""
+            
+            if "dashboard_tab" in tab:
+                click_locator = self.selenium.find_element(*self._dashboard_tab_locator)
+            elif "content_management_tab" in tab:
+                click_locator = self.selenium.find_element(*self._content_management_tab_locator)
+            elif "providers" in tab:
+                #hover_locator = self.selenium.find_element(*self._content_management_tab_locator)
+                click_locator = self.selenium.find_element(*self._providers_content_management_subtab_locator)
+            elif "systems_tab" in tab:
+                click_locator = self.selenium.find_element(*self._systems_tab_locator)
+            elif "systems_all" in tab:
+                #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
+                click_locator = self.selenium.find_element(*self._all_systems_subtab_locator)
+            elif "systems_by_environment" in tab:
+                #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
+                click_locator = self.selenium.find_element(*self._by_environments_systems_subtab_locator)
+            elif "activation_keys" in tab:
+                #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
+                click_locator = self.selenium.find_element(*self._activiation_keys_systems_subtab_locator)
+            elif "organizations_tab" in tab:
+                click_locator = self.selenium.find_element(*self._organizations_tab_locator)
+            elif "organizations_all" in tab:
+                #hover_locator = self.selenium.find_element(*self._organizations_tab_locator)
+                click_locator = self.selenium.find_element(*self._list_organizations_subtab_locator)
+            elif "organizations_subscriptions" in tab:
+                #hover_locator = self.selenium.find_element(*self._organizations_tab_locator)
+                click_locator = self.selenium.find_element(*self._subscriptions_organizations_subtab_locator)
+            elif "administration_tab" in tab:
+                click_locator = self.selenium.find_element(*self._administration_tab_locator)
+            elif "users_administration" in tab:
+                #hover_locator = self.selenium.find_element(*self._administration_tab_locator)
+                click_locator = self.selenium.find_element(*self._users_admin_subtab_locator)
+            elif "roles_administration" in tab:
+                #hover_locator = self.selenium.find_element(*self._administration_tab_locator)
+                click_locator = self.selenium.find_element(*self._roles_admin_subtab_locator)
+            '''
+            if hover_locator:
+                ActionChains(self.selenium).move_to_element(hover_locator).\
+                    move_to_element(click_locator).\
+                    click().perform()
+            else:
+            '''
+            ActionChains(self.selenium).move_to_element(click_locator).\
+                click().perform()
+                    
     '''
     class BreadcrumbsRegion(Page):
 

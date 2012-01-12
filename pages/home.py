@@ -12,11 +12,10 @@ class Home(Base):
     _password_text_field = (By.ID, "password")
     _login = (By.NAME, "commit")
 
-    def __init__(self, testsetup, open_url=True):
+    def __init__(self, mozwebqa, open_url=True):
         ''' Gets page ready for testing '''
-        Base.__init__(self, testsetup)
+        Base.__init__(self, mozwebqa)
         if open_url:
-            print('Will get %s' % self.base_url)
             self.selenium.get(self.base_url)
     
     @property        

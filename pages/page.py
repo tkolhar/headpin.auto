@@ -37,12 +37,15 @@
 # the terms of any one of the MPL, the GPL or the LGPL.
 #
 # ***** END LICENSE BLOCK *****
+#from pyvirtualdisplay import Display
+
 from unittestzero import Assert
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
+
 import os
-import time
+
 
 
 class Page(object):
@@ -57,7 +60,8 @@ class Page(object):
         self.testsetup = testsetup
         testsetup.base_url = os.environ.get("HEADPIN_SERVER")
         self.base_url = testsetup.base_url
-        
+        #self.display = Display(visible=0, size=(800, 600))
+        #self.display.start()
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
 

@@ -22,9 +22,10 @@ class TestSystems:
         
         systems = Systems(mozwebqa)
         newsystem = systems.create_new_virt_system
-
+        # uncomment the following to see if tests below work.
+        #newsystem = "p00p" 
         Assert.true(systems.is_system_details_tab_present)
-        #Assert.true(systems.is_system_facts_tab_present)
-        #Assert.true(systems.is_system_software_tab_present)
-        #Assert.true(systems.is_system_subscriptions_tab_present)
-        #Assert.true(systems.is_system_details_name_present(newsystem))        
+        Assert.true(systems.is_system_facts_tab_present)
+        Assert.true(systems.is_system_software_tab_present)
+        Assert.true(systems.is_system_subscriptions_tab_present)
+        Assert.true(systems.is_system_details_name_present(newsystem))        

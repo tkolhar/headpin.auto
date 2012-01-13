@@ -8,6 +8,7 @@ and specific controls.
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from pages.base import Base
+from pages.page import Page
 import random
 
 class Systems(Base):
@@ -31,7 +32,10 @@ class Systems(Base):
     _software_tab_locator = (By.XPATH, "//a[.='Software']")
     _subscriptions_tab_locator = (By.XPATH, "//a[.='Subscriptions']")
     _system_details_name_locator = ""
-    _sucess_message = (By.XPATH, "//div[contains(@class,'jnotify-notification-message')]")
+    _success_message = (By.XPATH, "//div[contains(@class,'jnotify-notification-message')]")
+    _system_list_locator = (By.CLASS_NAME, "block_tall")
+    
+    _remove_system_locator = (By.CLASS_NAME, "remove_item")
     
     def create_new_virt_system(self, system_name):
         ''' Create a new system '''
@@ -52,6 +56,17 @@ class Systems(Base):
         save_button_locator = self.selenium.find_element(*self._new_system_save_locator)
         ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
+    '''        
+    def remove_a_system(self, system_name):
+        self._system_details_name_locator = (By.XPATH, "//div[text() = '" + name + "']")
+        system_list = ()
+        system_list = self.get_system_list
+        print system_list()
+        system_locator = self.selenium.find_element(choice(system_list))
+        ActionChains(self.selenium).move_to_element(system_locator).\
+            click().perform()
+        time.sleep(20)
+    '''
     
     @property
     def is_system_facts_tab_present(self):
@@ -68,7 +83,7 @@ class Systems(Base):
     
     @property
     def is_success_message_present(self):
-        return self.is_element_present(*self._sucess_message)
+        return self.is_element_present(*self._success_message)
     
     def is_system_details_name_present(self, name):
         self._system_details_name_locator = (By.XPATH, "//div[text() = '" + name + "']")
@@ -78,3 +93,24 @@ class Systems(Base):
         system_name = name + str(random.randint(0,100000))
         return system_name
         
+    def system(self, value):
+        for system in self.systems:
+            if value in system.name:
+                return system
+        raise Exception('System not found: %s' % value)
+    
+    @property
+    def systems(self):
+        return [self.Systems(self.testsetup, element) for element in self.selenium.find_elements(*self._system_list_locator)]
+    
+    class Systems(Page):
+        
+        _name_locator = (By.CLASS_NAME, "one-line-ellipsis")
+        
+        def __init__(self, testsetup, element):
+            Page.__init__(self, testsetup)
+            self._root_element = element
+
+        @property
+        def name(self):
+            return self._root_element.find_element(*self._name_locator).text

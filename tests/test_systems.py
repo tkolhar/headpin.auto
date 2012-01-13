@@ -5,6 +5,7 @@ from unittestzero import Assert
 from pages.home import Home
 from pages.systems import Systems
 import time
+import sys
 
 nondestructive = pytest.mark.nondestructive
 destructive = pytest.mark.destructive
@@ -21,11 +22,11 @@ class TestSystems:
         Assert.true(home_page.is_the_current_page)
         
         systems = Systems(mozwebqa)
-        newsystem = systems.create_new_virt_system
-        # uncomment the following to see if tests below work.
-        #newsystem = "p00p" 
+        new_system_name = systems.unique_system_name()
+        systems.create_new_virt_system(new_system_name)
+        
         Assert.true(systems.is_system_details_tab_present)
         Assert.true(systems.is_system_facts_tab_present)
         Assert.true(systems.is_system_software_tab_present)
         Assert.true(systems.is_system_subscriptions_tab_present)
-        Assert.true(systems.is_system_details_name_present(newsystem))        
+        Assert.true(systems.is_system_details_name_present(new_system_name))

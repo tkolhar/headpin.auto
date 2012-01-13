@@ -31,31 +31,27 @@ class Systems(Base):
     _software_tab_locator = (By.XPATH, "//a[.='Software']")
     _subscriptions_tab_locator = (By.XPATH, "//a[.='Subscriptions']")
     _system_details_name_locator = ""
+    _sucess_message = (By.XPATH, "//div[contains(@class,'jnotify-notification-message')]")
     
-    @property
-    def create_new_virt_system(self, name_prefix="newsystem"):
+    def create_new_virt_system(self, system_name):
         ''' Create a new system '''
-        systemname = name_prefix + str(random.randint(0,10000))
-        
         new_system_link_locator = self.selenium.find_element(*self._systems_create_new_locator)
         ActionChains(self.selenium).move_to_element(new_system_link_locator).\
             click().perform()
         
-        system_name = self.selenium.find_element(*self._new_systemname_field_locator)
-        system_name.send_keys(systemname)
+        system_name_locator = self.selenium.find_element(*self._new_systemname_field_locator)
+        system_name_locator.send_keys(system_name)
         
-        sockets = self.selenium.find_element(*self._new_system_sockets_field_locator)
-        sockets.send_keys(str(random.randint(0,32)))
+        sockets_locator = self.selenium.find_element(*self._new_system_sockets_field_locator)
+        sockets_locator.send_keys(str(random.randint(0,32)))
         
-        virt = self.selenium.find_element(*self._new_system_virt_select_locator)
-        ActionChains(self.selenium).move_to_element(virt).\
+        virt_locator = self.selenium.find_element(*self._new_system_virt_select_locator)
+        ActionChains(self.selenium).move_to_element(virt_locator).\
             click().perform()
             
-        save_button = self.selenium.find_element(*self._new_system_save_locator)
-        ActionChains(self.selenium).move_to_element(save_button).\
+        save_button_locator = self.selenium.find_element(*self._new_system_save_locator)
+        ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
-        
-        return(systemname)
     
     @property
     def is_system_facts_tab_present(self):
@@ -70,16 +66,15 @@ class Systems(Base):
     def is_system_subscriptions_tab_present(self):
         return self.is_element_present(*self._subscriptions_tab_locator)
     
-    def is_system_details_name_present(self, systemname):
-        _system_details_name_locator = (By.XPATH, "//a[.='" + systemname + "']")
+    @property
+    def is_success_message_present(self):
+        return self.is_element_present(*self._sucess_message)
+    
+    def is_system_details_name_present(self, name):
+        self._system_details_name_locator = (By.XPATH, "//div[text() = '" + name + "']")
         return self.is_element_present(*self._system_details_name_locator)
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    
+    def unique_system_name(self, name="newsystem"):
+        system_name = name + str(random.randint(0,100000))
+        return system_name
         

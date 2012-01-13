@@ -43,7 +43,6 @@ from unittestzero import Assert
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
-
 import os
 
 
@@ -89,10 +88,11 @@ class Page(object):
             self.selenium.implicitly_wait(self.testsetup.default_implicit_wait)
 
     def is_element_visible(self, *locator):
+        self.selenium.implicitly_wait(30)
         try:
             return self.selenium.find_element(*locator).is_displayed()
         except NoSuchElementException, ElementNotVisibleException:
             return False
-
+        
     def return_to_previous_page(self):
         self.selenium.back()

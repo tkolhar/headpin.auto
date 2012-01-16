@@ -33,7 +33,7 @@ class Systems(Base):
     _subscriptions_tab_locator = (By.XPATH, "//a[.='Subscriptions']")
     _system_details_name_locator = ""
     _success_message = (By.XPATH, "//div[contains(@class,'jnotify-notification-message')]")
-    _system_list_locator = (By.CLASS_NAME, "block_tall")
+    _system_list_locator = (By.CSS_SELECTOR, "div.block.tall")
     
     _remove_system_locator = (By.CLASS_NAME, "remove_item")
     
@@ -104,8 +104,9 @@ class Systems(Base):
         return [self.Systems(self.testsetup, element) for element in self.selenium.find_elements(*self._system_list_locator)]
     
     class Systems(Page):
-        
-        _name_locator = (By.CLASS_NAME, "one-line-ellipsis")
+        #_name_locator = (By.CLASS_NAME, 'product')
+        _name_locator = (By.CLASS_NAME, 'one-line-ellipsis')
+        #_name_locator = (By.XPATH, "//div[@class='one-line-ellipsis']")
         
         def __init__(self, testsetup, element):
             Page.__init__(self, testsetup)
@@ -113,4 +114,9 @@ class Systems(Base):
 
         @property
         def name(self):
-            return self._root_element.find_element(*self._name_locator).text
+            name_text = self._root_element.find_element(*self._name_locator).text
+            return name_text
+        
+        @property
+        def is_displayed(self):
+            return self.is_element_visible(*self._name_locator)

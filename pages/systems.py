@@ -108,9 +108,8 @@ class Systems(Base):
         return [self.Systems(self.testsetup, element) for element in self.selenium.find_elements(*self._system_list_locator)]
     
     class Systems(Page):
-        #_name_locator = (By.CLASS_NAME, 'product')
+        
         _name_locator = (By.CLASS_NAME, 'one-line-ellipsis')
-        #_name_locator = (By.XPATH, "//div[@class='one-line-ellipsis']")
         
         def __init__(self, testsetup, element):
             Page.__init__(self, testsetup)

@@ -7,6 +7,7 @@ and specific controls.
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
 from pages.base import Base
 from pages.page import Page
 import random
@@ -56,6 +57,9 @@ class Systems(Base):
         save_button_locator = self.selenium.find_element(*self._new_system_save_locator)
         ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
+            
+        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._system_list_locator))
+        
     '''        
     def remove_a_system(self, system_name):
         self._system_details_name_locator = (By.XPATH, "//div[text() = '" + name + "']")

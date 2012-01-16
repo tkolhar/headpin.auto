@@ -58,7 +58,7 @@ class Systems(Base):
         ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
             
-        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._system_list_locator))
+        WebDriverWait(self.selenium, 60).until(lambda s: self.is_element_visible(*self._system_list_locator))
         
     '''        
     def remove_a_system(self, system_name):

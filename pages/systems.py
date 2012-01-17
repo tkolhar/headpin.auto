@@ -59,7 +59,7 @@ class Systems(Base):
             click().perform()
             
         current_no_systems = len(self.systems)
-        WebDriverWait(self.selenium, 60).until(lambda s: len(self.systems) > current_no_systems)
+        WebDriverWait(self.selenium, 120).until(lambda s: len(self.systems) > current_no_systems)
         
 
                

@@ -25,14 +25,14 @@ class TestSystems:
         new_system_name = systems.unique_system_name()
         
         systems.create_new_virt_system(new_system_name)
-        
+        time.sleep(20)
         Assert.true(systems.system(new_system_name).is_displayed)
         Assert.true(systems.is_system_details_tab_present)
         Assert.true(systems.is_system_facts_tab_present)
         Assert.true(systems.is_system_software_tab_present)
         Assert.true(systems.is_system_subscriptions_tab_present)
         Assert.true(systems.is_system_details_name_present(new_system_name))
-'''
+
     @nondestructive
     def test_remove_a_system(self, mozwebqa):
         home_page = Home(mozwebqa)
@@ -43,11 +43,9 @@ class TestSystems:
         Assert.true(home_page.is_the_current_page)
         
         systems = Systems(mozwebqa)
-        rmeove_system_name = systems.unique_system_name("removesystem")
+        new_system_name = systems.unique_system_name("removesystem")
+        
+        systems.create_new_virt_system(new_system_name)
         time.sleep(20)
-        systems.remove_a_system(remove_system_name)
-'''
-        
-        
-        
-        
+        systems.system(new_system_name).click
+        systems.remove_a_system()    

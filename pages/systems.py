@@ -37,6 +37,7 @@ class Systems(Base):
     _system_list_locator = (By.CSS_SELECTOR, "div.block.tall")
     
     _remove_system_locator = (By.CLASS_NAME, "remove_item")
+    _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
     
     def create_new_virt_system(self, system_name):
         ''' Create a new system '''
@@ -59,18 +60,16 @@ class Systems(Base):
             click().perform()
             
         WebDriverWait(self.selenium, 90).until(lambda s: self.is_element_visible(*self._system_list_locator))
-        
-    '''        
-    def remove_a_system(self, system_name):
-        self._system_details_name_locator = (By.XPATH, "//div[text() = '" + name + "']")
-        system_list = ()
-        system_list = self.get_system_list
-        print system_list()
-        system_locator = self.selenium.find_element(choice(system_list))
-        ActionChains(self.selenium).move_to_element(system_locator).\
+               
+    def remove_a_system(self):
+        remove_button_locator = self.selenium.find_element(*self._remove_system_locator)
+        ActionChains(self.selenium).move_to_element(remove_button_locator).\
             click().perform()
-        time.sleep(20)
-    '''
+        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
+        
+        confirm_button_locator = self.selenium.find_element(*self._confirmation_yes_locator)
+        ActionChains(self.selenium).move_to_element(confirm_button_locator).\
+            click().perform()
     
     @property
     def is_system_facts_tab_present(self):
@@ -123,3 +122,6 @@ class Systems(Base):
         @property
         def is_displayed(self):
             return self.is_element_visible(*self._name_locator)
+        
+        def click(self):
+            self._root_element.find_element(*self._name_locator).click()

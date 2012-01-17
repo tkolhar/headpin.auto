@@ -25,7 +25,8 @@ class TestSystems:
         new_system_name = systems.unique_system_name()
         
         systems.create_new_virt_system(new_system_name)
-        time.sleep(20)
+        Assert.true(home_page.is_successful)
+        
         Assert.true(systems.system(new_system_name).is_displayed)
         Assert.true(systems.is_system_details_tab_present)
         Assert.true(systems.is_system_facts_tab_present)
@@ -46,6 +47,8 @@ class TestSystems:
         new_system_name = systems.unique_system_name("removesystem")
         
         systems.create_new_virt_system(new_system_name)
-        time.sleep(20)
+        Assert.true(systems.system(new_system_name).is_displayed)
+        
         systems.system(new_system_name).click
-        systems.remove_a_system()    
+        systems.remove_a_system()
+        Assert.true(home_page.is_successful) 

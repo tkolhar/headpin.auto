@@ -59,6 +59,8 @@ class Base(Page):
     _redhat_logo_image_locator = (By.CSS_SELECTOR, "#head header img")
 
     _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
+    _success_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-success')]")
+    _error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
     
     @property
     def page_title(self):
@@ -80,6 +82,14 @@ class Base(Page):
     def click_redhat_logo(self):
         self.selenium.find_element(*self._redhat_logo_link_locator).click()
 
+    @property
+    def is_successful(self):
+        return self.is_element_present(*self._success_notification_locator)
+    
+    @property
+    def is_failed(self):
+        return self.is_element_present(*self._error_notification_locator)
+    
     @property
     def current_page(self):
         return int(self.selenium.find_element(*self._current_page_locator).text)

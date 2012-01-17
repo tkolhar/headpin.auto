@@ -33,7 +33,6 @@ class Systems(Base):
     _software_tab_locator = (By.XPATH, "//a[.='Software']")
     _subscriptions_tab_locator = (By.XPATH, "//a[.='Subscriptions']")
     _system_details_name_locator = ""
-    _success_message = (By.XPATH, "//div[contains(@class,'jnotify-notification-message')]")
     _system_list_locator = (By.CSS_SELECTOR, "div.block.tall")
     
     _remove_system_locator = (By.CLASS_NAME, "remove_item")
@@ -59,17 +58,26 @@ class Systems(Base):
         ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
             
-        WebDriverWait(self.selenium, 90).until(lambda s: self.is_element_visible(*self._system_list_locator))
+        current_no_systems = len(self.systems)
+        WebDriverWait(self.selenium, 60).until(lambda s: len(self.systems) > current_no_systems)
+        
+
                
     def remove_a_system(self):
+        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._remove_system_locator))
+        
         remove_button_locator = self.selenium.find_element(*self._remove_system_locator)
         ActionChains(self.selenium).move_to_element(remove_button_locator).\
             click().perform()
+            
         WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
+        current_no_systems = len(self.systems)
         
         confirm_button_locator = self.selenium.find_element(*self._confirmation_yes_locator)
         ActionChains(self.selenium).move_to_element(confirm_button_locator).\
             click().perform()
+        
+        WebDriverWait(self.selenium, 60).until(lambda s: len(self.systems) < current_no_systems)
     
     @property
     def is_system_facts_tab_present(self):

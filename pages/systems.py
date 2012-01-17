@@ -11,6 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from pages.base import Base
 from pages.page import Page
 import random
+import time
 
 class Systems(Base):
     _systems_search_form_locator = (By.XPATH, "//form[@id='search_form']")
@@ -59,7 +60,10 @@ class Systems(Base):
             click().perform()
             
         current_no_systems = len(self.systems)
+        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._system_list_locator))
+        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._details_tab_locator))
         WebDriverWait(self.selenium, 120).until(lambda s: len(self.systems) > current_no_systems)
+        #time.sleep(5)
         
 
                

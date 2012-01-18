@@ -36,6 +36,9 @@ class TestSystems:
 
     @nondestructive
     def test_remove_a_system(self, mozwebqa):
+        ''' 
+        create and remove a system.
+        '''
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.header.is_user_logged_in)
@@ -49,6 +52,8 @@ class TestSystems:
         systems.create_new_virt_system(new_system_name)
         Assert.true(systems.system(new_system_name).is_displayed)
         
+        Assert.true(systems.is_block_active)
         #systems.system(new_system_name).click()
+        
         systems.remove_a_system()
         Assert.true(home_page.is_successful) 

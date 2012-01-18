@@ -33,6 +33,7 @@ class SystemsTab(Base):
     _subscriptions_tab_locator = (By.XPATH, "//a[.='Subscriptions']")
     _system_details_name_locator = ""
     _system_list_locator = (By.CSS_SELECTOR, "div.block")
+    _system_block_active_locator = (By.CSS_SELECTOR, "div.block.tall.active")
     
     _remove_system_locator = (By.CLASS_NAME, "remove_item")
     _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
@@ -101,6 +102,10 @@ class SystemsTab(Base):
     def is_system_details_name_present(self, name):
         self._system_details_name_locator = (By.XPATH, "//div[text() = '" + name + "']")
         return self.is_element_present(*self._system_details_name_locator)
+    
+    @property
+    def is_block_active(self):
+        return self.is_element_present(*self._system_block_active_locator)
     
     def system(self, value):
         for system in self.systems:

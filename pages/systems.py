@@ -32,7 +32,7 @@ class SystemsTab(Base):
     _software_tab_locator = (By.XPATH, "//a[.='Software']")
     _subscriptions_tab_locator = (By.XPATH, "//a[.='Subscriptions']")
     _system_details_name_locator = ""
-    _system_list_locator = (By.CSS_SELECTOR, "div.block.tall")
+    _system_list_locator = (By.CSS_SELECTOR, "div.block")
     
     _remove_system_locator = (By.CLASS_NAME, "remove_item")
     _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
@@ -61,6 +61,7 @@ class SystemsTab(Base):
         WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._system_list_locator))
         WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._details_tab_locator))
         WebDriverWait(self.selenium, 120).until(lambda s: len(self.systems) > current_no_systems)
+        time.sleep(2)
         
     def remove_a_system(self):
         '''
@@ -79,6 +80,7 @@ class SystemsTab(Base):
         ActionChains(self.selenium).move_to_element(confirm_button_locator).\
             click().perform()
         
+        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._system_list_locator))
         WebDriverWait(self.selenium, 60).until(lambda s: len(self.systems) < current_no_systems)
     
     @property
@@ -113,6 +115,7 @@ class SystemsTab(Base):
     class Systems(Page):
         
         _name_locator = (By.CLASS_NAME, 'one-line-ellipsis')
+        _product_locator = (By.CSS_SELECTOR, 'div.block.tall')
         
         def __init__(self, testsetup, element):
             Page.__init__(self, testsetup)

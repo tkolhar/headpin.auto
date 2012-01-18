@@ -49,6 +49,6 @@ class TestSystems:
         systems.create_new_virt_system(new_system_name)
         Assert.true(systems.system(new_system_name).is_displayed)
         
-        systems.system(new_system_name).click
+        #systems.system(new_system_name).click()
         systems.remove_a_system()
         Assert.true(home_page.is_successful) 

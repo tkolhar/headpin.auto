@@ -13,13 +13,11 @@ from pages.page import Page
 import random
 import time
 
-class Systems(Base):
+class SystemsTab(Base):
     _systems_search_form_locator = (By.XPATH, "//form[@id='search_form']")
     _systems_search_input_locator = (By.XPATH, "//input[@id='search']")
     _systems_search_button_locator = (By.XPATH, "//button[@id='search_button']")
     _systems_create_new_locator = (By.XPATH, "//a[@id='new']")
-    _systems_list_box_locator = (By.XPATH, "//div[@id='list']")
-    _systems_server_name_locator = (By.XPATH, "//div[@class='one-line-ellipsis']")
     
     _new_systemname_field_locator = (By.XPATH, "//input[@id='name_field']")
     _new_system_arch_select_locator = (By.XPATH, "//select[@id='arch_arch_id']")
@@ -63,11 +61,11 @@ class Systems(Base):
         WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._system_list_locator))
         WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._details_tab_locator))
         WebDriverWait(self.selenium, 120).until(lambda s: len(self.systems) > current_no_systems)
-        #time.sleep(5)
         
-
-               
     def remove_a_system(self):
+        '''
+        Revmove a system.
+        '''
         WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._remove_system_locator))
         
         remove_button_locator = self.selenium.find_element(*self._remove_system_locator)
@@ -89,25 +87,19 @@ class Systems(Base):
     @property
     def is_system_details_tab_present(self):
         return self.is_element_present(*self._details_tab_locator)
+    
     @property
     def is_system_software_tab_present(self):
         return self.is_element_present(*self._software_tab_locator)
+    
     @property
     def is_system_subscriptions_tab_present(self):
         return self.is_element_present(*self._subscriptions_tab_locator)
-    
-    @property
-    def is_success_message_present(self):
-        return self.is_element_present(*self._success_message)
     
     def is_system_details_name_present(self, name):
         self._system_details_name_locator = (By.XPATH, "//div[text() = '" + name + "']")
         return self.is_element_present(*self._system_details_name_locator)
     
-    def unique_system_name(self, name="newsystem"):
-        system_name = name + str(random.randint(0,100000))
-        return system_name
-        
     def system(self, value):
         for system in self.systems:
             if value in system.name:

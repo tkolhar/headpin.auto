@@ -3,7 +3,7 @@
 import pytest
 from unittestzero import Assert
 from pages.home import Home
-from pages.systems import Systems
+from pages.systems import SystemsTab
 import time
 import sys
 
@@ -21,8 +21,8 @@ class TestSystems:
         home_page.tabs.click_tab("systems_tab")
         Assert.true(home_page.is_the_current_page)
         
-        systems = Systems(mozwebqa)
-        new_system_name = systems.unique_system_name()
+        systems = SystemsTab(mozwebqa)
+        new_system_name = home_page.unique_name("createsystem")
         
         systems.create_new_virt_system(new_system_name)
         Assert.true(home_page.is_successful)
@@ -43,8 +43,8 @@ class TestSystems:
         home_page.tabs.click_tab("systems_tab")
         Assert.true(home_page.is_the_current_page)
         
-        systems = Systems(mozwebqa)
-        new_system_name = systems.unique_system_name("removesystem")
+        systems = SystemsTab(mozwebqa)
+        new_system_name = home_page.unique_name("removesystem")
         
         systems.create_new_virt_system(new_system_name)
         Assert.true(systems.system(new_system_name).is_displayed)

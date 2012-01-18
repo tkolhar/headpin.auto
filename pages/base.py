@@ -49,6 +49,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from pages.page import Page
 
 import time
+import random
 
 
 class Base(Page):
@@ -62,6 +63,10 @@ class Base(Page):
     _success_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-success')]")
     _error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
     
+    def unique_name(self, name):
+        name = name + str(random.randint(0,100000))
+        return name
+        
     @property
     def page_title(self):
         WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)

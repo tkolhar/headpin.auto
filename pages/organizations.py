@@ -27,6 +27,7 @@ class OrganizationsTab(Base):
     _org_details_tab_locator = (By.XPATH, "//li[@id='details']")
     
     _org_list_locator = (By.CSS_SELECTOR, "div.block")
+    _org_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
     
     def create_new_org(self, orgname, envname=None):
         new_org_locator = self.selenium.find_element(*self._org_create_new_locator)
@@ -49,10 +50,7 @@ class OrganizationsTab(Base):
         ActionChains(self.selenium).move_to_element(org_save_button_locator).\
             click().perform()
             
-        current_no_orgs = len(self.organizations)
-        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._org_list_locator))
-        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._org_details_tab_locator))
-        WebDriverWait(self.selenium, 120).until(lambda s: len(self.organizations) > current_no_orgs)
+        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._org_block_active_locator))
     
     @property 
     def is_org_details_tab_present(self):
@@ -67,6 +65,10 @@ class OrganizationsTab(Base):
             if value in organization.name:
                 return organization
         raise Exception('Organization not found: %s' % value)
+    
+    @property
+    def is_block_active(self):
+        return self.is_element_present(*self._org_block_active_locator)
     
     @property
     def organizations(self):

@@ -59,10 +59,11 @@ class SystemsTab(Base):
             click().perform()
             
         current_no_systems = len(self.systems)
-        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._system_list_locator))
-        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._details_tab_locator))
-        WebDriverWait(self.selenium, 120).until(lambda s: len(self.systems) > current_no_systems)
-        time.sleep(2)
+        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._system_block_active_locator))
+        #WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._system_list_locator))
+        #WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._details_tab_locator))
+        #WebDriverWait(self.selenium, 120).until(lambda s: len(self.systems) > current_no_systems)
+        #time.sleep(2)
         
     def remove_a_system(self):
         '''

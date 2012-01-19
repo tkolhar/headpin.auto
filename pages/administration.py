@@ -5,6 +5,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from pages.base import Base
 from pages.page import Page
+import time
 
 class AdministrationTab(Base):
     _admin_search_form_locator = (By.XPATH, "//form[@id='search_form']")
@@ -18,6 +19,7 @@ class AdministrationTab(Base):
     _user_select_result_locator = (By.ID, "select-result")
     
     _remove_user_locator = (By.CSS_SELECTOR, "a.remove_item")
+    _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
     _close_user_detail_locator = (By.CSS_SELECTOR, "a.close")
     
     _new_user_username_field_locator = (By.ID, "username_field")
@@ -48,9 +50,29 @@ class AdministrationTab(Base):
         ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
 
-        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._user_list_locator))
-        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self.user(username)))
-        WebDriverWait(self.selenium, 120).until(lambda s: self.user(username).click())
+    def remove_a_user(self):
+        '''
+        Revmove a system.
+        '''
+        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._remove_user_locator))
+        
+        remove_button_locator = self.selenium.find_element(*self._remove_user_locator)
+        ActionChains(self.selenium).move_to_element(remove_button_locator).\
+            click().perform()
+            
+        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
+        current_no_users = len(self.users)
+        
+        confirm_button_locator = self.selenium.find_element(*self._confirmation_yes_locator)
+        ActionChains(self.selenium).move_to_element(confirm_button_locator).\
+            click().perform()
+        
+        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._user_list_locator))
+        WebDriverWait(self.selenium, 30).until(lambda s: len(self.users) < current_no_users)
+        
+    @property
+    def is_block_active(self):
+        return self.is_element_present(*self._user_block_active_locator)
     
     def user(self, value):
         for user in self.users:

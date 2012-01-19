@@ -11,7 +11,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from pages.base import Base
 from pages.page import Page
 import random
-import time
 
 class SystemsTab(Base):
     _systems_search_form_locator = (By.XPATH, "//form[@id='search_form']")
@@ -24,7 +23,6 @@ class SystemsTab(Base):
     _new_system_sockets_field_locator = (By.XPATH, "//input[@id='sockets_field']")
     _new_system_virt_select_locator = (By.XPATH, "//input[@value='virtual']")
     _new_system_physical_select_locator = (By.XPATH, "//input[@value='physical']")
-    ## Need to add Environment elements here
     _new_system_save_locator = (By.XPATH, "//input[@id='system_save']")
     
     _facts_tab_locator = (By.XPATH, "//a[.='Facts']")
@@ -57,13 +55,8 @@ class SystemsTab(Base):
         save_button_locator = self.selenium.find_element(*self._new_system_save_locator)
         ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
-            
-        current_no_systems = len(self.systems)
+
         WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._system_block_active_locator))
-        #WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._system_list_locator))
-        #WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._details_tab_locator))
-        #WebDriverWait(self.selenium, 120).until(lambda s: len(self.systems) > current_no_systems)
-        #time.sleep(2)
         
     def remove_a_system(self):
         '''
@@ -121,7 +114,6 @@ class SystemsTab(Base):
     class Systems(Page):
         
         _name_locator = (By.CLASS_NAME, 'one-line-ellipsis')
-        _product_locator = (By.CSS_SELECTOR, 'div.block.tall')
         
         def __init__(self, testsetup, element):
             Page.__init__(self, testsetup)

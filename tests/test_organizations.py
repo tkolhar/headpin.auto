@@ -14,6 +14,7 @@ nondestructive = pytest.mark.nondestructive
 destructive = pytest.mark.destructive
 
 class TestOrganizations:
+    @nondestructive
     def test_create_new_org(self, mozwebqa):
         '''
         Test to create a new org, no environment.
@@ -35,7 +36,8 @@ class TestOrganizations:
         Assert.true(organizations.organization(new_org_name).is_displayed)
         Assert.true(organizations.is_org_details_tab_present)
         Assert.true(organizations.is_org_history_tab_present)
-        
+     
+    @nondestructive   
     def test_create_new_org_w_env(self, mozwebqa):
         '''
         Test to create a new org, with environment.

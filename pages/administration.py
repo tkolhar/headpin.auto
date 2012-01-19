@@ -1,0 +1,83 @@
+#!/usr/bin/env python
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from pages.base import Base
+from pages.page import Page
+
+class AdministrationTab(Base):
+    _admin_search_form_locator = (By.XPATH, "//form[@id='search_form']")
+    _admin_search_input_locator = (By.XPATH, "//input[@id='search']")
+    _admin_search_button_locator = (By.XPATH, "//button[@id='search_button']")
+    _new_user_locator = (By.XPATH, "//a[@id='new']")
+    
+    _user_details_tab_locator = (By.XPATH, "//li[@id='details']")
+    _user_roles_tab_locator = (By.XPATH, "//li[@id='roles']")
+    _user_environments_tab_locator = (By.XPATH, "//li[@id='environment']")
+    _user_select_result_locator = (By.ID, "select-result")
+    
+    _remove_user_locator = (By.CSS_SELECTOR, "a.remove_item")
+    _close_user_detail_locator = (By.CSS_SELECTOR, "a.close")
+    
+    _new_user_username_field_locator = (By.ID, "username_field")
+    _new_user_password_field_locator = (By.ID, "password_field")
+    _new_user_confirm_field_locator = (By.ID, "confirm_field")
+    _new_user_email_field_locator = (By.ID, "email_field")
+    _new_user_org_field_locator = (By.ID, "org_id_org_id")
+    _new_user_save_user_locator = (By.ID, "save_user")
+    
+    _user_list_locator = (By.CSS_SELECTOR, "div.block")
+    _user_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
+    
+    def create_new_user(self, username=None, password=None, confirm=None, email=None, org=None, Env=None):
+        new_user_link_locator = self.selenium.find_element(*self._new_user_locator)
+        ActionChains(self.selenium).move_to_element(new_user_link_locator).\
+            click().perform()
+        
+        user_name_locator = self.selenium.find_element(*self._new_user_username_field_locator)
+        user_name_locator.send_keys(username)
+        password_locator = self.selenium.find_element(*self._new_user_password_field_locator)
+        password_locator.send_keys(password)
+        confirm_locator = self.selenium.find_element(*self._new_user_confirm_field_locator)
+        confirm_locator.send_keys(confirm)
+        email_locator = self.selenium.find_element(*self._new_user_email_field_locator)
+        email_locator.send_keys(email)
+        
+        save_button_locator = self.selenium.find_element(*self._new_user_save_user_locator)
+        ActionChains(self.selenium).move_to_element(save_button_locator).\
+            click().perform()
+
+        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._user_list_locator))
+        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self.user(username)))
+        WebDriverWait(self.selenium, 120).until(lambda s: self.user(username).click())
+    
+    def user(self, value):
+        for user in self.users:
+            if value in user.name:
+                return user
+        raise Exception('User not found: %s' % value)
+    
+    @property
+    def users(self):
+        return [self.Users(self.testsetup, element) for element in self.selenium.find_elements(*self._user_list_locator)]
+    
+    class Users(Page):
+        
+        _name_locator = (By.CSS_SELECTOR, 'div.column_1.one-line-ellipsis')
+        
+        def __init__(self, testsetup, element):
+            Page.__init__(self, testsetup)
+            self._root_element = element
+
+        @property
+        def name(self):
+            name_text = self._root_element.find_element(*self._name_locator).text
+            return name_text
+        
+        @property
+        def is_displayed(self):
+            return self.is_element_visible(*self._name_locator)
+        
+        def click(self):
+            self._root_element.find_element(*self._name_locator).click()

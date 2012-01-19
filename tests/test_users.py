@@ -40,7 +40,10 @@ class Testusers:
         Assert.true(home_page.is_successful)
         Assert.true(administration.user(new_user_name).is_displayed)
         
-    def test_remove_user(self, mozwebqa):
+    def test_remove_a_user(self, mozwebqa):
+        '''
+        Test to remove a single user.
+        '''
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)

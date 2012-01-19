@@ -14,6 +14,7 @@ nondestructive = pytest.mark.nondestructive
 destructive = pytest.mark.destructive
 
 class TestOrganizations:
+    
     @nondestructive
     def test_create_new_org(self, mozwebqa):
         '''

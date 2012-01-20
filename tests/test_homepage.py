@@ -11,7 +11,7 @@ nondestructive = pytest.mark.nondestructive
 class TestHomePage:
     
     @nondestructive
-    def test_Verify_Page_Title(self, mozwebqa):
+    def test_Verify_HomePage_Details(self, mozwebqa):
         '''
         TCMS XXXXX
         '''
@@ -24,10 +24,15 @@ class TestHomePage:
         Assert.true(home_page.is_username_field_present)
         Assert.true(home_page.is_password_field_present)
         
+        
     @nondestructive
     def test_Is_Red_Hat_Logo_Present(self, mozwebqa):
         home_page = Home(mozwebqa)
+        Assert.true(home_page.get_location_sam_h1['x'] == 59)
+        Assert.true(home_page.get_location_sam_h1['y'] == 9)
+        Assert.true(home_page.get_location_sam_h1['hCode'] == 123731968)
         Assert.true(home_page.is_redhat_logo_visible)
+        
         
     @nondestructive
     def test_admin_login_logout(self, mozwebqa):

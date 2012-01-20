@@ -58,8 +58,6 @@ class Page(object):
         self.testsetup = testsetup
         testsetup.base_url = os.environ.get("HEADPIN_SERVER")
         self.base_url = testsetup.base_url
-        #self.display = Display(visible=0, size=(800, 600))
-        #self.display.start()
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
 
@@ -88,6 +86,12 @@ class Page(object):
     def is_element_visible(self, *locator):
         try:
             return self.selenium.find_element(*locator).is_displayed()
+        except NoSuchElementException, ElementNotVisibleException:
+            return False
+        
+    def get_location(self, *locator):
+        try:
+            return self.selenium.find_element(*locator).location
         except NoSuchElementException, ElementNotVisibleException:
             return False
         

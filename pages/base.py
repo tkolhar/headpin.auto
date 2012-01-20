@@ -62,6 +62,7 @@ class Base(Page):
     _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
     _success_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-success')]")
     _error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
+    _sam_h1_locator = (By.XPATH, "//h1[text()='Subscription Asset Manager']")
     
     def unique_name(self, name):
         name = name + str(random.randint(0,100000))
@@ -86,6 +87,10 @@ class Base(Page):
 
     def click_redhat_logo(self):
         self.selenium.find_element(*self._redhat_logo_link_locator).click()
+    
+    @property
+    def get_location_sam_h1(self):
+        return self.get_location(*self._sam_h1_locator)
 
     @property
     def is_successful(self):

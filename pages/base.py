@@ -49,6 +49,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from pages.page import Page
 
 import time
+import string
 import random
 
 
@@ -64,7 +65,7 @@ class Base(Page):
     _error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
     _sam_h1_locator = (By.XPATH, "//h1[text()='Subscription Asset Manager']")
     
-    def unique_name(self, name):
+    def random_string(self):
         chars = string.ascii_letters + string.digits
         return "".join(random.choice(chars) for x in range(random.randint(8, 16)))
     

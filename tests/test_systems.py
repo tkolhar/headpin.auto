@@ -4,16 +4,15 @@ import pytest
 from unittestzero import Assert
 from pages.home import Home
 from pages.systems import SystemsTab
+from pages.api import apiTasks
+import random
 import time
 import sys
 
-nondestructive = pytest.mark.nondestructive
-destructive = pytest.mark.destructive
 xfail = pytest.mark.xfail
 
 class TestSystems:
     
-    @nondestructive
     def test_systems_page(self, mozwebqa):
         '''
         Randomly select a system from the systems page
@@ -22,6 +21,15 @@ class TestSystems:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.header.is_user_logged_in)
+        ###
+        # API Setup
+        ###
+        sysapi = apiTasks(mozwebqa)
+        new_org_name = "ACME_Corporation"
+        new_system_name = "System-%s" % home_page.random_string()
+
+        sysapi.create_envs(new_org_name)
+        sysapi.create_new_system(new_system_name, new_org_name)
         
         home_page.tabs.click_tab("systems_tab")
         Assert.true(home_page.is_the_current_page)
@@ -36,7 +44,7 @@ class TestSystems:
         Assert.true(systems.is_system_facts_tab_present)
         Assert.true(systems.is_system_subscriptions_tab_present)
         
-    def test_is_create_new_present(self, mozwebqa):
+    def test_is_new_system_present(self, mozwebqa):
         pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=783299")
         '''
         Regression testing for bz783299, new system
@@ -52,27 +60,27 @@ class TestSystems:
         systems = SystemsTab(mozwebqa)
         Assert.false(systems.is_new_system_link_present)
 
-    @nondestructive
     def test_remove_a_system(self, mozwebqa):
-        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=783299")
         ''' 
-        create and remove a system.
+        create via api and remove a system.
         '''
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.header.is_user_logged_in)
         
+        sysapi = apiTasks(mozwebqa)
+        new_org_name = "ACME_Corporation"
+        new_system_name = "System-%s" % home_page.random_string()
+
+        sysapi.create_envs(new_org_name)
+        sysapi.create_new_system(new_system_name, new_org_name)
+        
         home_page.tabs.click_tab("systems_tab")
         Assert.true(home_page.is_the_current_page)
         
         systems = SystemsTab(mozwebqa)
-        new_system_name = home_page.unique_name()
-        
-        systems.create_new_virt_system(new_system_name)
-        Assert.true(systems.system(new_system_name).is_displayed)
-        
+        systems.system(new_system_name).click()
         Assert.true(systems.is_block_active)
-        #systems.system(new_system_name).click()
         
         systems.remove_a_system()
         Assert.true(home_page.is_successful) 

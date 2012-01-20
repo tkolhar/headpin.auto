@@ -6,11 +6,10 @@ from unittestzero import Assert
 from pages.home import Home
 import time
 
-nondestructive = pytest.mark.nondestructive
+xfail = pytest.mark.xfail
 
 class TestTabs:
-    
-    @nondestructive
+
     def test_navigate_tabs(self, mozwebqa):
         tabs = ("administration_tab", "users_administration",
                               "roles_administration", "organizations_tab",

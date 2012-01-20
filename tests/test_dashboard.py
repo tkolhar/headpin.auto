@@ -5,12 +5,10 @@ from unittestzero import Assert
 from pages.home import Home
 from pages.dashboard import Dashboard
 
-nondestructive = pytest.mark.nondestructive
-destructive = pytest.mark.destructive
+xfail = pytest.mark.xfail
 
 class TestDashboard:
-    
-    @nondestructive
+
     def test_dashboard_present(self, mozwebqa):
         '''
         Verify dashboard page contains key elements.

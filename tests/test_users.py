@@ -11,12 +11,10 @@ import time
 import sys
 from selenium.webdriver.support.ui import WebDriverWait
 
-nondestructive = pytest.mark.nondestructive
-destructive = pytest.mark.destructive
+xfail = pytest.mark.xfail
 
 class Testusers:
-    
-    @nondestructive
+
     def test_create_new_user(self, mozwebqa):
         '''
         Test to create a new User, no org, no environment.
@@ -30,10 +28,13 @@ class Testusers:
         Assert.true(home_page.is_the_current_page)
         
         administration = AdministrationTab(mozwebqa)
-        new_user_name = home_page.unique_name()
+        new_user_name = home_page.random_string()
+        new_user_name = "user-%s" % home_page.random_string()
+        
+        password = home_page.random_string()
         
         email_addr = new_user_name + "@example.com"
-        administration.create_new_user(new_user_name, 'g00dp@ssw0rd', 'g00dp@ssw0rd', email_addr)
+        administration.create_new_user(new_user_name, password, password, email_addr)
 
         time.sleep(5) # BZ 783153 requires this for now.
         
@@ -53,10 +54,13 @@ class Testusers:
         Assert.true(home_page.is_the_current_page)
         
         administration = AdministrationTab(mozwebqa)
-        new_user_name = home_page.unique_name()
+        new_user_name = home_page.random_string()
+        new_user_name = "user-%s" % home_page.random_string()
+        
+        password = home_page.random_string()
 
         email_addr = new_user_name + "@example.com"
-        administration.create_new_user(new_user_name, 'g00dp@ssw0rd', 'g00dp@ssw0rd', email_addr)
+        administration.create_new_user(new_user_name, password, password, email_addr)
         
         time.sleep(5)
         Assert.true(home_page.is_successful)

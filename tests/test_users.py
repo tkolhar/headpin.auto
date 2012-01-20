@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# Name              : test_users.py
 # Purpose           : Calls tests and assertions related to users.
 # Contributors      : Eric L Sammons (eanxgeek)
 

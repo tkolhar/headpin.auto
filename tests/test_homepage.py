@@ -23,11 +23,15 @@ class TestHomePage:
 
     def test_Is_Red_Hat_Logo_Present(self, mozwebqa):
         home_page = Home(mozwebqa)
+        Assert.true(home_page.is_redhat_logo_visible)
+
+    def test_is_sam_h1_present(self, mozwebqa):
+        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=783301")
+        home_page = Home(mozwebqa)
         Assert.true(home_page.get_location_sam_h1['x'] == 59)
         Assert.true(home_page.get_location_sam_h1['y'] == 9)
         Assert.true(home_page.get_location_sam_h1['hCode'] == 123731968)
-        Assert.true(home_page.is_redhat_logo_visible)
-
+        
     def test_admin_login_logout(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()

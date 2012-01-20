@@ -66,7 +66,7 @@ class TestSystems:
         Assert.true(home_page.is_the_current_page)
         
         systems = SystemsTab(mozwebqa)
-        new_system_name = home_page.unique_name("removesystem")
+        new_system_name = home_page.unique_name()
         
         systems.create_new_virt_system(new_system_name)
         Assert.true(systems.system(new_system_name).is_displayed)

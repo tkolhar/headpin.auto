@@ -65,9 +65,9 @@ class Base(Page):
     _sam_h1_locator = (By.XPATH, "//h1[text()='Subscription Asset Manager']")
     
     def unique_name(self, name):
-        name = name + str(random.randint(0,100000))
-        return name
-        
+        chars = string.ascii_letters + string.digits
+        return "".join(random.choice(chars) for x in range(random.randint(8, 16)))
+    
     @property
     def page_title(self):
         WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)

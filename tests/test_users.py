@@ -30,7 +30,7 @@ class Testusers:
         Assert.true(home_page.is_the_current_page)
         
         administration = AdministrationTab(mozwebqa)
-        new_user_name = home_page.unique_name("newuser")
+        new_user_name = home_page.unique_name()
         
         email_addr = new_user_name + "@example.com"
         administration.create_new_user(new_user_name, 'g00dp@ssw0rd', 'g00dp@ssw0rd', email_addr)
@@ -53,7 +53,7 @@ class Testusers:
         Assert.true(home_page.is_the_current_page)
         
         administration = AdministrationTab(mozwebqa)
-        new_user_name = home_page.unique_name("rmuser")
+        new_user_name = home_page.unique_name()
 
         email_addr = new_user_name + "@example.com"
         administration.create_new_user(new_user_name, 'g00dp@ssw0rd', 'g00dp@ssw0rd', email_addr)

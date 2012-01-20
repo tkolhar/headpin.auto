@@ -29,7 +29,7 @@ class TestOrganizations:
         Assert.true(home_page.is_the_current_page)
         
         organizations = OrganizationsTab(mozwebqa)
-        new_org_name = home_page.unique_name("createorg")
+        new_org_name = home_page.unique_name()
         
         organizations.create_new_org(new_org_name)
         Assert.true(home_page.is_successful)

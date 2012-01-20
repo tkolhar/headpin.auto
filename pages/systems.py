@@ -10,6 +10,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from pages.base import Base
 from pages.page import Page
+from random import choice
 import random
 
 class SystemsTab(Base):
@@ -98,8 +99,20 @@ class SystemsTab(Base):
         return self.is_element_present(*self._system_details_name_locator)
     
     @property
+    def is_new_system_link_present(self):
+        return self.is_element_present(*self._systems_create_new_locator)
+    
+    @property
     def is_block_active(self):
         return self.is_element_present(*self._system_block_active_locator)
+    
+    @property
+    def is_systems_block_present(self):
+        return self.is_element_visible(*self._system_list_locator)
+    
+    @property
+    def select_random(self):
+        return choice(self.systems).name
     
     def system(self, value):
         for system in self.systems:

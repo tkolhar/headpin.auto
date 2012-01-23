@@ -64,6 +64,7 @@ class Base(Page):
     _success_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-success')]")
     _error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
     _sam_h1_locator = (By.XPATH, "//h1[text()='Subscription Asset Manager']")
+    _hello_link_locator = (By.XPATH, "//a[@href='/headpin/account']")
     
     def random_string(self):
         chars = string.ascii_letters + string.digits
@@ -88,6 +89,9 @@ class Base(Page):
 
     def click_redhat_logo(self):
         self.selenium.find_element(*self._redhat_logo_link_locator).click()
+        
+    def click_hello_link(self):
+        self.selenium.find_element(*self._hello_link_locator).click()
     
     @property
     def get_location_sam_h1(self):
@@ -95,11 +99,11 @@ class Base(Page):
 
     @property
     def is_successful(self):
-        return self.is_element_present(*self._success_notification_locator)
+        return self.is_element_visible(*self._success_notification_locator)
     
     @property
     def is_failed(self):
-        return self.is_element_present(*self._error_notification_locator)
+        return self.is_element_visible(*self._error_notification_locator)
     
     @property
     def current_page(self):
@@ -130,7 +134,7 @@ class Base(Page):
     class HeaderRegion(Page):
 
         #LoggedIn
-        _account_controller_locator = (By.XPATH, "//li[@class='hello']/a")
+        _account_controller_locator = (By.CSS_SELECTOR, "li.hello")
         _logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
         
         def click_logout(self):
@@ -139,6 +143,9 @@ class Base(Page):
         @property
         def is_user_logged_in(self):
             return self.is_element_visible(*self._account_controller_locator)
+        
+        def click_hello(self):
+            self.selenium.find_element(*self._account_controller_locator).click()
     
     class TabRegion(Page):
         ''' 

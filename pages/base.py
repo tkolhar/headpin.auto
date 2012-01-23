@@ -32,6 +32,9 @@ class Base(Page):
     _error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
     _sam_h1_locator = (By.XPATH, "//h1[text()='Subscription Asset Manager']")
     _hello_link_locator = (By.XPATH, "//a[@href='/headpin/account']")
+    _search_form_locator = (By.XPATH, "//form[@id='search_form']")
+    _search_input_locator = (By.XPATH, "//input[@id='search']")
+    _search_button_locator = (By.XPATH, "//button[@id='search_button']")
     
     def random_string(self):
         chars = string.ascii_letters + string.digits
@@ -45,6 +48,11 @@ class Base(Page):
     @property
     def redhat_logo_title(self):
         return self.selenium.find_element(*self._redhat_logo_link_locator).get_attribute('title')
+    
+    def enter_search_criteria(self, criteria):
+        search_input_locator = self.selenium.find_element(*self._search_input_locator)
+        search_input_locator.send_keys(criteria)
+        self.selenium.find_element(*self._search_button_locator).click()
 
     @property
     def redhat_logo_image_source(self):

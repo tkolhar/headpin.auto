@@ -12,11 +12,7 @@ import random
 import time
 
 class OrganizationsTab(Base):
-    _org_search_form_locator = (By.XPATH, "//form[@id='search_form']")
-    _org_search_input_locator = (By.XPATH, "//input[@id='search']")
-    _org_search_button_locator = (By.XPATH, "//button[@id='search_button']")
     _org_create_new_locator = (By.XPATH, "//a[@id='new']")
-    
     _new_orgname_field_locator = (By.XPATH, "//input[@id='name']")
     _new_orgdesc_field_locator = (By.XPATH, "//textarea[@id='description']")
     _new_orgenv_name_field_locator = (By.XPATH, "//input[@id='envname']")
@@ -52,6 +48,12 @@ class OrganizationsTab(Base):
             
         WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._org_block_active_locator))
     
+    def is_search_correct(self, criteria):
+        for org in self.organizations:
+            if criteria not in org.name:
+                raise Exception('%s does not match Search Criteria %s' % (org.name, criteria))
+        return True
+                
     @property 
     def is_org_details_tab_present(self):
         return self.is_element_present(*self._org_details_tab_locator)

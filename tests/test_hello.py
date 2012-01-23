@@ -12,6 +12,7 @@ xfail = pytest.mark.xfail
 
 class TestHello:
     def test_hello_link_works(self, mozwebqa):
+        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784016")
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
@@ -22,6 +23,7 @@ class TestHello:
         Assert.true(hello.is_username_present)
         
     def test_helptips_enabled_default(self, mozwebqa):
+        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784016")
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
@@ -33,6 +35,7 @@ class TestHello:
         Assert.true(hello.is_helptips_enabled)
         
     def test_disable_helptips(self, mozwebqa):
+        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784016")
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)

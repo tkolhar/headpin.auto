@@ -80,5 +80,3 @@ class TestOrganizations:
         
         home_page.enter_search_criteria("SearchOrg")
         Assert.true(organizations.is_search_correct("SearchOrg"))
-            
-        

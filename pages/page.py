@@ -61,6 +61,7 @@ class Page(object):
         self.base_url = testsetup.base_url
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
+        self.product = os.environ.get("PRODUCT")
 
     @property
     def is_the_current_page(self):

@@ -25,7 +25,8 @@ class Base(Page):
     _current_page_locator = (By.CSS_SELECTOR, ".paginator .num > a:nth-child(1)")
 
     _redhat_logo_link_locator = (By.CSS_SELECTOR, "#head header a")
-    _redhat_logo_image_locator = (By.CSS_SELECTOR, "#head header img")
+    _redhat_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
+    _headpin_logo_image_locator = (By.XPATH, "")
 
     _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
     _success_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-success')]")
@@ -60,7 +61,11 @@ class Base(Page):
 
     @property
     def is_redhat_logo_visible(self):
-        return self.is_element_visible(*self._redhat_logo_image_locator)
+        if self.product == "SAM":
+            return self.is_element_visible(*self._redhat_logo_image_locator)
+        elif self.product == "HEADPIN":
+            return self.is_element_visible(*self._headpin_logo_image_locator)
+            
 
     def click_redhat_logo(self):
         self.selenium.find_element(*self._redhat_logo_link_locator).click()

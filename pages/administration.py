@@ -28,9 +28,11 @@ class AdministrationTab(Base):
     _new_user_email_field_locator = (By.ID, "email_field")
     _new_user_org_field_locator = (By.ID, "org_id_org_id")
     _new_user_save_user_locator = (By.ID, "save_user")
+    _save_password_locator = (By.CSS_SELECTOR, "div#save_password.verify_password")
     
     _user_list_locator = (By.CSS_SELECTOR, "div.block")
     _user_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
+    _passwords_do_not_match_locator = (By.XPATH, "//div[@id='password_conflict'][text()='The passwords do not match']")
     
     def create_new_user(self, username=None, password=None, confirm=None, email=None, org=None, Env=None):
         new_user_link_locator = self.selenium.find_element(*self._new_user_locator)
@@ -71,7 +73,7 @@ class AdministrationTab(Base):
         WebDriverWait(self.selenium, 30).until(lambda s: len(self.users) < current_no_users)
         
     def change_password(self, password, confirm=None):
-        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._new_user_password_field_locator))
+        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._new_user_password_field_locator))
         
         change_password_field_locator = self.selenium.find_element(*self._new_user_password_field_locator)
         change_password_field_locator.send_keys(password)
@@ -82,9 +84,15 @@ class AdministrationTab(Base):
         else:
             confirm_password_field_locator.send_keys(confirm)
             
-        save_button_locator = self.selenium.find_element(*self._new_user_save_user_locator)
+        save_button_locator = self.selenium.find_element(*self._save_password_locator)
         ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
+        
+        time.sleep(2)
+    
+    @property        
+    def passwords_do_not_match_visible(self):
+        return self.is_element_visible(*self._passwords_do_not_match_locator)
         
     def is_search_correct(self, criteria):
         for user in self.users:

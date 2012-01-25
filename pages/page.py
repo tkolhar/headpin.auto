@@ -65,10 +65,16 @@ class Page(object):
 
     @property
     def is_the_current_page(self):
-        if self._page_title:
-            WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
-        Assert.equal(self.selenium.title, self._page_title,
-            "Expected page title: %s. Actual page title: %s" % (self._page_title, self.selenium.title))
+        if self.product == "SAM":
+            if self._sam_page_title:
+                WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
+            Assert.equal(self.selenium.title, self._sam_page_title,
+                         "Expected page title: %s. Actual page title: %s" % (self._sam_page_title, self.selenium.title))
+        elif self.product == "HEADPIN":
+            if self._headpin_page_title:
+                WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
+            Assert.equal(self.selenium.title, self._headpin_page_title,
+                         "Expected page title: %s. Actual page title: %s" % (self._headpin_page_title, self.selenium.title))
         return True
 
     def get_url_current_page(self):

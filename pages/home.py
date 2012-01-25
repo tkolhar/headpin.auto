@@ -7,7 +7,8 @@ from selenium.webdriver.common.keys import Keys
 from pages.base import Base
 
 class Home(Base):
-    _page_title = "Subscription Asset Manager - Subscription Management"
+    _sam_page_title = "Subscription Asset Manager - Subscription Management"
+    _headpin_page_title = "Headpin - Open Source Subscription Management"
     _username_text_field = (By.ID, "username")
     _password_text_field = (By.ID, "password")
     _login = (By.NAME, "commit")

@@ -29,7 +29,7 @@ class Testusers:
         
         administration = AdministrationTab(mozwebqa)
         new_user_name = home_page.random_string()
-        new_user_name = "user-%s" % home_page.random_string()
+        new_user_name = "newuser-%s" % home_page.random_string()
         
         password = home_page.random_string()
         
@@ -55,7 +55,7 @@ class Testusers:
         
         administration = AdministrationTab(mozwebqa)
         new_user_name = home_page.random_string()
-        new_user_name = "user-%s" % home_page.random_string()
+        new_user_name = "rmuser-%s" % home_page.random_string()
         
         password = home_page.random_string()
 
@@ -107,4 +107,28 @@ class Testusers:
         
         new_password = home_page.random_string()
         administration.change_password(new_password)
+        Assert.false(administration.passwords_do_not_match_visible)
+        Assert.true(home_page.is_successful)
+        
+    def test_change_user_password_does_not_match_as_admin(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        home_page.login()
+        Assert.true(home_page.is_successful)
+        
+        administration = AdministrationTab(mozwebqa)
+        sysapi = apiTasks(mozwebqa)
+        
+        new_user_name = "chgpasswd-%s" % home_page.random_string()
+        password = home_page.random_string()
+        email_addr = new_user_name + "@example.com"
+        
+        sysapi.create_user(new_user_name, password, email_addr)
+        home_page.tabs.click_tab("administration_tab")
+        administration.user(new_user_name).click()
+        
+        new_password = home_page.random_string()
+        confirm_password = home_page.random_string()
+        administration.change_password(new_password, confirm_password)
+        Assert.true(administration.passwords_do_not_match_visible)
+        
         

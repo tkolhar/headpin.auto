@@ -6,6 +6,7 @@ import pytest
 from unittestzero import Assert
 from pages.home import Home
 from pages.administration import AdministrationTab
+from pages.api import apiTasks
 import time
 import sys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -69,3 +70,21 @@ class Testusers:
         
         administration.remove_a_user()
         Assert.true(home_page.is_successful) 
+
+    def test_user_search(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        home_page.login()
+        Assert.true(home_page.is_successful)
+        
+        home_page.tabs.click_tab("administration_tab")
+        administration = AdministrationTab(mozwebqa)
+        sysapi = apiTasks(mozwebqa)
+        
+        for i in range(1,5):
+            new_user_name = "searchuser-%s" % home_page.random_string()
+            password = home_page.random_string()
+            email_addr = new_user_name + "@example.com"
+            sysapi.create_user(new_user_name, password, email_addr)
+            
+        home_page.enter_search_criteria("searchuser")
+        administration.is_search_correct("searchuser")

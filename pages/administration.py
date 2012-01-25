@@ -70,6 +70,12 @@ class AdministrationTab(Base):
         WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._user_list_locator))
         WebDriverWait(self.selenium, 30).until(lambda s: len(self.users) < current_no_users)
         
+    def is_search_correct(self, criteria):
+        for user in self.users:
+            if criteria not in user.name:
+                raise Exception('%s does not match Search Criteria %s' % (user.name, criteria))
+        return True
+    
     @property
     def is_block_active(self):
         return self.is_element_present(*self._user_block_active_locator)

@@ -61,4 +61,15 @@ class apiTasks(Base):
                 e = envapi.create(org, ENVIRONMENTS[x], "Desc", envids[x])
                 envids.append(e["id"])
             else:
-                envids.append(existing_env["id"])  
+                envids.append(existing_env["id"])
+    
+    def create_user(self, name, password, email):
+        admin = AdminCLI()
+        admin.setup_parser()
+        admin.opts, admin.args = admin.parser.parse_args([])
+        admin.setup_server()
+        admin._username = "admin"
+        admin._password = "admin"
+        
+        userapi = UserAPI()
+        u = userapi.create(name, password, email, False)

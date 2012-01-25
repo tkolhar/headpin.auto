@@ -88,3 +88,23 @@ class Testusers:
             
         home_page.enter_search_criteria("searchuser")
         administration.is_search_correct("searchuser")
+        
+    def test_change_user_password_valid_as_admin(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        home_page.login()
+        Assert.true(home_page.is_successful)
+        
+        administration = AdministrationTab(mozwebqa)
+        sysapi = apiTasks(mozwebqa)
+        
+        new_user_name = "chgpasswd-%s" % home_page.random_string()
+        password = home_page.random_string()
+        email_addr = new_user_name + "@example.com"
+        
+        sysapi.create_user(new_user_name, password, email_addr)
+        home_page.tabs.click_tab("administration_tab")
+        administration.user(new_user_name).click()
+        
+        new_password = home_page.random_string()
+        administration.change_password(new_password)
+        

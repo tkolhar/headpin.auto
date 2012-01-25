@@ -70,6 +70,22 @@ class AdministrationTab(Base):
         WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._user_list_locator))
         WebDriverWait(self.selenium, 30).until(lambda s: len(self.users) < current_no_users)
         
+    def change_password(self, password, confirm=None):
+        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._new_user_password_field_locator))
+        
+        change_password_field_locator = self.selenium.find_element(*self._new_user_password_field_locator)
+        change_password_field_locator.send_keys(password)
+        confirm_password_field_locator = self.selenium.find_element(*self._new_user_confirm_field_locator)
+        
+        if confirm == None:
+            confirm_password_field_locator.send_keys(password)
+        else:
+            confirm_password_field_locator.send_keys(confirm)
+            
+        save_button_locator = self.selenium.find_element(*self._new_user_save_user_locator)
+        ActionChains(self.selenium).move_to_element(save_button_locator).\
+            click().perform()
+        
     def is_search_correct(self, criteria):
         for user in self.users:
             if criteria not in user.name:

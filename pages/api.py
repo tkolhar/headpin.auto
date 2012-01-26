@@ -133,7 +133,7 @@ class apiTasks(Base):
         ENVIRONMENTS = ["DEV", "TEST", "STAGE", "PROD"]
         
         path = "organizations/%s/environments" % org
-        lockerId = self._get_environment(org, "Locker")['id']
+        lockerId = self._get_environment(org, "Library")['id']
         envids = [lockerId]
         
         

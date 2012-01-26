@@ -54,7 +54,7 @@ class Base(Page):
         search_input_locator = self.selenium.find_element(*self._search_input_locator)
         search_input_locator.send_keys(criteria)
         self.selenium.find_element(*self._search_button_locator).click()
-        time.sleep(1)
+        time.sleep(2)
 
     @property
     def redhat_logo_image_source(self):
@@ -136,7 +136,7 @@ class Base(Page):
         _dashboard_tab_locator = (By.XPATH, "//a[.='Dashboard']")
         
         _content_management_tab_locator = (By.XPATH, "//a[.='Content Management']")
-        _providers_content_management_subtab_locator = (By.XPATH, "//a[.='Providers']")
+        _providers_content_management_subtab_locator = (By.XPATH, "//a[@href='/headpin/providers/redhat_provider'][text()='Content Providers']")
         
         _systems_tab_locator = (By.XPATH, "//a[.='Systems']")
         _all_systems_subtab_locator = (By.XPATH, "//a[.='All']")

@@ -54,16 +54,15 @@ class Testusers:
         Assert.true(home_page.is_the_current_page)
         
         administration = AdministrationTab(mozwebqa)
+        sysapi = apiTasks(mozwebqa)
+        
         new_user_name = home_page.random_string()
         new_user_name = "rmuser-%s" % home_page.random_string()
-        
         password = home_page.random_string()
-
         email_addr = new_user_name + "@example.com"
-        administration.create_new_user(new_user_name, password, password, email_addr)
-        
-        time.sleep(5)
-        Assert.true(home_page.is_successful)
+        sysapi.create_user(new_user_name, password, email_addr)   
+        time.sleep(2)
+        home_page.enter_search_criteria("rmuser") 
         
         administration.user(new_user_name).click()
         Assert.true(administration.is_block_active)

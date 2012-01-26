@@ -82,18 +82,35 @@ class apiTasks(Base):
         path = "organizations/%s/environments" % org
         envs = self._GET(path, {"name": envName})[1]
         if len(envs) > 0:
-           return str(envs[0]['id'])
+           return envs[0]
         else:
            return None
+       
+    def _locker_by_org(self, org):
+        path = "organizations/%s/environments/" % (org)
+        envs = self._GET(path, {"locker": "true"})[1]
+        if len(envs) > 0:
+            return envs[0]
+        else:
+            return None
+        
+    def _get_environment(self, orgName, envName=None):
+        if envName == None:
+            env = self._locker_by_org(orgName)
+            envName = env['name']
+        else:
+            env = self._environment_by_name(orgName, envName)
+
+        if env == None:
+            print ("Could not find environment [ %s ] within organization [ %s ]") % (envName, orgName)
+        return env
 
     def create_new_system(self, name, org, username='admin', password='admin'):
-        #ENVIRONMENTS = ["DEV", "TEST", "STAGE", "PROD"]
-        
-        ENVIRONMENTS = ["DEV"]
+        ENVIRONMENTS = ["DEV", "TEST", "STAGE", "PROD"]
         env_name = random.choice(ENVIRONMENTS)
         self.set_basic_auth_credentials(username, password)
         
-        path = "/environments/%s/systems" % self._environment_by_name(org, env_name)
+        path = "environments/%s/systems" % self._environment_by_name(org, env_name)["id"]
         sysdata = {
                    "name" : name,
                    "cp_type" : "system",
@@ -102,49 +119,41 @@ class apiTasks(Base):
                               "cpu.cpu_socket(s)" : "1"}}
         
         return self._POST(path, sysdata)[1]
-'''            
-    def create_org(self, name):
-        admin = AdminCLI()
-        admin.setup_parser()
-        admin.opts, admin.args = admin.parser.parse_args([])
-        admin.setup_server()
-        admin._username = "admin"
-        admin._password = "admin"
-            
-        orgapi = OrganizationAPI()
-        orgapi.create(name, "description")
-        
-    def create_envs(self, org):
+    
+    def create_org(self, name, username='admin', password='admin'):
+        self.set_basic_auth_credentials(username, password)
+        path = "organizations"
+        orgdata = {
+                   "name" : name,
+                   "description" : "This test org created via api for QE"}
+        return self._POST(path,orgdata)
+    
+    def create_envs(self, org, username='admin', password='admin'):
+        self.set_basic_auth_credentials(username, password)
         ENVIRONMENTS = ["DEV", "TEST", "STAGE", "PROD"]
         
-        admin = AdminCLI()
-        admin.setup_parser()
-        admin.opts, admin.args = admin.parser.parse_args([])
-        admin.setup_server()
-        admin._username = "admin"
-        admin._password = "admin"
-        
-        envapi = EnvironmentAPI()
-        
-        lockerId = get_environment(org, "Locker")["id"]
+        path = "organizations/%s/environments" % org
+        lockerId = self._get_environment(org, "Locker")['id']
         envids = [lockerId]
         
+        
         for x in range(len(ENVIRONMENTS)):
-            existing_env = get_environment(org, ENVIRONMENTS[x])
+            existing_env = self._get_environment(org, ENVIRONMENTS[x])
             if not existing_env:
-                e = envapi.create(org, ENVIRONMENTS[x], "Desc", envids[x])
+                envdata = {"name" : ENVIRONMENTS[x],
+                           "description" : "Environment created via api for QE",
+                           "prior" : envids[x]}
+                e = self._POST(path, {"environment": envdata})[1]
                 envids.append(e["id"])
             else:
                 envids.append(existing_env["id"])
-  
-    def create_user(self, name, password, email):
-        admin = AdminCLI()
-        admin.setup_parser()
-        admin.opts, admin.args = admin.parser.parse_args([])
-        admin.setup_server()
-        admin._username = "admin"
-        admin._password = "admin"
+                
+    def create_user(self, name, pw, email, username='admin', password='admin'):
+        self.set_basic_auth_credentials(username, password)
+        path = "users"
+        userdata = {"username" : name,
+                    "password" : pw,
+                    "email" : email,
+                    "disabled" : 'false'}
         
-        userapi = UserAPI()
-        u = userapi.create(name, password, email, False)
-'''
+        return self._POST(path, userdata)[1]

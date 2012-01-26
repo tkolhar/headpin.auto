@@ -157,3 +157,8 @@ class apiTasks(Base):
                     "disabled" : 'false'}
         
         return self._POST(path, userdata)[1]
+    
+    def ping(self, username='admin', password='admin'):
+        self.set_basic_auth_credentials(username, password)
+        path = "ping"
+        return self._GET(path)

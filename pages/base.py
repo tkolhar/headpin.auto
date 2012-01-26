@@ -54,6 +54,7 @@ class Base(Page):
         search_input_locator = self.selenium.find_element(*self._search_input_locator)
         search_input_locator.send_keys(criteria)
         self.selenium.find_element(*self._search_button_locator).click()
+        time.sleep(1)
 
     @property
     def redhat_logo_image_source(self):

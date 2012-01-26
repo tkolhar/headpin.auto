@@ -28,7 +28,7 @@ class TestSystems:
         new_org_name = "ACME_Corporation"
         new_system_name = "System-%s" % home_page.random_string()
 
-        sysapi.create_envs(new_org_name)
+        #sysapi.create_envs(new_org_name)
         sysapi.create_new_system(new_system_name, new_org_name)
         
         home_page.tabs.click_tab("systems_tab")

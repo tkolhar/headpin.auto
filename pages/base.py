@@ -75,6 +75,13 @@ class Base(Page):
     def click_hello_link(self):
         self.selenium.find_element(*self._hello_link_locator).click()
     
+    def click_sam_h1(self):
+        try:
+            self.selenium.find_element(*self._sam_h1_locator).click()
+            return True
+        except:
+            throw ("The header element should be visible, it's not, do something!") 
+        
     @property
     def get_location_sam_h1(self):
         return self.get_location(*self._sam_h1_locator)

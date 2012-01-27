@@ -95,6 +95,7 @@ class AdministrationTab(Base):
         return self.is_element_visible(*self._passwords_do_not_match_locator)
         
     def is_search_correct(self, criteria):
+        WebDriverWait(self.selenium, 60).until(lambda s: self.is_element_visible(*self._user_list_locator))
         for user in self.users:
             if criteria not in user.name:
                 raise Exception('%s does not match Search Criteria %s' % (user.name, criteria))

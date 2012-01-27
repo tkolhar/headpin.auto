@@ -49,6 +49,7 @@ class OrganizationsTab(Base):
         WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._org_block_active_locator))
     
     def is_search_correct(self, criteria):
+        WebDriverWait(self.selenium, 60).until(lambda s: self.is_element_visible(*self._org_list_locator))
         for org in self.organizations:
             if criteria not in org.name:
                 raise Exception('%s does not match Search Criteria %s' % (org.name, criteria))

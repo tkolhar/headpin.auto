@@ -80,10 +80,12 @@ class Base(Page):
 
     @property
     def is_successful(self):
+        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._success_notification_locator))
         return self.is_element_visible(*self._success_notification_locator)
     
     @property
     def is_failed(self):
+        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._error_notification_locator))
         return self.is_element_visible(*self._error_notification_locator)
     
     @property

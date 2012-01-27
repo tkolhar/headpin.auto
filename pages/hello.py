@@ -33,7 +33,7 @@ class Hello(Base):
     
     @property
     def is_helptips_enabled(self):
-        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_visible(*self._username_locator))
+        WebDriverWait(self.selenium, 60).until(lambda s: self.is_element_visible(*self._helptips_checkbox_locator))
         return self.selenium.find_element(*self._helptips_checkbox_locator).is_selected()
             
     def change_password(self, password=None):

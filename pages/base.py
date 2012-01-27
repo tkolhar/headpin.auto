@@ -32,7 +32,7 @@ class Base(Page):
     _success_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-success')]")
     _error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
     _sam_h1_locator = (By.XPATH, "//h1[text()='Subscription Asset Manager']")
-    _hello_link_locator = (By.XPATH, "//a[@href='/headpin/account']")
+    _hello_link_locator = (By.XPATH, "//a[contains(@href, '/headpin/users?id=')]")
     _search_form_locator = (By.XPATH, "//form[@id='search_form']")
     _search_input_locator = (By.XPATH, "//input[@id='search']")
     _search_button_locator = (By.XPATH, "//button[@id='search_button']")

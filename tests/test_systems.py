@@ -43,13 +43,11 @@ class TestSystems:
         Assert.true(systems.is_system_details_tab_present)
         Assert.true(systems.is_system_facts_tab_present)
         Assert.true(systems.is_system_subscriptions_tab_present)
-        
+    ''' Commented this test out as we will no longer allow 
+        creating systems from the webui   
     def test_is_new_system_present(self, mozwebqa):
         pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=783299")
-        '''
-        Regression testing for bz783299, new system
-        is no longer supported from webui.
-        '''
+
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.header.is_user_logged_in)
@@ -59,6 +57,7 @@ class TestSystems:
         
         systems = SystemsTab(mozwebqa)
         Assert.false(systems.is_new_system_link_present)
+    '''
 
     def test_remove_a_system(self, mozwebqa):
         ''' 

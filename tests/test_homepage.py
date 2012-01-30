@@ -27,9 +27,17 @@ class TestHomePage:
 
     def test_is_sam_h1_present(self, mozwebqa):
         #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=783301")
-        # Skipping this test until I find a better way to run.
+        # Really no accurate way to test this as window sizes change
+        # and the element can be "visible" but not seen as it is hidden
+        # behind another.
         home_page = Home(mozwebqa)
+        Assert.true(home_page.is_sam_h1_visible)
         Assert.true(home_page.click_sam_h1())
+    
+    def test_footer_verstion_text_visible(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        #Assert.true(home_page.is_footer_version_text_visible)
+        Assert.contains("Subscription Asset Manager Version:", home_page.is_footer_version_text_visible())
         
     def test_admin_login_logout(self, mozwebqa):
         home_page = Home(mozwebqa)

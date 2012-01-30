@@ -31,11 +31,13 @@ class Base(Page):
     _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
     _success_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-success')]")
     _error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
-    _sam_h1_locator = (By.XPATH, "//h1[text()='Subscription Asset Manager']")
+    #_sam_h1_locator = (By.XPATH, "//h1[text()='Subscription Asset Manager']")
+    _sam_h1_locator = (By.CSS_SELECTOR, "h1")
     _hello_link_locator = (By.XPATH, "//a[contains(@href, '/headpin/users?id=')]")
     _search_form_locator = (By.XPATH, "//form[@id='search_form']")
     _search_input_locator = (By.XPATH, "//input[@id='search']")
     _search_button_locator = (By.XPATH, "//button[@id='search_button']")
+    _footer_version_text_locator = (By.CSS_SELECTOR, "div.grid_16.ca.light_text")
     
     def random_string(self):
         chars = string.ascii_letters + string.digits
@@ -61,6 +63,10 @@ class Base(Page):
     def redhat_logo_image_source(self):
         return self.selenium.find_element(*self._amo_logo_image_locator).get_attribute('src')
 
+    def is_footer_version_text_visible(self):
+        #return self.selenium.find_elements_by_partial_link_text('Subscription Asset Manager Version')
+        return self.selenium.find_element(*self._footer_version_text_locator).text
+    
     @property
     def is_redhat_logo_visible(self):
         if self.product == "SAM":
@@ -75,13 +81,17 @@ class Base(Page):
     def click_hello_link(self):
         self.selenium.find_element(*self._hello_link_locator).click()
     
+    @property
+    def is_sam_h1_visible(self):
+        return self.is_element_visible(*self._sam_h1_locator)
+    
     def click_sam_h1(self):
         try:
             self.selenium.find_element(*self._sam_h1_locator).click()
             return True
         except:
             throw ("The header element should be visible, it's not, do something!") 
-        
+    
     @property
     def get_location_sam_h1(self):
         return self.get_location(*self._sam_h1_locator)

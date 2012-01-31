@@ -138,6 +138,7 @@ class Base(Page):
         _account_controller_locator = (By.CSS_SELECTOR, "li.hello")
         _logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
         _org_switcher_locator = (By.CSS_SELECTOR, "a#switcherButton")
+        _org_switcher_org_locator = (By.XPATH, "//a[text()=")
         
         def click_logout(self):
             self.selenium.find_element(*self._logout_locator).click()
@@ -151,6 +152,10 @@ class Base(Page):
         
         def click_switcher(self):
             self.selenium.find_element(*self._org_switcher_locator).click()
+        
+        def click_org_from_switcher(self,orgname):
+            self._org_switcher_org_locator = self._org_switcher_org_locator + orgname
+            self.selenium.find_element(*self._org_switcher_org_locator).click()
     
     class TabRegion(Page):
         ''' 

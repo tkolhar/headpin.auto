@@ -99,12 +99,12 @@ class Base(Page):
     @property
     def is_successful(self):
         WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._success_notification_locator))
-        return self.is_element_visible(*self._success_notification_locator)
+        return self.is_element_present(*self._success_notification_locator)
     
     @property
     def is_failed(self):
         WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._error_notification_locator))
-        return self.is_element_visible(*self._error_notification_locator)
+        return self.is_element_present(*self._error_notification_locator)
     
     @property
     def current_page(self):
@@ -138,6 +138,8 @@ class Base(Page):
         _logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
         _org_switcher_locator = (By.CSS_SELECTOR, "a#switcherButton")
         _org_switcher_org_locator = (By.CSS_SELECTOR, "a[href*='org_id=2']")
+        _org_input_filter_locator = (By.CSS_SELECTOR, "input#orgfilter_input")
+        _org_filtered_button_locator = (By.CSS_SELECTOR, "button.filter_button")
         
         def click_logout(self):
             self.selenium.find_element(*self._logout_locator).click()
@@ -158,6 +160,15 @@ class Base(Page):
         
         def get_text_from_switcher(self):
             return self.selenium.find_element(*self._org_switcher_locator).text 
+        
+        def filter_org_in_switcher(self, criteria):
+            org_input_filter = self.selenium.find_element(*self._org_input_filter_locator)
+            for c in criteria:
+                org_input_filter.send_keys(c)
+            
+        def click_filtered_result(self, criteria):
+            _org_filtered_result_locator = (By.XPATH, "//a[contains(text(), '" + criteria + "')]")
+            self.selenium.find_element(*_org_filtered_result_locator).click()
     
     class TabRegion(Page):
         ''' 

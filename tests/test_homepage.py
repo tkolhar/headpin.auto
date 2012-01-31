@@ -36,7 +36,6 @@ class TestHomePage:
     
     def test_footer_verstion_text_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
-        #Assert.true(home_page.is_footer_version_text_visible)
         Assert.contains("Subscription Asset Manager Version:", home_page.is_footer_version_text_visible())
         
     def test_admin_login_logout(self, mozwebqa):

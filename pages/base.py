@@ -56,10 +56,12 @@ class Base(Page):
     
     def enter_search_criteria(self, criteria):
         search_input_locator = self.selenium.find_element(*self._search_input_locator)
-        search_input_locator.send_keys(criteria+"\n")
-        self.selenium.find_element(*self._search_button_locator).click()
+        for c in criteria:
+            search_input_locator.send_keys(c)
+        search_input_locator.send_keys("\n")
+        #self.selenium.find_element(*self._search_button_locator).click()
         # Give block time to update; should investigate using WebDriverWait.
-        time.sleep(1.5)
+        time.sleep(1)
 
     @property
     def redhat_logo_image_source(self):

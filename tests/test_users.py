@@ -35,8 +35,6 @@ class Testusers:
         
         email_addr = new_user_name + "@example.com"
         administration.create_new_user(new_user_name, password, password, email_addr)
-
-        #time.sleep(5) # BZ 783153 requires this for now.
         
         Assert.true(home_page.is_successful)
         Assert.true(administration.user(new_user_name).is_displayed)
@@ -106,8 +104,8 @@ class Testusers:
         
         new_password = home_page.random_string()
         administration.change_password(new_password)
-        Assert.false(administration.passwords_do_not_match_visible)
         Assert.true(home_page.is_successful)
+        Assert.false(administration.passwords_do_not_match_visible)
         
     def test_change_user_password_does_not_match_as_admin(self, mozwebqa):
         home_page = Home(mozwebqa)

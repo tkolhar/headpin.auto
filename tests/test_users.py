@@ -36,7 +36,7 @@ class Testusers:
         email_addr = new_user_name + "@example.com"
         administration.create_new_user(new_user_name, password, password, email_addr)
 
-        time.sleep(5) # BZ 783153 requires this for now.
+        #time.sleep(5) # BZ 783153 requires this for now.
         
         Assert.true(home_page.is_successful)
         Assert.true(administration.user(new_user_name).is_displayed)

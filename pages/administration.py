@@ -56,21 +56,21 @@ class AdministrationTab(Base):
         '''
         Revmove a system.
         '''
-        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._remove_user_locator))
+        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._remove_user_locator))
         
         remove_button_locator = self.selenium.find_element(*self._remove_user_locator)
         ActionChains(self.selenium).move_to_element(remove_button_locator).\
             click().perform()
             
-        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
+        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
         current_no_users = len(self.users)
         
         confirm_button_locator = self.selenium.find_element(*self._confirmation_yes_locator)
         ActionChains(self.selenium).move_to_element(confirm_button_locator).\
             click().perform()
         
-        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._user_list_locator))
-        WebDriverWait(self.selenium, 30).until(lambda s: len(self.users) < current_no_users)
+        #WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._user_list_locator))
+        #WebDriverWait(self.selenium, 10).until(lambda s: len(self.users) < current_no_users)
         
     def change_password(self, password, confirm=None):
         WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._new_user_password_field_locator))

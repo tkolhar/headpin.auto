@@ -29,8 +29,10 @@ class Base(Page):
     _headpin_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/logo.png')]")
 
     _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
-    _success_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-success')]")
-    _error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
+    _success_notification_locator = (By.CSS_SELECTOR, "div.jnotify-notification.jnotify-notification-success")
+    _error_notification_locator = (By.CSS_SELECTOR, "div.jnotify-notification.jnotify-notification-error")
+    #_success_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-success')]")
+    #_error_notification_locator = (By.XPATH, "//div[normalize-space(@class='jnotify-notification jnotify-notification-error')]")
     #_sam_h1_locator = (By.XPATH, "//h1[text()='Subscription Asset Manager']")
     _sam_h1_locator = (By.CSS_SELECTOR, "h1")
     _hello_link_locator = (By.XPATH, "//a[contains(@href, '/headpin/users?id=')]")
@@ -57,7 +59,7 @@ class Base(Page):
         search_input_locator.send_keys(criteria+"\n")
         self.selenium.find_element(*self._search_button_locator).click()
         # Give block time to update; should investigate using WebDriverWait.
-        time.sleep(5)
+        time.sleep(1.5)
 
     @property
     def redhat_logo_image_source(self):
@@ -98,13 +100,13 @@ class Base(Page):
 
     @property
     def is_successful(self):
-        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._success_notification_locator))
-        return self.is_element_present(*self._success_notification_locator)
+        #WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._success_notification_locator))
+        return self.is_element_visible(*self._success_notification_locator)
     
     @property
     def is_failed(self):
-        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._error_notification_locator))
-        return self.is_element_present(*self._error_notification_locator)
+        #WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._error_notification_locator))
+        return self.is_element_visible(*self._error_notification_locator)
     
     @property
     def current_page(self):

@@ -62,6 +62,7 @@ class TestContentManagement:
         self.test_load_manifest(mozwebqa, "/var/tmp/sam_manifest_2.zip")
         
     def test_load_previous_manifest_to_another_org(self, mozwebqa):
+        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=786963")
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
@@ -88,6 +89,7 @@ class TestContentManagement:
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_NumberFormatException_forInputString(self, mozwebqa):
+        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=787278")
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)

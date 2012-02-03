@@ -21,7 +21,6 @@ class ContentManagementTab(Base):
         upload_locator = self.selenium.find_element(*self._provider_manifest_upload_locator)
         ActionChains(self.selenium).move_to_element(upload_locator).\
             click().perform()
-        time.sleep(10)
      
     @property    
     def get_content_table_text(self):

@@ -25,4 +25,7 @@ class ContentManagementTab(Base):
     @property    
     def get_content_table_text(self):
         return self.selenium.find_element(*self._content_table_content_locator).text
+    
+    def click_force(self):
+        self.selenium.find_element(*self._provider_manifest_force_locator).click()
         

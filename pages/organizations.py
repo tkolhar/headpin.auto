@@ -24,6 +24,8 @@ class OrganizationsTab(Base):
     
     _org_list_locator = (By.CSS_SELECTOR, "div.block")
     _org_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
+    _org_remove_item_locator = (By.CSS_SELECTOR, "a.remove_item")
+    _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
     
     def create_new_org(self, orgname, envname=None):
         new_org_locator = self.selenium.find_element(*self._org_create_new_locator)
@@ -46,8 +48,25 @@ class OrganizationsTab(Base):
         ActionChains(self.selenium).move_to_element(org_save_button_locator).\
             click().perform()
             
-        WebDriverWait(self.selenium, 120).until(lambda s: self.is_element_present(*self._org_block_active_locator))
+        WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_present(*self._org_block_active_locator))
     
+    def remove_a_org(self):
+        WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_visible(*self._org_remove_item_locator))
+        
+        remove_button_locator = self.selenium.find_element(*self._org_remove_item_locator)
+        ActionChains(self.selenium).move_to_element(remove_button_locator).\
+            click().perform()
+            
+        WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
+        #current_no_organizations = len(self.organizations)
+        
+        confirm_button_locator = self.selenium.find_element(*self._confirmation_yes_locator)
+        ActionChains(self.selenium).move_to_element(confirm_button_locator).\
+            click().perform()
+        
+        #WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_present(*self._system_list_locator))
+        #WebDriverWait(self.selenium, 20).until(lambda s: len(self.systems) < current_no_systems)
+        
     def is_search_correct(self, criteria):
         WebDriverWait(self.selenium, 60).until(lambda s: self.is_element_visible(*self._org_list_locator))
         for org in self.organizations:

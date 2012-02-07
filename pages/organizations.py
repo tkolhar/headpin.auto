@@ -48,7 +48,7 @@ class OrganizationsTab(Base):
         ActionChains(self.selenium).move_to_element(org_save_button_locator).\
             click().perform()
             
-        WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_present(*self._org_block_active_locator))
+        #WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_present(*self._org_block_active_locator))
     
     def remove_a_org(self):
         WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_visible(*self._org_remove_item_locator))

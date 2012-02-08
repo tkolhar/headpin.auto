@@ -230,6 +230,9 @@ class TestContentManagement:
         Assert.equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_NumberFormatException_forInputString(self, mozwebqa):
+        '''
+        Regression Test for bz786963
+        '''
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)

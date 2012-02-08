@@ -92,7 +92,8 @@ class Page(object):
             self.selenium.implicitly_wait(self.testsetup.default_implicit_wait)
 
     def is_element_visible(self, *locator):
-        self.selenium.implicitly_wait(30)
+        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*locator))
+        #self.selenium.implicitly_wait(30)
         try:
             return self.selenium.find_element(*locator).is_displayed()
         except NoSuchElementException, ElementNotVisibleException:

@@ -26,7 +26,6 @@ class TestActivationKeys:
         activationkeys.enter_activation_key_description(new_activationkey_name)
         activationkeys.click_save()
         Assert.true(home_page.is_successful)
-        Assert.true(activationkeys.activationkey(new_activationkey_name).is_displayed)
         
     def test_remove_activationkey(self, mozwebqa):
         home_page = Home(mozwebqa)

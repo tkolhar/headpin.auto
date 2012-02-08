@@ -13,4 +13,12 @@ class Manifest:
       tmpDir = tempfile.mkdtemp(suffix='', prefix='', dir=None)
       basedir = os.path.abspath(tmpDir)
 
+   def addFilestoArchive(self):
+      pass
+
+   def addFiletoArchive(self):
+      pass
+
+
+
 

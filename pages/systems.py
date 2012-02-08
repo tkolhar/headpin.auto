@@ -143,3 +143,68 @@ class SystemsTab(Base):
         
         def click(self):
             self._root_element.find_element(*self._name_locator).click()
+
+class ActivationKeysTab(Base):
+    _activation_key_name_input_field_locator = (By.CSS_SELECTOR, "input#activation_key_name")
+    _activation_key_description_locator = (By.CSS_SELECTOR, "textarea#activation_key_description")
+    _activation_key_save_button_locator = (By.CSS_SELECTOR, "input#save_key")
+    _activation_key_new_button_locator = (By.CSS_SELECTOR, "a#new.block.fr")
+    _activationkey_list_locator = (By.CSS_SELECTOR, "div.block")
+    _activationkey_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
+    
+    def enter_activation_key_name(self, name):
+        '''Enter the name of the new activation key'''
+        name_locator = self.selenium.find_element(*self._activation_key_name_input_field_locator)
+        for c in name:
+            name_locator.send_keys(c)
+            
+    def enter_activation_key_description(self, desc):
+        description_locator = self.selenium.find_element(*self._activation_key_description_locator)
+        for c in desc:
+            description_locator.send_keys(c)
+            
+    def click_save(self):
+        save_button_locator = self.selenium.find_element(*self._activation_key_save_button_locator)
+        ActionChains(self.selenium).move_to_element(save_button_locator).\
+            click().perform()
+            
+    def click_new(self):
+        new_button_locator = self.selenium.find_element(*self._activation_key_new_button_locator)
+        ActionChains(self.selenium).move_to_element(new_button_locator).\
+            click().perform()
+    
+    def activationkey(self, value):
+        for activationkey in self.activationkeys:
+            if value in activationkey.name:
+                return activationkey
+        raise Exception('ActivationKey not found: %s' % value)
+    
+    @property
+    def is_block_active(self):
+        return self.is_element_present(*self._activationkey_block_active_locator)
+
+    @property
+    def activationkeys(self):
+        return [self.ActivationKeys(self.testsetup, element) for element in self.selenium.find_elements(*self._activationkey_list_locator)]
+    
+    class ActivationKeys(Page):
+        
+        _name_locator = (By.CLASS_NAME, 'one-line-ellipsis')
+        
+        def __init__(self, testsetup, element):
+            Page.__init__(self, testsetup)
+            self._root_element = element
+
+        @property
+        def name(self):
+            name_text = self._root_element.find_element(*self._name_locator).text
+            return name_text
+        
+        @property
+        def is_displayed(self):
+            return self.is_element_visible(*self._name_locator)
+        
+        def click(self):
+            self._root_element.find_element(*self._name_locator).click()
+            
+    

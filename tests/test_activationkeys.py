@@ -9,6 +9,7 @@ import time
 xfail = pytest.mark.xfail
 
 class TestActivationKeys:
+    _manifest_ = "/var/tmp/ActivationKeys_M1.zip"
     
     def test_create_activation_key(self, mozwebqa):
         home_page = Home(mozwebqa)

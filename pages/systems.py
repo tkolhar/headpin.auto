@@ -152,6 +152,8 @@ class ActivationKeysTab(Base):
     _activationkey_list_locator = (By.CSS_SELECTOR, "div.block")
     _activationkey_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
     
+    _activationkey_available_subscriptions_tab_locator = (By.CSS_SELECTOR, "li#available_subscriptions.navigation_element")
+    
     def enter_activation_key_name(self, name):
         '''Enter the name of the new activation key'''
         name_locator = self.selenium.find_element(*self._activation_key_name_input_field_locator)
@@ -206,5 +208,8 @@ class ActivationKeysTab(Base):
         
         def click(self):
             self._root_element.find_element(*self._name_locator).click()
+        
+    class AvailableSubscriptionsTab:
+        
             
     

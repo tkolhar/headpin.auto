@@ -26,7 +26,7 @@ class TestSystems:
         ###
         sysapi = apiTasks(mozwebqa)
         new_org_name = "ACME_Corporation"
-        new_system_name = "System-%s" % home_page.random_string()
+        new_system_name = "system%s" % home_page.random_string()
 
         sysapi.create_envs(new_org_name)
         sysapi.create_new_system(new_system_name, new_org_name)
@@ -43,21 +43,6 @@ class TestSystems:
         Assert.true(systems.is_system_details_tab_present)
         Assert.true(systems.is_system_facts_tab_present)
         Assert.true(systems.is_system_subscriptions_tab_present)
-    ''' Commented this test out as we will no longer allow 
-        creating systems from the webui   
-    def test_is_new_system_present(self, mozwebqa):
-        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=783299")
-
-        home_page = Home(mozwebqa)
-        home_page.login()
-        Assert.true(home_page.header.is_user_logged_in)
-        
-        home_page.tabs.click_tab("systems_tab")
-        Assert.true(home_page.is_the_current_page)
-        
-        systems = SystemsTab(mozwebqa)
-        Assert.false(systems.is_new_system_link_present)
-    '''
 
     def test_remove_a_system(self, mozwebqa):
         ''' 
@@ -69,7 +54,7 @@ class TestSystems:
         
         sysapi = apiTasks(mozwebqa)
         new_org_name = "ACME_Corporation"
-        new_system_name = "System-%s" % home_page.random_string()
+        new_system_name = "rmsystem%s" % home_page.random_string()
 
         sysapi.create_envs(new_org_name)
         sysapi.create_new_system(new_system_name, new_org_name)
@@ -78,6 +63,7 @@ class TestSystems:
         Assert.true(home_page.is_the_current_page)
         
         systems = SystemsTab(mozwebqa)
+        home_page.enter_search_criteria(new_system_name)
         systems.system(new_system_name).click()
         Assert.true(systems.is_block_active)
         

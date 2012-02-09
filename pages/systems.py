@@ -76,8 +76,8 @@ class SystemsTab(Base):
         ActionChains(self.selenium).move_to_element(confirm_button_locator).\
             click().perform()
         
-        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._system_list_locator))
-        WebDriverWait(self.selenium, 30).until(lambda s: len(self.systems) < current_no_systems)
+        #WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._system_list_locator))
+        #WebDriverWait(self.selenium, 30).until(lambda s: len(self.systems) < current_no_systems)
     
     @property
     def is_system_facts_tab_present(self):

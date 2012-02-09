@@ -87,8 +87,6 @@ class AdministrationTab(Base):
         save_button_locator = self.selenium.find_element(*self._save_password_locator)
         ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
-        
-        time.sleep(2)
     
     @property        
     def passwords_do_not_match_visible(self):

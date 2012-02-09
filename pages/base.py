@@ -131,20 +131,6 @@ class Base(Page):
     def tabs(self):
         return Base.TabRegion(self.testsetup)
 
-    @property
-    def _extract_integers(self, regex_pattern, *locator):
-        """
-        Returns a list of integers extracted from the text elements
-        matched by the given xpath_locator and regex_pattern.
-        """
-        addon_numbers = [element.text for element in self.selenium.find_elements(*locator)]
-
-        integer_numbers = [
-            int(re.search(regex_pattern, str(x).replace(",", "")).group(1))
-            for x in addon_numbers
-        ]
-        return integer_numbers
-
     class HeaderRegion(Page):
 
         _account_controller_locator = (By.CSS_SELECTOR, "li.hello")

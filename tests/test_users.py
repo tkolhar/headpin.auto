@@ -100,6 +100,7 @@ class Testusers:
         
         sysapi.create_user(new_user_name, password, email_addr)
         home_page.tabs.click_tab("administration_tab")
+        home_page.enter_search_criteria(new_user_name)
         administration.user(new_user_name).click()
         
         new_password = home_page.random_string()
@@ -121,6 +122,7 @@ class Testusers:
         
         sysapi.create_user(new_user_name, password, email_addr)
         home_page.tabs.click_tab("administration_tab")
+        home_page.enter_search_criteria(new_user_name)
         administration.user(new_user_name).click()
         
         new_password = home_page.random_string()

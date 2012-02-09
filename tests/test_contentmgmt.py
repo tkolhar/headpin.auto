@@ -199,7 +199,7 @@ class TestContentManagement:
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_load_previous_manifest_to_another_org(self, mozwebqa):
-        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=787278")
+        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=787278")
         '''
         Scenario 3: Import Manifest (M1) from Distributor (D1) into Org2.
         Result Expected: Fail

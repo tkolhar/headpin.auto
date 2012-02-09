@@ -40,7 +40,7 @@ class TestOrganizations:
         Assert.true(organizations.is_org_history_tab_present)
         
     def test_recreate_previously_deleted_org(self, mozwebqa):
-        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=772575")
+        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=772575")
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)

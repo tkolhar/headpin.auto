@@ -80,10 +80,13 @@ class TestActivationKeys:
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
         Assert.true(home_page.is_the_current_page)
-        cm.enter_manifest(self._org1_m1_manifest)
+        cm.enter_manifest(self._manifest_)
         Assert.true(home_page.is_successful)
         ###
         # Navigate to Activation Keys
         ###
+        activationkeys = ActivationKeysTab(mozwebqa)
+        home_page.tabs.click_tab("systems_tab")
+        home_page.tabs.click_tab("activation_keys")
         
         

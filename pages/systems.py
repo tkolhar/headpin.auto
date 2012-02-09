@@ -174,6 +174,9 @@ class ActivationKeysTab(Base):
         new_button_locator = self.selenium.find_element(*self._activation_key_new_button_locator)
         ActionChains(self.selenium).move_to_element(new_button_locator).\
             click().perform()
+            
+    def click_available_subscriptions(self):
+        self.selenium.find_element(*self._activationkey_available_subscriptions_tab_locator).click()
     
     def activationkey(self, value):
         for activationkey in self.activationkeys:

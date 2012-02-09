@@ -14,9 +14,9 @@ except ImportError:
    import simplejson as json
 
 
-class apiTasks(Base):
+class ApiTasks:
     
-    def __init__(self, mozwebqa):
+    def __init__(self):
         default_headers = {'Accept': 'application/json',
                            'content-type': 'application/json',
                            'User-Agent': 'katello-cli/0.1'}

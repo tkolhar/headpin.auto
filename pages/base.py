@@ -58,8 +58,6 @@ class Base(Page):
         for c in criteria:
             search_input_locator.send_keys(c)
         search_input_locator.send_keys("\n")
-        #self.selenium.find_element(*self._search_button_locator).click()
-        # Give block time to update; should investigate using WebDriverWait.
         time.sleep(1)
     
     def click_remove(self):

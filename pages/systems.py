@@ -152,7 +152,9 @@ class ActivationKeysTab(Base):
     _activationkey_list_locator = (By.CSS_SELECTOR, "div.block")
     _activationkey_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
     
-    _activationkey_available_subscriptions_tab_locator = (By.CSS_SELECTOR, "li#available_subscriptions.navigation_element")
+    _subscriptions_checkbox_locator = (By.XPATH, "//input[@type='checkbox']")
+    _available_subscriptions_tab_locator = (By.XPATH, "//a[.= 'Available Subscriptions']")
+    _available_subscriptions_input_filter_locator = (By.CSS_SELECTOR, "input#filter")
     
     def enter_activation_key_name(self, name):
         '''Enter the name of the new activation key'''
@@ -174,19 +176,37 @@ class ActivationKeysTab(Base):
         new_button_locator = self.selenium.find_element(*self._activation_key_new_button_locator)
         ActionChains(self.selenium).move_to_element(new_button_locator).\
             click().perform()
-            
-    def click_available_subscriptions(self):
-        self.selenium.find_element(*self._activationkey_available_subscriptions_tab_locator).click()
     
+    @property
+    def is_block_active(self):
+        return self.is_element_present(*self._activationkey_block_active_locator)
+    
+    def click_available_subscriptions(self):
+        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._available_subscriptions_tab_locator))
+        #self.selenium.find_element(*self._available_subscriptions_tab_locator).click()
+        available_subscriptions_locator = self.selenium.find_element(*self._available_subscriptions_tab_locator)
+        ActionChains(self.selenium).move_to_element(available_subscriptions_locator).\
+            click().perform()
+    
+    @property
+    def is_filter_visible(self):
+        return self.is_element_visible(*self._available_subscriptions_input_filter_locator)
+    
+    def select_subscription(self):
+        subs = self.selenium.find_elements(*self._subscriptions_checkbox_locator)
+        a_sub = choice(subs)
+        print subs
+        print a_sub
+        #self.selenium.find_element(a_sub).click()
+        a_sub_locator = self.selenium.find_element(*a_sub)
+        ActionChains(self.selenium).move_to_element(a_sub_locator).\
+            click().perform()
+
     def activationkey(self, value):
         for activationkey in self.activationkeys:
             if value in activationkey.name:
                 return activationkey
         raise Exception('ActivationKey not found: %s' % value)
-    
-    @property
-    def is_block_active(self):
-        return self.is_element_present(*self._activationkey_block_active_locator)
 
     @property
     def activationkeys(self):
@@ -212,7 +232,8 @@ class ActivationKeysTab(Base):
         def click(self):
             self._root_element.find_element(*self._name_locator).click()
         
-    class AvailableSubscriptionsTab:
+        
+        
         
             
-    
+            

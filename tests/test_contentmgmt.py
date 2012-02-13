@@ -47,7 +47,7 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -68,7 +68,7 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_load_same_manifest_to_same_org_wo_force(self, mozwebqa):
@@ -79,7 +79,7 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -100,7 +100,7 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org3_m1_manifest)
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Install manifest again
         ###
@@ -115,7 +115,7 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -136,14 +136,14 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org4_m1_manifest)
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Install manifest again
         ###
         cm.click_force()
         cm.enter_manifest(self._org4_m1_manifest)
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         
     def test_load_new_manifest_into_same_org_wo_force(self, mozwebqa):
         '''
@@ -153,7 +153,7 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -174,20 +174,20 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Install manifest again
         ###
         cm.enter_manifest(self._org1_m2_manifest)
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_load_second_manifest_second_org(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -208,7 +208,7 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org2_m1_manifest)
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_load_previous_manifest_to_another_org(self, mozwebqa):
@@ -220,7 +220,7 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -250,7 +250,7 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -271,6 +271,6 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._bz786963_manifest)
         Assert.true(home_page.is_successful)
-        time.sleep(4)
+        Assert.true(home_page.is_dialog_cleared)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
 

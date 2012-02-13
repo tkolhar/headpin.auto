@@ -155,6 +155,8 @@ class ActivationKeysTab(Base):
     _subscriptions_checkbox_locator = (By.XPATH, "//input[@type='checkbox']")
     _available_subscriptions_tab_locator = (By.XPATH, "//a[.= 'Available Subscriptions']")
     _available_subscriptions_input_filter_locator = (By.CSS_SELECTOR, "input#filter")
+    #_available_subscriptions_submit_locator = (By.NAME, "commit")
+    _available_subscriptions_submit_locator = (By.CSS_SELECTOR, "input#subscription_submit_button.submit")
     
     def enter_activation_key_name(self, name):
         '''Enter the name of the new activation key'''
@@ -183,10 +185,7 @@ class ActivationKeysTab(Base):
     
     def click_available_subscriptions(self):
         WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._available_subscriptions_tab_locator))
-        #self.selenium.find_element(*self._available_subscriptions_tab_locator).click()
-        available_subscriptions_locator = self.selenium.find_element(*self._available_subscriptions_tab_locator)
-        ActionChains(self.selenium).move_to_element(available_subscriptions_locator).\
-            click().perform()
+        self.selenium.find_element(*self._available_subscriptions_tab_locator).click()
     
     @property
     def is_filter_visible(self):
@@ -195,11 +194,15 @@ class ActivationKeysTab(Base):
     def select_subscription(self):
         subs = self.selenium.find_elements(*self._subscriptions_checkbox_locator)
         a_sub = choice(subs)
-        print subs
-        print a_sub
-        #self.selenium.find_element(a_sub).click()
-        a_sub_locator = self.selenium.find_element(*a_sub)
-        ActionChains(self.selenium).move_to_element(a_sub_locator).\
+        #a_sub.click()
+        ActionChains(self.selenium).move_to_element(a_sub).\
+            click().perform()
+    
+    def click_submit_button(self):
+        self.selenium.implicitly_wait(30)
+        #WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._available_subscriptions_submit_locator))
+        submit_button = self.selenium.find_element(*self._available_subscriptions_submit_locator)
+        ActionChains(self.selenium).move_to_element(submit_button).\
             click().perform()
 
     def activationkey(self, value):

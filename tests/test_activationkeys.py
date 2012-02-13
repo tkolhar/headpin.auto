@@ -96,15 +96,14 @@ class TestActivationKeys:
         activationkeys.enter_activation_key_description(_new_activationkey_name)
         activationkeys.click_save()
         Assert.true(home_page.is_successful)
-        #home_page.tabs.click_tab("dashboard_tab")
-        #home_page.tabs.click_tab("systems_tab")
-        #home_page.tabs.click_tab("activation_keys")
-        #activationkeys.activationkey(_new_activationkey_name).click()
         Assert.true(activationkeys.is_block_active)
 
         activationkeys.click_available_subscriptions()
         Assert.true(activationkeys.is_filter_visible)
         activationkeys.select_subscription()
+        time.sleep(20)
+        activationkeys.click_submit_button()
+        Assert.true(home_page.is_successful)
         time.sleep(5)
         
         

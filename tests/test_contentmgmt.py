@@ -47,7 +47,6 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -57,6 +56,7 @@ class TestContentManagement:
         ###
         # Find that org and select it
         ###
+        Assert.true(home_page.is_dialog_cleared)
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
         home_page.header.click_filtered_result(new_org_name)
@@ -68,7 +68,6 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_load_same_manifest_to_same_org_wo_force(self, mozwebqa):
@@ -79,7 +78,6 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -89,6 +87,7 @@ class TestContentManagement:
         ###
         # Find that org and select it
         ###
+        Assert.true(home_page.is_dialog_cleared)
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
         home_page.header.click_filtered_result(new_org_name)
@@ -100,7 +99,6 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org3_m1_manifest)
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Install manifest again
         ###
@@ -115,7 +113,6 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -125,6 +122,7 @@ class TestContentManagement:
         ###
         # Find that org and select it
         ###
+        Assert.true(home_page.is_dialog_cleared)
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
         home_page.header.click_filtered_result(new_org_name)
@@ -136,14 +134,12 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org4_m1_manifest)
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Install manifest again
         ###
         cm.click_force()
         cm.enter_manifest(self._org4_m1_manifest)
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         
     def test_load_new_manifest_into_same_org_wo_force(self, mozwebqa):
         '''
@@ -153,7 +149,6 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -163,6 +158,7 @@ class TestContentManagement:
         ###
         # Find that org and select it
         ###
+        Assert.true(home_page.is_dialog_cleared)
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
         home_page.header.click_filtered_result(new_org_name)
@@ -174,7 +170,6 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Install manifest again
         ###
@@ -187,7 +182,6 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -197,6 +191,7 @@ class TestContentManagement:
         ###
         # Find that org and select it
         ###
+        Assert.true(home_page.is_dialog_cleared)
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
         home_page.header.click_filtered_result(new_org_name)
@@ -220,7 +215,6 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -230,6 +224,7 @@ class TestContentManagement:
         ###
         # Find that org and select it
         ###
+        Assert.true(home_page.is_dialog_cleared)
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
         home_page.header.click_filtered_result(new_org_name)
@@ -250,7 +245,6 @@ class TestContentManagement:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         ###
         # Create a org to work with
         ###
@@ -260,6 +254,7 @@ class TestContentManagement:
         ###
         # Find that org and select it
         ###
+        Assert.true(home_page.is_dialog_cleared)
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
         home_page.header.click_filtered_result(new_org_name)
@@ -271,6 +266,5 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._bz786963_manifest)
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
 

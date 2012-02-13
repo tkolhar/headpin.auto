@@ -14,13 +14,14 @@ class TestActivationKeys:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
         
         home_page.tabs.click_tab("systems_tab")
         home_page.tabs.click_tab("activation_keys")
         
         activationkeys = ActivationKeysTab(mozwebqa)
         
-        new_activationkey_name = "newactivkey-%s" % home_page.random_string()
+        new_activationkey_name = "newactivkey%s" % home_page.random_string()
         activationkeys.click_new()
         activationkeys.enter_activation_key_name(new_activationkey_name)
         activationkeys.enter_activation_key_description(new_activationkey_name)
@@ -31,13 +32,14 @@ class TestActivationKeys:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
         
         home_page.tabs.click_tab("systems_tab")
         home_page.tabs.click_tab("activation_keys")
         
         activationkeys = ActivationKeysTab(mozwebqa)
         
-        new_activationkey_name = "rmactivkey-%s" % home_page.random_string()
+        new_activationkey_name = "rmactivkey%s" % home_page.random_string()
         activationkeys.click_new()
         activationkeys.enter_activation_key_name(new_activationkey_name)
         activationkeys.enter_activation_key_description(new_activationkey_name)

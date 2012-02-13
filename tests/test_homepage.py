@@ -42,6 +42,7 @@ class TestHomePage:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
         
         Assert.true(home_page.is_the_current_page)
         Assert.true(home_page.header.is_user_logged_in)

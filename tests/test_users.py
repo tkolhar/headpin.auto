@@ -22,6 +22,7 @@ class Testusers:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
         Assert.true(home_page.header.is_user_logged_in)
         
         home_page.tabs.click_tab("administration_tab")
@@ -46,6 +47,7 @@ class Testusers:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
         Assert.true(home_page.header.is_user_logged_in)
         
         home_page.tabs.click_tab("administration_tab")
@@ -72,6 +74,7 @@ class Testusers:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
         
         home_page.tabs.click_tab("administration_tab")
         administration = AdministrationTab(mozwebqa)
@@ -90,6 +93,7 @@ class Testusers:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
         
         administration = AdministrationTab(mozwebqa)
         sysapi = apiTasks(mozwebqa)
@@ -112,6 +116,7 @@ class Testusers:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
         
         administration = AdministrationTab(mozwebqa)
         sysapi = apiTasks(mozwebqa)

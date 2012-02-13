@@ -95,7 +95,6 @@ class TestOrganizations:
         
         organizations.create_new_org(new_org_name, randenv)
         Assert.true(home_page.is_successful)
-        
         Assert.true(organizations.organization(new_org_name).is_displayed)
         Assert.true(organizations.is_org_details_tab_present)
         Assert.true(organizations.is_org_history_tab_present)

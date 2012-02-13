@@ -30,7 +30,7 @@ class TestOrganizations:
         
         organizations = OrganizationsTab(mozwebqa)
         new_org_name = home_page.random_string()
-        new_org_name = "Org-%s" % home_page.random_string()
+        new_org_name = "Org%s" % home_page.random_string()
         
         organizations.create_new_org(new_org_name)
         Assert.true(home_page.is_successful)
@@ -91,7 +91,7 @@ class TestOrganizations:
         
         organizations = OrganizationsTab(mozwebqa)
         new_org_name = home_page.random_string()
-        new_org_name = "Org-%s" % home_page.random_string()
+        new_org_name = "Org%s" % home_page.random_string()
         
         organizations.create_new_org(new_org_name, randenv)
         Assert.true(home_page.is_successful)
@@ -110,7 +110,7 @@ class TestOrganizations:
         sysapi = apiTasks(mozwebqa)
         
         for i in range(1,5):
-            new_org_name = "SearchOrg-%s" % home_page.random_string()
+            new_org_name = "SearchOrg%s" % home_page.random_string()
             sysapi.create_org(new_org_name)
         
         home_page.enter_search_criteria("SearchOrg*")

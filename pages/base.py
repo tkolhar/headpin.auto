@@ -57,7 +57,7 @@ class Base(Page):
         search_input_locator = self.selenium.find_element(*self._search_input_locator)
         for c in criteria:
             search_input_locator.send_keys(c)
-        search_input_locator.send_keys("*\n")
+        search_input_locator.send_keys("\n")
         #self.selenium.find_element(*self._search_button_locator).click()
         # Give block time to update; should investigate using WebDriverWait.
         time.sleep(1)
@@ -118,6 +118,11 @@ class Base(Page):
     @property
     def is_failed(self):
         return self.is_element_visible(*self._error_notification_locator)
+    
+    @property
+    def is_dialog_cleared(self):
+        WebDriverWait(self.selenium, 5).until(lambda s: not self.is_element_visible(*self._success_notification_locator))
+        return not self.is_element_visible(*self._success_notification_locator)
     
     @property
     def current_page(self):

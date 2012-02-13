@@ -51,7 +51,7 @@ class TestOrganizations:
         ###
         # Create a Org
         ###
-        _new_org_name = "recreateorg-%s" % home_page.random_string()
+        _new_org_name = "recreateorg%s" % home_page.random_string()
         sysapi.create_org(_new_org_name)
         ###
         # Remove New Org
@@ -65,7 +65,9 @@ class TestOrganizations:
         Assert.true(home_page.is_successful)
         ###
         # Attempt to re create the org via webui
+        # Need to wait for katello_jobs to update.
         ###
+        time.sleep(15)
         home_page.tabs.click_tab("organizations_tab")
         Assert.true(home_page.is_the_current_page)
         

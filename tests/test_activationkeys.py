@@ -100,7 +100,14 @@ class TestActivationKeys:
 
         activationkeys.click_available_subscriptions()
         Assert.true(activationkeys.is_filter_visible)
-        activationkeys.select_subscription()
+        #subscription_object = activationkeys.select_random_sub
+        #print subscription_object
+        #activationkeys.subscription(subscription_object).click()
+        activationkeys.select_a_random_sub()
+        time.sleep(20)
+        activationkeys.click_add_sub()
+        time.sleep(10)
+        #activationkeys.select_subscription()
         #home_page.wait_for_ajax()
         activationkeys.click_submit_button()
         Assert.true(home_page.is_successful)

@@ -151,7 +151,7 @@ class ActivationKeysTab(Base):
     _activation_key_new_button_locator = (By.CSS_SELECTOR, "a#new.block.fr")
     _activationkey_list_locator = (By.CSS_SELECTOR, "div.block")
     _activationkey_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
-    
+    _subscriptions_locator = (By.CSS_SELECTOR, "span.fl.subscription_row input")
     _subscriptions_checkbox_locator = (By.XPATH, "//input[@type='checkbox']")
     _available_subscriptions_tab_locator = (By.XPATH, "//a[.= 'Available Subscriptions']")
     _available_subscriptions_input_filter_locator = (By.CSS_SELECTOR, "input#filter")
@@ -190,7 +190,7 @@ class ActivationKeysTab(Base):
     @property
     def is_filter_visible(self):
         return self.is_element_visible(*self._available_subscriptions_input_filter_locator)
-    
+    '''    
     def select_subscription(self):
         submit_button = self.selenium.find_element(*self._available_subscriptions_submit_locator)
         subs = self.selenium.find_elements(*self._subscriptions_checkbox_locator)
@@ -198,10 +198,8 @@ class ActivationKeysTab(Base):
         #self.selenium.execute_script('$(arguments[0]).prop("checked", true)', a_sub)
         self.selenium.execute_script("$(arguments[0]).click()", a_sub)
         #a_sub.click()
-        
         self.selenium.execute_script("$(arguments[0] :input).removeAttr('disabled')", submit_button)
         #WebDriverWait(self.selenium,20).until(lambda s: self.selenium.execute_script("jQuery.active == 0"))      
-        
     
     def click_submit_button(self):
         self.selenium.implicitly_wait(30)
@@ -209,7 +207,20 @@ class ActivationKeysTab(Base):
         submit_button = self.selenium.find_element(*self._available_subscriptions_submit_locator)
         ActionChains(self.selenium).move_to_element(submit_button).\
             click().perform()
-
+    '''
+    
+    def select_a_random_sub(self):
+        subs = self.selenium.find_elements(*self._subscriptions_locator)
+        sub = subs[random.randint(0, len(subs)-1)]
+        self.selenium.find_element(By.ID, sub.get_attribute('id')).click()
+        #input.click()
+        
+    def click_add_sub(self):
+        add_button = self.selenium.find_element(*self._available_subscriptions_submit_locator)
+        WebDriverWait(self.selenium, 10).until(lambda x: self.selenium.is_visible(add_button))
+        
+        add_button.click()
+               
     def activationkey(self, value):
         for activationkey in self.activationkeys:
             if value in activationkey.name:
@@ -219,7 +230,7 @@ class ActivationKeysTab(Base):
     @property
     def activationkeys(self):
         return [self.ActivationKeys(self.testsetup, element) for element in self.selenium.find_elements(*self._activationkey_list_locator)]
-    
+
     class ActivationKeys(Page):
         
         _name_locator = (By.CLASS_NAME, 'one-line-ellipsis')

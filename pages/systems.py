@@ -192,11 +192,16 @@ class ActivationKeysTab(Base):
         return self.is_element_visible(*self._available_subscriptions_input_filter_locator)
     
     def select_subscription(self):
+        submit_button = self.selenium.find_element(*self._available_subscriptions_submit_locator)
         subs = self.selenium.find_elements(*self._subscriptions_checkbox_locator)
         a_sub = choice(subs)
+        #self.selenium.execute_script('$(arguments[0]).prop("checked", true)', a_sub)
+        self.selenium.execute_script("$(arguments[0]).click()", a_sub)
         #a_sub.click()
-        ActionChains(self.selenium).move_to_element(a_sub).\
-            click().perform()
+        
+        self.selenium.execute_script("$(arguments[0] :input).removeAttr('disabled')", submit_button)
+        #WebDriverWait(self.selenium,20).until(lambda s: self.selenium.execute_script("jQuery.active == 0"))      
+        
     
     def click_submit_button(self):
         self.selenium.implicitly_wait(30)

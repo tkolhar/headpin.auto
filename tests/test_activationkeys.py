@@ -101,7 +101,7 @@ class TestActivationKeys:
         activationkeys.click_available_subscriptions()
         Assert.true(activationkeys.is_filter_visible)
         activationkeys.select_subscription()
-        time.sleep(20)
+        #home_page.wait_for_ajax()
         activationkeys.click_submit_button()
         Assert.true(home_page.is_successful)
         time.sleep(5)

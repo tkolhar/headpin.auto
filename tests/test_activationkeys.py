@@ -90,7 +90,7 @@ class TestActivationKeys:
         home_page.tabs.click_tab("systems_tab")
         home_page.tabs.click_tab("activation_keys")
         ### Create Activation Key
-        _new_activationkey_name = "workflowactivkey-%s" % home_page.random_string()
+        _new_activationkey_name = "%s" % home_page.random_string()
         activationkeys.click_new()
         activationkeys.enter_activation_key_name(_new_activationkey_name)
         activationkeys.enter_activation_key_description(_new_activationkey_name)
@@ -99,19 +99,13 @@ class TestActivationKeys:
         Assert.true(activationkeys.is_block_active)
 
         activationkeys.click_available_subscriptions()
-        Assert.true(activationkeys.is_filter_visible)
-        #subscription_object = activationkeys.select_random_sub
-        #print subscription_object
-        #activationkeys.subscription(subscription_object).click()
-        activationkeys.select_a_random_sub()
-        time.sleep(20)
+        
+        rand_sub_id = activationkeys.select_a_random_sub()
         activationkeys.click_add_sub()
-        time.sleep(10)
-        #activationkeys.select_subscription()
-        #home_page.wait_for_ajax()
-        activationkeys.click_submit_button()
+
         Assert.true(home_page.is_successful)
-        time.sleep(5)
+        activationkeys.click_applied_subscriptions()
+        Assert.true(activationkeys.find_sub_by_id(rand_sub_id))
         
         
         

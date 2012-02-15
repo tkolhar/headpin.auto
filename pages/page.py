@@ -76,7 +76,10 @@ class Page(object):
             Assert.equal(self.selenium.title, self._headpin_page_title,
                          "Expected page title: %s. Actual page title: %s" % (self._headpin_page_title, self.selenium.title))
         return True
-
+    
+    def jquery_wait(self, timeout=20):
+        WebDriverWait(self.selenium, timeout).until(lambda s: s.execute_script("return jQuery.active == 0"))
+        
     def get_url_current_page(self):
         return(self.selenium.current_url)
 

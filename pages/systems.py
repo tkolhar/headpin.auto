@@ -12,6 +12,7 @@ from pages.base import Base
 from pages.page import Page
 from random import choice
 import random
+import time
 
 class SystemsTab(Base):
     _systems_search_form_locator = (By.XPATH, "//form[@id='search_form']")
@@ -151,11 +152,13 @@ class ActivationKeysTab(Base):
     _activation_key_new_button_locator = (By.CSS_SELECTOR, "a#new.block.fr")
     _activationkey_list_locator = (By.CSS_SELECTOR, "div.block")
     _activationkey_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
+    
     _subscriptions_locator = (By.CSS_SELECTOR, "span.fl.subscription_row input")
     _subscriptions_checkbox_locator = (By.XPATH, "//input[@type='checkbox']")
+    
     _available_subscriptions_tab_locator = (By.XPATH, "//a[.= 'Available Subscriptions']")
+    _applied_subscriptions_tab_locator = (By.XPATH, "//a[.= 'Applied Subscriptions']")
     _available_subscriptions_input_filter_locator = (By.CSS_SELECTOR, "input#filter")
-    #_available_subscriptions_submit_locator = (By.NAME, "commit")
     _available_subscriptions_submit_locator = (By.CSS_SELECTOR, "input#subscription_submit_button.submit")
     
     def enter_activation_key_name(self, name):
@@ -186,39 +189,32 @@ class ActivationKeysTab(Base):
     def click_available_subscriptions(self):
         WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._available_subscriptions_tab_locator))
         self.selenium.find_element(*self._available_subscriptions_tab_locator).click()
+        
+    def click_applied_subscriptions(self):
+        self.jquery_wait()
+        self.selenium.find_element(*self._applied_subscriptions_tab_locator).click()
     
     @property
     def is_filter_visible(self):
         return self.is_element_visible(*self._available_subscriptions_input_filter_locator)
-    '''    
-    def select_subscription(self):
-        submit_button = self.selenium.find_element(*self._available_subscriptions_submit_locator)
-        subs = self.selenium.find_elements(*self._subscriptions_checkbox_locator)
-        a_sub = choice(subs)
-        #self.selenium.execute_script('$(arguments[0]).prop("checked", true)', a_sub)
-        self.selenium.execute_script("$(arguments[0]).click()", a_sub)
-        #a_sub.click()
-        self.selenium.execute_script("$(arguments[0] :input).removeAttr('disabled')", submit_button)
-        #WebDriverWait(self.selenium,20).until(lambda s: self.selenium.execute_script("jQuery.active == 0"))      
     
-    def click_submit_button(self):
-        self.selenium.implicitly_wait(30)
-        #WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._available_subscriptions_submit_locator))
-        submit_button = self.selenium.find_element(*self._available_subscriptions_submit_locator)
-        ActionChains(self.selenium).move_to_element(submit_button).\
-            click().perform()
-    '''
-    
+    def find_sub_by_id(self, id):
+        try:
+            self.selenium.find_element(By.ID, id)
+            return True
+        except:
+            raise Exception("Expecited subscription %s not visible" % id)
+
     def select_a_random_sub(self):
+        self.jquery_wait()
         subs = self.selenium.find_elements(*self._subscriptions_locator)
         sub = subs[random.randint(0, len(subs)-1)]
-        self.selenium.find_element(By.ID, sub.get_attribute('id')).click()
-        #input.click()
+        sub_id = sub.get_attribute('id')
+        self.selenium.find_element(By.ID, sub_id).click()
+        return sub_id
         
     def click_add_sub(self):
         add_button = self.selenium.find_element(*self._available_subscriptions_submit_locator)
-        WebDriverWait(self.selenium, 10).until(lambda x: self.selenium.is_visible(add_button))
-        
         add_button.click()
                
     def activationkey(self, value):

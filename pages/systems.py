@@ -12,6 +12,7 @@ from pages.base import Base
 from pages.page import Page
 from random import choice
 import random
+import time
 
 class SystemsTab(Base):
     _systems_search_form_locator = (By.XPATH, "//form[@id='search_form']")
@@ -152,6 +153,14 @@ class ActivationKeysTab(Base):
     _activationkey_list_locator = (By.CSS_SELECTOR, "div.block")
     _activationkey_block_active_locator = (By.CSS_SELECTOR, "div.block.active")
     
+    _subscriptions_locator = (By.CSS_SELECTOR, "span.fl.subscription_row input")
+    _subscriptions_checkbox_locator = (By.XPATH, "//input[@type='checkbox']")
+    
+    _available_subscriptions_tab_locator = (By.XPATH, "//a[.= 'Available Subscriptions']")
+    _applied_subscriptions_tab_locator = (By.XPATH, "//a[.= 'Applied Subscriptions']")
+    _available_subscriptions_input_filter_locator = (By.CSS_SELECTOR, "input#filter")
+    _available_subscriptions_submit_locator = (By.CSS_SELECTOR, "input#subscription_submit_button.submit")
+    
     def enter_activation_key_name(self, name):
         '''Enter the name of the new activation key'''
         name_locator = self.selenium.find_element(*self._activation_key_name_input_field_locator)
@@ -173,20 +182,51 @@ class ActivationKeysTab(Base):
         ActionChains(self.selenium).move_to_element(new_button_locator).\
             click().perform()
     
+    @property
+    def is_block_active(self):
+        return self.is_element_present(*self._activationkey_block_active_locator)
+    
+    def click_available_subscriptions(self):
+        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._available_subscriptions_tab_locator))
+        self.selenium.find_element(*self._available_subscriptions_tab_locator).click()
+        
+    def click_applied_subscriptions(self):
+        self.jquery_wait()
+        self.selenium.find_element(*self._applied_subscriptions_tab_locator).click()
+    
+    @property
+    def is_filter_visible(self):
+        return self.is_element_visible(*self._available_subscriptions_input_filter_locator)
+    
+    def find_sub_by_id(self, id):
+        try:
+            self.selenium.find_element(By.ID, id)
+            return True
+        except:
+            raise Exception("Expecited subscription %s not visible" % id)
+
+    def select_a_random_sub(self):
+        self.jquery_wait()
+        subs = self.selenium.find_elements(*self._subscriptions_locator)
+        sub = subs[random.randint(0, len(subs)-1)]
+        sub_id = sub.get_attribute('id')
+        self.selenium.find_element(By.ID, sub_id).click()
+        return sub_id
+        
+    def click_add_sub(self):
+        add_button = self.selenium.find_element(*self._available_subscriptions_submit_locator)
+        add_button.click()
+               
     def activationkey(self, value):
         for activationkey in self.activationkeys:
             if value in activationkey.name:
                 return activationkey
         raise Exception('ActivationKey not found: %s' % value)
-    
-    @property
-    def is_block_active(self):
-        return self.is_element_present(*self._activationkey_block_active_locator)
 
     @property
     def activationkeys(self):
         return [self.ActivationKeys(self.testsetup, element) for element in self.selenium.find_elements(*self._activationkey_list_locator)]
-    
+
     class ActivationKeys(Page):
         
         _name_locator = (By.CLASS_NAME, 'one-line-ellipsis')
@@ -206,5 +246,9 @@ class ActivationKeysTab(Base):
         
         def click(self):
             self._root_element.find_element(*self._name_locator).click()
+        
+        
+        
+        
             
-    
+            

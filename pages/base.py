@@ -40,6 +40,16 @@ class Base(Page):
     _remove_item_locator = (By.CSS_SELECTOR, "a.remove_item")
     _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
     
+    def wait_for_ajax(self, timeout=5):
+        i = 0
+        
+        while i<timeout:
+            time.sleep(1)
+            if self.selenium.execute_script("jQuery.active == 0"):
+                break
+            i+=1
+        raise "Wait for AJAX timed out after waiting for %s seconds" % timeout
+
     def random_string(self):
         chars = string.ascii_letters + string.digits
         return "".join(random.choice(chars) for x in range(random.randint(8, 16)))
@@ -58,8 +68,6 @@ class Base(Page):
         for c in criteria:
             search_input_locator.send_keys(c)
         search_input_locator.send_keys("\n")
-        #self.selenium.find_element(*self._search_button_locator).click()
-        # Give block time to update; should investigate using WebDriverWait.
         time.sleep(1)
     
     def click_remove(self):

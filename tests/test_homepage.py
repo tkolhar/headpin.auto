@@ -36,7 +36,10 @@ class TestHomePage:
     
     def test_footer_verstion_text_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
-        Assert.contains("Subscription Asset Manager Version:", home_page.is_footer_version_text_visible())
+        if home_page.product == 'sam':
+            Assert.contains("Subscription Asset Manager Version:", home_page.is_footer_version_text_visible())
+        elif home_page.product == 'katello':
+            Assert.contains("Katello Versio", home_page.is_footer_version_text_visible())
         
     def test_admin_login_logout(self, mozwebqa):
         home_page = Home(mozwebqa)

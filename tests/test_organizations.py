@@ -7,7 +7,7 @@ import pytest
 from unittestzero import Assert
 from pages.home import Home
 from pages.organizations import OrganizationsTab
-from pages.api import apiTasks
+from api.api import ApiTasks
 import random
 import time
 import sys
@@ -47,7 +47,7 @@ class TestOrganizations:
         
         home_page.tabs.click_tab("organizations_tab")
         organizations = OrganizationsTab(mozwebqa)
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         ###
         # Create a Org
         ###
@@ -107,7 +107,7 @@ class TestOrganizations:
         
         home_page.tabs.click_tab("organizations_tab")
         organizations = OrganizationsTab(mozwebqa)
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         
         for i in range(1,5):
             new_org_name = "SearchOrg%s" % home_page.random_string()

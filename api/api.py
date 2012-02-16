@@ -22,7 +22,7 @@ class ApiTasks:
                            'User-Agent': 'katello-cli/0.1'}
         
         #self.path_prefix = "/%s/api" % os.environ.get("PRODUCT")
-        self.url = urlparse.urlparse(os.environ.get("HEADPIN_SERVER"))
+        self.url = urlparse.urlparse(os.environ.get("APP_SERVER"))
         self.host = self.url.netloc
         if ":" in self.host:
            self.host,self.port = self.host.split(':')

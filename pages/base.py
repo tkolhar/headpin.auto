@@ -28,7 +28,7 @@ class Base(Page):
     _redhat_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
     #_headpin_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/logo.png')]")
     _headpin_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
-    _katello_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
+    _katello_logo_image_locator = (By.XPATH, "//img[contains(@src, '/katello/images/logo.png')]")
 
     _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
     _success_notification_locator = (By.CSS_SELECTOR, "div.jnotify-notification.jnotify-notification-success")

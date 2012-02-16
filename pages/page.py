@@ -81,7 +81,7 @@ class Page(object):
         elif self.product == "katello":
             if self._katello_page_title:
                 WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
-            Assert.equal(self.selenium.title, self_katello_page_title,
+            Assert.equal(self.selenium.title, self._katello_page_title,
                          "Expected page title: %s. Actual page title: %s" % (self._katello_page_title, self.selenium.title))
         return True
     

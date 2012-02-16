@@ -10,7 +10,7 @@ class Home(Base):
     _sam_page_title = "Subscription Asset Manager - Subscription Management"
     _headpin_page_title = "Subscription Asset Manager - Subscription Management"
     #_headpin_page_title = "Headpin - Open Source Subscription Management"# Can't use until url is fixed
-    _katello_page_title = "Katello Project - System Environment Management"
+    _katello_page_title = "Katello - Open Source Systems Management"
     _username_text_field = (By.ID, "username")
     _password_text_field = (By.ID, "password")
     _login = (By.NAME, "commit")

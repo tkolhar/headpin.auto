@@ -20,9 +20,14 @@ class ApiTasks:
         default_headers = {'Accept': 'application/json',
                            'content-type': 'application/json',
                            'User-Agent': 'katello-cli/0.1'}
-        self.port = 443
-        self.path_prefix = "/headpin/api"
+        self.path_prefix = "/katello/api"
+        #self.path_prefix = "/%s/api" % os.environ.get("PRODUCT")
         self.host = urlparse.urlparse(os.environ.get("HEADPIN_SERVER")).netloc
+        if ":" in self.host:
+           self.host,self.port = self.host.split(':')
+        else:
+           self.port = 443
+
         self.headers = {}
         self.headers.update(default_headers)
         

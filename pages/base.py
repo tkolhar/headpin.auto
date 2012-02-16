@@ -26,7 +26,9 @@ class Base(Page):
 
     _redhat_logo_link_locator = (By.CSS_SELECTOR, "#head header a")
     _redhat_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
-    _headpin_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/logo.png')]")
+    #_headpin_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/logo.png')]")
+    _headpin_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
+    _katello_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
 
     _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
     _success_notification_locator = (By.CSS_SELECTOR, "div.jnotify-notification.jnotify-notification-success")
@@ -40,16 +42,6 @@ class Base(Page):
     _remove_item_locator = (By.CSS_SELECTOR, "a.remove_item")
     _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
     
-    def wait_for_ajax(self, timeout=5):
-        i = 0
-        
-        while i<timeout:
-            time.sleep(1)
-            if self.selenium.execute_script("jQuery.active == 0"):
-                break
-            i+=1
-        raise "Wait for AJAX timed out after waiting for %s seconds" % timeout
-
     def random_string(self):
         chars = string.ascii_letters + string.digits
         return "".join(random.choice(chars) for x in range(random.randint(8, 16)))
@@ -92,10 +84,12 @@ class Base(Page):
     
     @property
     def is_redhat_logo_visible(self):
-        if self.product == "SAM":
+        if self.product == "sam":
             return self.is_element_visible(*self._redhat_logo_image_locator)
-        elif self.product == "HEADPIN":
+        elif self.product == "headpin":
             return self.is_element_visible(*self._headpin_logo_image_locator)
+        elif self.product == "katello":
+            return self.is_element_visible(*self._katello_logo_image_locator)
             
 
     def click_redhat_logo(self):
@@ -121,10 +115,12 @@ class Base(Page):
 
     @property
     def is_successful(self):
+        self.jquery_wait()
         return self.is_element_visible(*self._success_notification_locator)
     
     @property
     def is_failed(self):
+        self.jquery_wait()
         return self.is_element_visible(*self._error_notification_locator)
     
     @property
@@ -162,7 +158,8 @@ class Base(Page):
             self.selenium.find_element(*self._org_switcher_locator).click()
         
         def click_org_from_switcher(self):
-            WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._org_switcher_org_locator))
+            WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._org_switcher_org_locator).is_displayed())
+            #WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._org_switcher_org_locator))
             self.selenium.find_element(*self._org_switcher_org_locator).click()
         
         def get_text_from_switcher(self):

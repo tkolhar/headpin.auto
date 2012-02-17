@@ -21,6 +21,10 @@ class TestActivationKeys:
         home_page.tabs.click_tab("systems_tab")
         home_page.tabs.click_tab("activation_keys")
         
+        current_org = home_page.header.get_text_from_switcher
+        api = ApiTasks()
+        api.create_envs(current_org)
+        
         activationkeys = ActivationKeysTab(mozwebqa)
         
         new_activationkey_name = "newactivkey-%s" % home_page.random_string()
@@ -37,6 +41,10 @@ class TestActivationKeys:
         
         home_page.tabs.click_tab("systems_tab")
         home_page.tabs.click_tab("activation_keys")
+        
+        current_org = home_page.header.get_text_from_switcher
+        api = ApiTasks()
+        api.create_envs(current_org)
         
         activationkeys = ActivationKeysTab(mozwebqa)
         
@@ -56,39 +64,33 @@ class TestActivationKeys:
         Assert.true(home_page.is_successful)
         
     def test_activation_key_workflow(self, mozwebqa):
-        ###
-        # Create a org specific to this test.
-        ###
         home_page = Home(mozwebqa)
         api = ApiTasks()
         _new_org_name = "activationkeyorg%s" % home_page.random_string()
         api.create_org(_new_org_name)
         api.create_envs(_new_org_name)
-        ###
-        # Login
-        ###
+        
         home_page.login()
         Assert.true(home_page.is_successful)
-        ###
-        # Change to the newly created org
-        ###
+        
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(_new_org_name)
         home_page.header.click_filtered_result(_new_org_name)
-        ###
-        # Navigate to Content Management and load manifest
-        ###
+        
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
+        
+        if home_page.product == "katello" or home_page.product == "cfse":
+            cm.click_content_providers()
+            cm.select_redhat_content_provider()
+            
         cm.enter_manifest(self._activationkey_manifest)
         Assert.true(home_page.is_successful)
-        ###
-        # Navigate to Activation Keys
-        ###
+        
         activationkeys = ActivationKeysTab(mozwebqa)
         home_page.tabs.click_tab("systems_tab")
         home_page.tabs.click_tab("activation_keys")
-        ### Create Activation Key
+        
         _new_activationkey_name = "%s" % home_page.random_string()
         activationkeys.click_new()
         activationkeys.enter_activation_key_name(_new_activationkey_name)
@@ -105,6 +107,3 @@ class TestActivationKeys:
         Assert.true(home_page.is_successful)
         activationkeys.click_applied_subscriptions()
         Assert.true(activationkeys.find_sub_by_id(rand_sub_id))
-        
-        
-        

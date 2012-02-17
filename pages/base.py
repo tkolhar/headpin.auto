@@ -159,6 +159,7 @@ class Base(Page):
             WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._org_switcher_org_locator).is_displayed())
             self.selenium.find_element(*self._org_switcher_org_locator).click()
         
+        @property
         def get_text_from_switcher(self):
             return self.selenium.find_element(*self._org_switcher_locator).text 
         
@@ -170,6 +171,7 @@ class Base(Page):
         def click_filtered_result(self, criteria):
             _org_filtered_result_locator = (By.XPATH, "//a[contains(text(), '" + criteria + "')]")
             self.selenium.find_element(*_org_filtered_result_locator).click()
+        
     
     class TabRegion(Page):
         ''' 

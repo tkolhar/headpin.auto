@@ -157,7 +157,6 @@ class Base(Page):
         
         def click_org_from_switcher(self):
             WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._org_switcher_org_locator).is_displayed())
-            #WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._org_switcher_org_locator))
             self.selenium.find_element(*self._org_switcher_org_locator).click()
         
         def get_text_from_switcher(self):

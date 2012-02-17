@@ -14,6 +14,17 @@ class ContentManagementTab(Base):
     _provider_manifest_upload_locator = (By.CSS_SELECTOR, "a#upload_submit")
     _provider_manifest_force_locator = (By.CSS_SELECTOR, "input#force_import")
     _content_table_content_locator = (By.CSS_SELECTOR, "td")
+    _cm_content_providers_tab_locator = (By.ID, "providers")
+    _content_providers_list_locator = (By.CLASS_NAME, "third_level")
+    _redhat_content_provider_locator = (By.XPATH, "//a[.='Red Hat Content Provider']")
+    
+    
+    def click_content_providers(self):
+        WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._cm_content_providers_tab_locator).is_displayed())
+        self.selenium.find_element(*self._cm_content_providers_tab_locator).click()
+        
+    def select_redhat_content_provider(self):
+        self.selenium.find_element(*self._redhat_content_provider_locator).click()
     
     def enter_manifest(self, manifest_file_location):
         manifest_location = self.selenium.find_element(*self._input_provider_manifest_locator)

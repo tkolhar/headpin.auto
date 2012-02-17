@@ -6,7 +6,7 @@ import pytest
 from unittestzero import Assert
 from pages.home import Home
 from pages.administration import AdministrationTab
-from pages.api import apiTasks
+from api.api import ApiTasks
 import time
 import sys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -52,7 +52,7 @@ class Testusers:
         Assert.true(home_page.is_the_current_page)
         
         administration = AdministrationTab(mozwebqa)
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         
         new_user_name = home_page.random_string()
         new_user_name = "rmuser-%s" % home_page.random_string()
@@ -75,7 +75,7 @@ class Testusers:
         
         home_page.tabs.click_tab("administration_tab")
         administration = AdministrationTab(mozwebqa)
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         
         for i in range(1,5):
             new_user_name = "searchuser-%s" % home_page.random_string()
@@ -92,7 +92,7 @@ class Testusers:
         Assert.true(home_page.is_successful)
         
         administration = AdministrationTab(mozwebqa)
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         
         new_user_name = "chgpasswd-%s" % home_page.random_string()
         password = home_page.random_string()
@@ -114,7 +114,7 @@ class Testusers:
         Assert.true(home_page.is_successful)
         
         administration = AdministrationTab(mozwebqa)
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         
         new_user_name = "chgpasswd-%s" % home_page.random_string()
         password = home_page.random_string()

@@ -4,7 +4,7 @@ import pytest
 
 from unittestzero import Assert
 from pages.home import Home
-from pages.api import apiTasks
+from api.api import ApiTasks
 from pages.contentmgmt import ContentManagementTab
 import time
 xfail = pytest.mark.xfail
@@ -26,7 +26,7 @@ class TestContentManagement:
         # Create a new org, have to ensure we have +1
         # Don't fear if this org is not the selected.
         ###
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         new_org_name = "someorg-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###
@@ -51,8 +51,8 @@ class TestContentManagement:
         ###
         # Create a org to work with
         ###
-        sysapi = apiTasks(mozwebqa)
-        new_org_name = "manifest-%s" % home_page.random_string()
+        sysapi = ApiTasks()
+        new_org_name = "manifest%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###
         # Find that org and select it
@@ -65,6 +65,11 @@ class TestContentManagement:
         ###
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
+        
+        if home_page.product == "katello" or home_page.product == "cfse":
+            cm.click_content_providers()
+            cm.select_redhat_content_provider()
+            
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_successful)
@@ -83,7 +88,7 @@ class TestContentManagement:
         ###
         # Create a org to work with
         ###
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###
@@ -119,7 +124,7 @@ class TestContentManagement:
         ###
         # Create a org to work with
         ###
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###
@@ -157,7 +162,7 @@ class TestContentManagement:
         ###
         # Create a org to work with
         ###
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###
@@ -191,7 +196,7 @@ class TestContentManagement:
         ###
         # Create a org to work with
         ###
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###
@@ -224,7 +229,7 @@ class TestContentManagement:
         ###
         # Create a org to work with
         ###
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###
@@ -254,7 +259,7 @@ class TestContentManagement:
         ###
         # Create a org to work with
         ###
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###

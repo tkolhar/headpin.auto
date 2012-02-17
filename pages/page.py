@@ -47,7 +47,12 @@ from selenium.common.exceptions import ElementNotVisibleException
 import os
 import urlparse
 
-
+class EnvironmentNotSetException(Exception):
+    def __init__(self, value):
+        self.parameter = value
+    def __str__(self):
+        return repr(self.parameter)
+    
 class Page(object):
     '''
     Base class for all Pages
@@ -58,6 +63,9 @@ class Page(object):
         Constructor
         '''
         self.testsetup = testsetup
+        if not os.environ.get("APP_SERVER"):
+            raise EnvironmentNotSetException('APP_SERVER environment variable not set!')
+            #sys.exit(-1)
         testsetup.base_url = os.environ.get("APP_SERVER")
         self.base_url = testsetup.base_url
         self.selenium = testsetup.selenium

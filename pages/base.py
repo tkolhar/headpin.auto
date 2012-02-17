@@ -115,12 +115,10 @@ class Base(Page):
 
     @property
     def is_successful(self):
-        self.jquery_wait()
         return self.is_element_visible(*self._success_notification_locator)
     
     @property
     def is_failed(self):
-        self.jquery_wait()
         return self.is_element_visible(*self._error_notification_locator)
     
     @property

@@ -137,7 +137,8 @@ class Base(Page):
 
         _account_controller_locator = (By.CSS_SELECTOR, "li.hello")
         _logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
-        _org_switcher_locator = (By.CSS_SELECTOR, "a#switcherButton")
+        #_org_switcher_locator = (By.CSS_SELECTOR, "a#switcherButton")
+        _org_switcher_locator = (By.ID, "switcherButton")
         _org_switcher_org_locator = (By.CSS_SELECTOR, "a[href*='org_id=2']")
         _org_input_filter_locator = (By.CSS_SELECTOR, "input#orgfilter_input")
         _org_filtered_button_locator = (By.CSS_SELECTOR, "button.filter_button")

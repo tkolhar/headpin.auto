@@ -18,25 +18,20 @@ class TestContentManagement:
     _bz786963_manifest = "/var/tmp/manifest_bz786963.zip"
     
     def test_switch_org(self, mozwebqa):
+        sysapi = ApiTasks()
+        
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
-        ####
-        # Create a new org, have to ensure we have +1
-        # Don't fear if this org is not the selected.
-        ###
-        sysapi = ApiTasks()
+        home_page.jquery_wait()
+
         new_org_name = "someorg-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
-        ###
-        # Get the current org for comparison later
-        # and then switch org
-        ###        
-        current_org = home_page.header.get_text_from_switcher()
+     
+        current_org = home_page.header.get_text_from_switcher
         home_page.header.click_switcher()
         home_page.header.click_org_from_switcher()
-        active_org = home_page.header.get_text_from_switcher()
+        active_org = home_page.header.get_text_from_switcher
         Assert.not_equal(active_org, current_org)
             
     def test_load_manifest(self, mozwebqa):
@@ -44,14 +39,15 @@ class TestContentManagement:
         Scenario 1: Import Manifest (M1) from Distributor (D1) input Org1
         Result: Pass
         '''
+        sysapi = ApiTasks()
+        
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
         ###
         # Create a org to work with
         ###
-        sysapi = ApiTasks()
+        
         new_org_name = "manifest%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###
@@ -81,14 +77,14 @@ class TestContentManagement:
         Scenario 2 with a twist. Import Manifest (M1) from Distributor (D1) into Org1 w/o useing force.
         Result: Expect Fail
         '''
+        sysapi = ApiTasks()
+        
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
-        time.sleep(4)
         ###
         # Create a org to work with
         ###
-        sysapi = ApiTasks()
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###
@@ -155,6 +151,8 @@ class TestContentManagement:
         Scenario 5: Load updated (new) manifest into org where a manifest already exists.
         Result: Pass
         '''
+        sysapi = ApiTasks()
+             
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
@@ -162,7 +160,7 @@ class TestContentManagement:
         ###
         # Create a org to work with
         ###
-        sysapi = ApiTasks()
+
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         ###

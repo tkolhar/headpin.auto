@@ -4,7 +4,7 @@ import pytest
 from unittestzero import Assert
 from pages.home import Home
 from pages.systems import SystemsTab
-from pages.api import apiTasks
+from api.api import ApiTasks
 import random
 import time
 import sys
@@ -24,7 +24,7 @@ class TestSystems:
         ###
         # API Setup
         ###
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         new_org_name = "ACME_Corporation"
         new_system_name = "system%s" % home_page.random_string()
 
@@ -52,7 +52,7 @@ class TestSystems:
         home_page.login()
         Assert.true(home_page.header.is_user_logged_in)
         
-        sysapi = apiTasks(mozwebqa)
+        sysapi = ApiTasks()
         new_org_name = "ACME_Corporation"
         new_system_name = "rmsystem%s" % home_page.random_string()
 

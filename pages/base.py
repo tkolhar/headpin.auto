@@ -118,6 +118,10 @@ class Base(Page):
         return self.is_element_visible(*self._success_notification_locator)
     
     @property
+    def is_dialog_cleared(self):
+        return WebDriverWait(self.selenium, 5).until_not(lambda s: s.find_element(*self._success_notification_locator).is_displayed)
+    
+    @property
     def is_failed(self):
         return self.is_element_visible(*self._error_notification_locator)
     

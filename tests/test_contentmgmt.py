@@ -48,6 +48,7 @@ class TestContentManagement:
         
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
 
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
@@ -79,6 +80,7 @@ class TestContentManagement:
         
         home_page.login()
         Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
 
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)

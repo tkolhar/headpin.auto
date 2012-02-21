@@ -221,10 +221,9 @@ class Base(Page):
                 WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._all_systems_subtab_locator))
                 click_locator = self.selenium.find_element(*self._by_environments_systems_subtab_locator)
             elif "activation_keys" in tab:
-                if self.is_element_visible(*self._activiation_keys_systems_subtab_locator):
-                    #WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._activiation_keys_systems_subtab_locator).is_displayed)
-                    #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
-                    click_locator = self.selenium.find_element(*self._activiation_keys_systems_subtab_locator)
+                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._activiation_keys_systems_subtab_locator).is_displayed)
+                #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
+                click_locator = self.selenium.find_element(*self._activiation_keys_systems_subtab_locator)
             elif "organizations_tab" in tab:
                 WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._organizations_tab_locator).is_displayed)      
                 click_locator = self.selenium.find_element(*self._organizations_tab_locator)

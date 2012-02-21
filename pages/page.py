@@ -69,9 +69,9 @@ class Page(object):
     
     @property
     def is_dialog_cleared(self):
-        self.selenium.implicitly_wait(5)
+        self.selenium.implicitly_wait(.25)
         try:
-            return WebDriverWait(self.selenium, 5).until_not(lambda s: s.find_element(*self._success_notification_locator).is_displayed())
+            return WebDriverWait(self.selenium, 6).until_not(lambda s: s.find_element(*self._success_notification_locator).is_displayed())
         except Exception, e:
             raise Exception(e)
         finally:

@@ -17,6 +17,7 @@ class TestActivationKeys:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)
+        home_page.is_dialog_cleared
         
         home_page.tabs.click_tab("systems_tab")
         home_page.tabs.click_tab("activation_keys")
@@ -36,24 +37,27 @@ class TestActivationKeys:
         
     def test_remove_activationkey(self, mozwebqa):
         home_page = Home(mozwebqa)
+        api = ApiTasks()
+        
         home_page.login()
         Assert.true(home_page.is_successful)
+        home_page.is_dialog_cleared
+        
+        current_org = home_page.header.get_text_from_switcher
+        api.create_envs(current_org)
         
         home_page.tabs.click_tab("systems_tab")
         home_page.tabs.click_tab("activation_keys")
-        
-        current_org = home_page.header.get_text_from_switcher
-        api = ApiTasks()
-        api.create_envs(current_org)
-        
+
         activationkeys = ActivationKeysTab(mozwebqa)
         
-        new_activationkey_name = "rmactivkey-%s" % home_page.random_string()
+        new_activationkey_name = "rmactivkey%s" % home_page.random_string()
         activationkeys.click_new()
         activationkeys.enter_activation_key_name(new_activationkey_name)
         activationkeys.enter_activation_key_description(new_activationkey_name)
         activationkeys.click_save()
         Assert.true(home_page.is_successful)
+        home_page.is_dialog_cleared
         
         home_page.enter_search_criteria(new_activationkey_name)
         activationkeys.activationkey(new_activationkey_name).click()
@@ -72,6 +76,7 @@ class TestActivationKeys:
         
         home_page.login()
         Assert.true(home_page.is_successful)
+        home_page.is_dialog_cleared
         
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(_new_org_name)
@@ -86,6 +91,7 @@ class TestActivationKeys:
             
         cm.enter_manifest(self._activationkey_manifest)
         Assert.true(home_page.is_successful)
+        home_page.is_dialog_cleared
         
         activationkeys = ActivationKeysTab(mozwebqa)
         home_page.tabs.click_tab("systems_tab")
@@ -97,6 +103,7 @@ class TestActivationKeys:
         activationkeys.enter_activation_key_description(_new_activationkey_name)
         activationkeys.click_save()
         Assert.true(home_page.is_successful)
+        home_page.is_dialog_cleared
         Assert.true(activationkeys.is_block_active)
 
         activationkeys.click_available_subscriptions()
@@ -105,5 +112,6 @@ class TestActivationKeys:
         activationkeys.click_add_sub()
 
         Assert.true(home_page.is_successful)
+        home_page.is_dialog_cleared
         activationkeys.click_applied_subscriptions()
         Assert.true(activationkeys.find_sub_by_id(rand_sub_id))

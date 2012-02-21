@@ -37,55 +37,31 @@ class SystemsTab(Base):
     
     _remove_system_locator = (By.CLASS_NAME, "remove_item")
     _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
-    
-    def create_new_virt_system(self, system_name):
-        ''' Create a new system '''
-        new_system_link_locator = self.selenium.find_element(*self._systems_create_new_locator)
-        ActionChains(self.selenium).move_to_element(new_system_link_locator).\
-            click().perform()
-        
-        system_name_locator = self.selenium.find_element(*self._new_systemname_field_locator)
-        system_name_locator.send_keys(system_name)
-        
-        sockets_locator = self.selenium.find_element(*self._new_system_sockets_field_locator)
-        sockets_locator.send_keys(str(random.randint(0,32)))
-        
-        virt_locator = self.selenium.find_element(*self._new_system_virt_select_locator)
-        ActionChains(self.selenium).move_to_element(virt_locator).\
-            click().perform()
-            
-        save_button_locator = self.selenium.find_element(*self._new_system_save_locator)
-        ActionChains(self.selenium).move_to_element(save_button_locator).\
-            click().perform()
-
-        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._system_block_active_locator))
         
     def remove_a_system(self):
         '''
         Revmove a system.
         '''
-        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._remove_system_locator))
+        WebDriverWait(self.selenium, 30).until(lambda s: s.find_element(*self._remove_system_locator).is_displayed())
         
         remove_button_locator = self.selenium.find_element(*self._remove_system_locator)
         ActionChains(self.selenium).move_to_element(remove_button_locator).\
             click().perform()
             
-        WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
+        WebDriverWait(self.selenium, 30).until(lambda s: s.find_element(*self._confirmation_yes_locator).is_displayed())
         current_no_systems = len(self.systems)
         
         confirm_button_locator = self.selenium.find_element(*self._confirmation_yes_locator)
         ActionChains(self.selenium).move_to_element(confirm_button_locator).\
             click().perform()
         
-        #WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_present(*self._system_list_locator))
-        #WebDriverWait(self.selenium, 30).until(lambda s: len(self.systems) < current_no_systems)
     
     @property
     def is_system_facts_tab_present(self):
         return self.is_element_present(*self._facts_tab_locator)
     @property
     def is_system_details_tab_present(self):
-        return self.is_element_present(*self._details_tab_locator)
+        return self.is_element_visible(*self._details_tab_locator)
     
     @property
     def is_system_software_tab_present(self):
@@ -97,7 +73,7 @@ class SystemsTab(Base):
     
     def is_system_details_name_present(self, name):
         self._system_details_name_locator = (By.XPATH, "//div[text() = '" + name + "']")
-        return self.is_element_present(*self._system_details_name_locator)
+        return self.is_element_visible(*self._system_details_name_locator)
     
     @property
     def is_new_system_link_present(self):
@@ -187,7 +163,7 @@ class ActivationKeysTab(Base):
         return self.is_element_present(*self._activationkey_block_active_locator)
     
     def click_available_subscriptions(self):
-        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._available_subscriptions_tab_locator))
+        WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._available_subscriptions_tab_locator).is_displayed())
         self.selenium.find_element(*self._available_subscriptions_tab_locator).click()
         
     def click_applied_subscriptions(self):
@@ -246,9 +222,3 @@ class ActivationKeysTab(Base):
         
         def click(self):
             self._root_element.find_element(*self._name_locator).click()
-        
-        
-        
-        
-            
-            

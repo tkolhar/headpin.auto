@@ -106,7 +106,6 @@ class Testusers:
         new_password = home_page.random_string()
         administration.change_password(new_password)
         Assert.true(home_page.is_successful)
-        Assert.false(administration.passwords_do_not_match_visible)
         
     def test_change_user_password_does_not_match_as_admin(self, mozwebqa):
         home_page = Home(mozwebqa)

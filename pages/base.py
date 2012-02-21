@@ -63,10 +63,12 @@ class Base(Page):
         time.sleep(1)
     
     def click_remove(self):
-        WebDriverWait(self.selenium, 60).until(lambda s: self.is_element_visible(*self._remove_item_locator))
-        remove_button_locator = self.selenium.find_element(*self._remove_item_locator)
-        ActionChains(self.selenium).move_to_element(remove_button_locator).\
-            click().perform()
+        self.is_element_visible(*self._remove_item_locator)
+        #WebDriverWait(self.selenium, 60).until(lambda s: self.is_element_visible(*self._remove_item_locator))
+        self.selenium.find_element(*self._remove_item_locator).click()
+        #remove_button_locator = self.selenium.find_element(*self._remove_item_locator)
+        #ActionChains(self.selenium).move_to_element(remove_button_locator).\
+        #    click().perform()
             
     def click_confirm(self):
         WebDriverWait(self.selenium, 60).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
@@ -113,18 +115,6 @@ class Base(Page):
     def get_location_sam_h1(self):
         return self.get_location(*self._sam_h1_locator)
 
-    @property
-    def is_successful(self):
-        return self.is_element_visible(*self._success_notification_locator)
-    
-    @property
-    def is_dialog_cleared(self):
-        return WebDriverWait(self.selenium, 5).until_not(lambda s: s.find_element(*self._success_notification_locator).is_displayed)
-    
-    @property
-    def is_failed(self):
-        return self.is_element_visible(*self._error_notification_locator)
-    
     @property
     def current_page(self):
         return int(self.selenium.find_element(*self._current_page_locator).text)
@@ -192,6 +182,7 @@ class Base(Page):
         _all_systems_subtab_locator = (By.XPATH, "//a[.='All']")
         _by_environments_systems_subtab_locator = (By.XPATH, "//a[.='By Environments']")
         _activiation_keys_systems_subtab_locator = (By.XPATH, "//a[.='Activation Keys']")
+        #_activiation_keys_systems_subtab_locator = (By.ID, "activation_keys")
         
         _organizations_tab_locator = (By.XPATH, "//a[.='Organizations']")
         _list_organizations_subtab_locator = (By.XPATH, "//a[.='List']")
@@ -230,11 +221,12 @@ class Base(Page):
                 WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._all_systems_subtab_locator))
                 click_locator = self.selenium.find_element(*self._by_environments_systems_subtab_locator)
             elif "activation_keys" in tab:
-                WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._activiation_keys_systems_subtab_locator))
-                #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
-                click_locator = self.selenium.find_element(*self._activiation_keys_systems_subtab_locator)
+                if self.is_element_visible(*self._activiation_keys_systems_subtab_locator):
+                    #WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._activiation_keys_systems_subtab_locator).is_displayed)
+                    #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
+                    click_locator = self.selenium.find_element(*self._activiation_keys_systems_subtab_locator)
             elif "organizations_tab" in tab:
-                WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._organizations_tab_locator))
+                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._organizations_tab_locator).is_displayed)      
                 click_locator = self.selenium.find_element(*self._organizations_tab_locator)
             elif "organizations_all" in tab:
                 #hover_locator = self.selenium.find_element(*self._organizations_tab_locator)

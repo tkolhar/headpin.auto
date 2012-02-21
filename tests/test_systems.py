@@ -21,9 +21,9 @@ class TestSystems:
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.header.is_user_logged_in)
-        ###
-        # API Setup
-        ###
+        Assert.true(home_page.is_successful)
+        Assert.true(home_page.is_dialog_cleared)
+        
         sysapi = ApiTasks()
         new_org_name = "ACME_Corporation"
         new_system_name = "system%s" % home_page.random_string()

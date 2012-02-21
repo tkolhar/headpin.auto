@@ -33,16 +33,19 @@ class OrganizationsTab(Base):
             click().perform()
         
         org_name_locator = self.selenium.find_element(*self._new_orgname_field_locator)
-        org_name_locator.send_keys(orgname)
+        for k in orgname:
+            org_name_locator.send_keys(k)
         
         org_desc_locator = self.selenium.find_element(*self._new_orgdesc_field_locator)
-        org_desc_locator.send_keys("This is a test organization, created by web ui automation")
+        for k in "This is a test organization, created by web ui automation":
+            org_desc_locator.send_keys(k)
         
         if envname != None:
             orgenv_name_locator = self.selenium.find_element(*self._new_orgenv_name_field_locator)
             orgenv_name_locator.send_keys(envname)
             orgenv_desc_locator = self.selenium.find_element(*self._new_orgenvdesc_field_locator)
-            orgenv_desc_locator.send_keys("This environment was created by web ui automation for %s" % orgname)
+            for k in "This environment was created by web ui automation for %s":
+                orgenv_desc_locator.send_keys(k)
             
         org_save_button_locator = self.selenium.find_element(*self._new_org_save_button_locator)
         ActionChains(self.selenium).move_to_element(org_save_button_locator).\
@@ -51,24 +54,20 @@ class OrganizationsTab(Base):
         #WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_present(*self._org_block_active_locator))
     
     def remove_a_org(self):
-        WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_visible(*self._org_remove_item_locator))
+        WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._org_remove_item_locator).is_displayed())
         
         remove_button_locator = self.selenium.find_element(*self._org_remove_item_locator)
         ActionChains(self.selenium).move_to_element(remove_button_locator).\
             click().perform()
             
-        WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
-        #current_no_organizations = len(self.organizations)
+        WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._confirmation_yes_locator).is_displayed())
         
         confirm_button_locator = self.selenium.find_element(*self._confirmation_yes_locator)
         ActionChains(self.selenium).move_to_element(confirm_button_locator).\
             click().perform()
         
-        #WebDriverWait(self.selenium, 20).until(lambda s: self.is_element_present(*self._system_list_locator))
-        #WebDriverWait(self.selenium, 20).until(lambda s: len(self.systems) < current_no_systems)
-        
     def is_search_correct(self, criteria):
-        WebDriverWait(self.selenium, 60).until(lambda s: self.is_element_visible(*self._org_list_locator))
+        WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*self._org_list_locator).is_displayed())
         for org in self.organizations:
             if criteria not in org.name:
                 raise Exception('%s does not match Search Criteria %s' % (org.name, criteria))

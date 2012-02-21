@@ -27,7 +27,7 @@ class TestContentManagement:
         
         home_page.login()
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
+        home_page.is_dialog_cleared
         
         current_org = home_page.header.get_text_from_switcher
         home_page.header.click_switcher()
@@ -181,7 +181,7 @@ class TestContentManagement:
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_load_previous_manifest_to_another_org(self, mozwebqa):
-        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=787278")
+        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=787278")
         '''
         Scenario 3: Import Manifest (M1) from Distributor (D1) into Org2.
         Result Expected: Fail
@@ -205,7 +205,6 @@ class TestContentManagement:
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_failed)
-        Assert.equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_NumberFormatException_forInputString(self, mozwebqa):
         '''

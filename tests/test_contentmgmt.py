@@ -22,7 +22,7 @@ class TestContentManagement:
         sysapi = ApiTasks()
         home_page = Home(mozwebqa)
         
-        new_org_name = "someorg-%s" % home_page.random_string()
+        new_org_name = "someorg%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         
         home_page.login()
@@ -30,10 +30,12 @@ class TestContentManagement:
         home_page.is_dialog_cleared
         
         current_org = home_page.header.get_text_from_switcher
+
         home_page.header.click_switcher()
-        home_page.header.click_org_from_switcher()
+        home_page.header.select_a_random_switcher_org()
+        
         active_org = home_page.header.get_text_from_switcher
-        Assert.not_equal(active_org, current_org)
+        Assert.true(home_page.header.is_dashboard_selected)
             
     def test_load_manifest(self, mozwebqa):
         '''

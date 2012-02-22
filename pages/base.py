@@ -136,6 +136,8 @@ class Base(Page):
         _org_switcher_org_locator = (By.CSS_SELECTOR, "a[href*='org_id=2']")
         _org_input_filter_locator = (By.CSS_SELECTOR, "input#orgfilter_input")
         _org_filtered_button_locator = (By.CSS_SELECTOR, "button.filter_button")
+        _switcher_org_list_locator = (By.CSS_SELECTOR, "a.fl.clear")
+        _dashboard_tab_active_locator = (By.CSS_SELECTOR, "li#dashboard.dashboard.top_level.active.selected")
         
         def click_logout(self):
             self.selenium.find_element(*self._logout_locator).click()
@@ -167,6 +169,15 @@ class Base(Page):
             _org_filtered_result_locator = (By.XPATH, "//a[contains(text(), '" + criteria + "')]")
             self.selenium.find_element(*_org_filtered_result_locator).click()
         
+        def select_a_random_switcher_org(self):
+            orgs = self.selenium.find_elements(*self._switcher_org_list_locator)
+            org = orgs[random.randint(0, len(orgs)-1)]
+            org.click()
+            
+        @property
+        def is_dashboard_selected(self):
+            return self.selenium.find_element(*self._dashboard_tab_active_locator).is_displayed()
+
     
     class TabRegion(Page):
         ''' 

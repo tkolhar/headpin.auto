@@ -73,7 +73,7 @@ class Page(object):
         try:
             return WebDriverWait(self.selenium, 6).until_not(lambda s: s.find_element(*self._success_notification_locator).is_displayed())
         except Exception, e:
-            return Flase
+            return False
         finally:
             self.selenium.implicitly_wait(self.testsetup.default_implicit_wait)
     

@@ -68,13 +68,14 @@ class TestContentManagement:
         
     def test_load_same_manifest_to_same_org_wo_force(self, mozwebqa):
         '''
-        Scenario 2 with a twist. Import Manifest (M1) from Distributor (D1) into Org1 w/o useing force.
+        Scenario 2 with a twist. Import Manifest (M1) from Distributor (D1) into 
+        Org1 w/o useing force.
         Result: Expect Fail
         '''
         sysapi = ApiTasks()
         home_page = Home(mozwebqa)
         
-        new_org_name = "manifest-%s" % home_page.random_string()
+        new_org_name = "manifest%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
         
         home_page.login()

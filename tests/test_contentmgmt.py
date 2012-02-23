@@ -28,13 +28,11 @@ class TestContentManagement:
         home_page.login()
         Assert.true(home_page.is_successful)
         home_page.is_dialog_cleared
-        
-        current_org = home_page.header.get_text_from_switcher
 
+        active_org = home_page.header.get_text_from_switcher
         home_page.header.click_switcher()
         home_page.header.select_a_random_switcher_org()
         
-        active_org = home_page.header.get_text_from_switcher
         Assert.true(home_page.header.is_dashboard_selected)
             
     def test_load_manifest(self, mozwebqa):
@@ -89,6 +87,11 @@ class TestContentManagement:
 
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
+
+        if home_page.product == "katello" or home_page.product == "cfse":
+            cm.click_content_providers()
+            cm.select_redhat_content_provider()
+
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org3_m1_manifest)
         Assert.true(home_page.is_successful)
@@ -117,6 +120,11 @@ class TestContentManagement:
 
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
+
+        if home_page.product == "katello" or home_page.product == "cfse":
+            cm.click_content_providers()
+            cm.select_redhat_content_provider()
+
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org4_m1_manifest)
         Assert.true(home_page.is_successful)
@@ -146,6 +154,11 @@ class TestContentManagement:
 
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
+
+        if home_page.product == "katello" or home_page.product == "cfse":
+            cm.click_content_providers()
+            cm.select_redhat_content_provider()
+
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._scenario5_o1_m1_manifest)
         Assert.true(home_page.is_successful)
@@ -171,6 +184,11 @@ class TestContentManagement:
 
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
+
+        if home_page.product == "katello" or home_page.product == "cfse":
+            cm.click_content_providers()
+            cm.select_redhat_content_provider()
+
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org2_m1_manifest)
         Assert.true(home_page.is_successful)
@@ -198,6 +216,11 @@ class TestContentManagement:
 
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
+
+        if home_page.product == "katello" or home_page.product == "cfse":
+            cm.click_content_providers()
+            cm.select_redhat_content_provider()
+
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_failed)
@@ -222,6 +245,11 @@ class TestContentManagement:
 
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
+
+        if home_page.product == "katello" or home_page.product == "cfse":
+            cm.click_content_providers()
+            cm.select_redhat_content_provider()
+
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._bz786963_manifest)
         Assert.true(home_page.is_successful)

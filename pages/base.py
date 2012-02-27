@@ -187,7 +187,7 @@ class Base(Page):
         _dashboard_tab_locator = (By.XPATH, "//a[.='Dashboard']")
         
         _content_management_tab_locator = (By.XPATH, "//a[.='Content Management']")
-        _providers_content_management_subtab_locator = (By.XPATH, "//a[@href='/headpin/providers/redhat_provider'][text()='Content Providers']")
+        _providers_content_management_subtab_locator = (By.XPATH, "//a[.='Content Providers']")
         
         _systems_tab_locator = (By.XPATH, "//a[.='Systems']")
         _all_systems_subtab_locator = (By.XPATH, "//a[.='All']")

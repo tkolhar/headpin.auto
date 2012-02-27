@@ -12,8 +12,8 @@ xfail = pytest.mark.xfail
 class TestContentManagement:
     _org1_m1_manifest = "/var/tmp/manifest_D1_O1_M1.zip"
     _org2_m1_manifest = "/var/tmp/manifest_D2_O2_M1.zip"
-    _org3_m1_manifest = "/var/tmp/manifest_D3_O3_M1.zip"
     _org4_m1_manifest = "/var/tmp/manifest_D4_O4_M1.zip"
+    _scenario2_m1_d1_manifest = "/var/tmp/scenario2_M1_D1.zip"
     _scenario5_o1_m2_manifest = "/var/tmp/scenario5_O1_M2.zip"
     _scenario5_o1_m1_manifest = "/var/tmp/scenario5_O1_M1.zip"
     _bz786963_manifest = "/var/tmp/manifest_bz786963.zip"
@@ -94,10 +94,10 @@ class TestContentManagement:
             cm.select_redhat_content_provider()
 
         Assert.true(home_page.is_the_current_page)
-        cm.enter_manifest(self._org3_m1_manifest)
+        cm.enter_manifest(self._scenario2_m1_d1_manifest)
         Assert.true(home_page.is_successful)
 
-        cm.enter_manifest(self._org3_m1_manifest)
+        cm.enter_manifest(self._scenario2_m1_d1_manifest)
         Assert.true(home_page.is_failed)
     
     def test_load_same_manifest_to_same_org_w_force(self, mozwebqa):

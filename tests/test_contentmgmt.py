@@ -94,7 +94,8 @@ class TestContentManagement:
             cm.select_redhat_content_provider()
 
         Assert.true(home_page.is_the_current_page)
-        cm.enter_manifest(self._org3_m1_manifest)
+        #cm.enter_manifest(self._org3_m1_manifest)
+        cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_successful)
 
         cm.enter_manifest(self._org3_m1_manifest)

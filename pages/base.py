@@ -34,7 +34,7 @@ class Base(Page):
     _success_notification_locator = (By.CSS_SELECTOR, "div.jnotify-notification.jnotify-notification-success")
     _error_notification_locator = (By.CSS_SELECTOR, "div.jnotify-notification.jnotify-notification-error")
     _sam_h1_locator = (By.CSS_SELECTOR, "h1")
-    _hello_link_locator = (By.XPATH, "//a[contains(@href, '/headpin/users?id=')]")
+    _hello_link_locator = (By.XPATH, "//a[contains(@href, '/users?id=')]")
     _search_form_locator = (By.XPATH, "//form[@id='search_form']")
     _search_input_locator = (By.XPATH, "//input[@id='search']")
     _search_button_locator = (By.XPATH, "//button[@id='search_button']")
@@ -187,7 +187,7 @@ class Base(Page):
         _dashboard_tab_locator = (By.XPATH, "//a[.='Dashboard']")
         
         _content_management_tab_locator = (By.XPATH, "//a[.='Content Management']")
-        _providers_content_management_subtab_locator = (By.XPATH, "//a[@href='/headpin/providers/redhat_provider'][text()='Content Providers']")
+        _providers_content_management_subtab_locator = (By.XPATH, "//a[.='Content Providers']")
         
         _systems_tab_locator = (By.XPATH, "//a[.='Systems']")
         _all_systems_subtab_locator = (By.XPATH, "//a[.='All']")

@@ -128,5 +128,16 @@ class Testusers:
         confirm_password = home_page.random_string()
         administration.change_password(new_password, confirm_password)
         Assert.true(administration.passwords_do_not_match_visible)
+
+    def test_login_non_admin(self, mozwebqa):
+        sysapi = ApiTasks()
+        home_page= Home(mozwebqa)
+       
+        new_user_name = "random%s" % home_page.random_string()
+        password = home_page.random_string()
+        email_addr = new_user_name + "@example.com"
+
+        sysapi.create_user(new_user_name, password, email_addr)
         
-        
+        home_page.login(new_user_name, password)
+        Assert.true(home_page.is_successful)

@@ -7,9 +7,6 @@ from unittestzero import Assert
 from pages.home import Home
 from pages.administration import AdministrationTab
 from api.api import ApiTasks
-import time
-import sys
-from selenium.webdriver.support.ui import WebDriverWait
 
 xfail = pytest.mark.xfail
 
@@ -44,6 +41,14 @@ class Testusers:
         Test to remove a single user.
         '''
         home_page = Home(mozwebqa)
+        sysapi = ApiTasks()
+
+        new_user_name = home_page.random_string()
+        new_user_name = "rmuser-%s" % home_page.random_string()
+        password = home_page.random_string()
+        email_addr = new_user_name + "@example.com"
+        sysapi.create_user(new_user_name, password, email_addr)   
+
         home_page.login()
         Assert.true(home_page.is_successful)
         Assert.true(home_page.header.is_user_logged_in)
@@ -52,20 +57,15 @@ class Testusers:
         Assert.true(home_page.is_the_current_page)
         
         administration = AdministrationTab(mozwebqa)
-        sysapi = ApiTasks()
         
-        new_user_name = home_page.random_string()
-        new_user_name = "rmuser-%s" % home_page.random_string()
-        password = home_page.random_string()
-        email_addr = new_user_name + "@example.com"
-        sysapi.create_user(new_user_name, password, email_addr)   
-        time.sleep(2)
         home_page.enter_search_criteria("rmuser") 
         
         administration.user(new_user_name).click()
         Assert.true(administration.is_block_active)
+
+        home_page.click_remove()
+        home_page.click_confirm()
         
-        administration.remove_a_user()
         Assert.true(home_page.is_successful) 
 
     def test_user_search(self, mozwebqa):

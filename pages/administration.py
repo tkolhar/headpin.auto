@@ -52,26 +52,6 @@ class AdministrationTab(Base):
         ActionChains(self.selenium).move_to_element(save_button_locator).\
             click().perform()
 
-    def remove_a_user(self):
-        '''
-        Revmove a system.
-        '''
-        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._remove_user_locator))
-        
-        remove_button_locator = self.selenium.find_element(*self._remove_user_locator)
-        ActionChains(self.selenium).move_to_element(remove_button_locator).\
-            click().perform()
-            
-        WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_visible(*self._confirmation_yes_locator))
-        current_no_users = len(self.users)
-        
-        confirm_button_locator = self.selenium.find_element(*self._confirmation_yes_locator)
-        ActionChains(self.selenium).move_to_element(confirm_button_locator).\
-            click().perform()
-        
-        #WebDriverWait(self.selenium, 10).until(lambda s: self.is_element_present(*self._user_list_locator))
-        #WebDriverWait(self.selenium, 10).until(lambda s: len(self.users) < current_no_users)
-        
     def change_password(self, password, confirm=None):
         WebDriverWait(self.selenium, 30).until(lambda s: self.is_element_visible(*self._new_user_password_field_locator))
         
@@ -132,3 +112,44 @@ class AdministrationTab(Base):
         
         def click(self):
             self._root_element.find_element(*self._name_locator).click()
+
+class RolesTab(Base):
+    
+    _role_list_locator = (By.CSS_SELECTOR, "div.block")
+    _role_original_title_locator = (By.XPATH, "//span[@original-title='%s']")
+
+    def is_title_visible(self, title):
+        locator = "//span[@original-title='%s']" % title
+        print locator
+        return WebDriverWait(self.selenium, 20).until(lambda s: s.find_element_by_xpath(locator).is_displayed())
+
+    def role(self, value):
+        for role in self.roles:
+            if value in role.name:
+                return role
+        raise Exception('Role not found: %s' % value)
+    
+    @property
+    def roles(self):
+        return [self.Roles(self.testsetup, element) for element in self.selenium.find_elements(*self._role_list_locator)]
+    
+    class Roles(Page):
+        
+        _name_locator = (By.CSS_SELECTOR, 'div.column_1')
+        
+        def __init__(self, testsetup, element):
+            Page.__init__(self, testsetup)
+            self._root_element = element
+
+        @property
+        def name(self):
+            name_text = self._root_element.find_element(*self._name_locator).text
+            return name_text
+        
+        @property
+        def is_displayed(self):
+            return self.is_element_visible(*self._name_locator)
+        
+        def click(self):
+            self._root_element.find_element(*self._name_locator).click()
+

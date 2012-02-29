@@ -122,6 +122,8 @@ class RolesTab(Base):
     _role_customize_window_locator = (By.CSS_SELECTOR, "div.slider_one.slider.will_have_content.has_content")
     _tree_breadcrumb_locator = (By.CSS_SELECTOR, "div.tree_breadcrumb")
     _roles_role_breadcrumb_locator = (By.CSS_SELECTOR, "span#roles.currentCrumb.one-line-ellipsis")
+    _role_user_list_locator = (By.CSS_SELECTOR, "li.no_slide")
+    _role_user_remove_locator = (By.CSS_SELECTOR, "a.fr.content_add_remove.remove_user.st_button")
 
     @property
     def is_permissions_visible(self):
@@ -136,6 +138,15 @@ class RolesTab(Base):
         ActionChains(self.selenium).move_to_element(click_locator).\
             click().perform()
             
+    def click_role_users(self):
+        click_locator = self.selenium.find_element(*self._role_users_locator)
+        ActionChains(self.selenium).move_to_element(click_locator).\
+            click().perform()
+            
+    @property
+    def is_remove_visible(self):
+        return self.selenium.find_element(*self._role_user_remove_locator).is_displayed()
+    
     @property        
     def get_breadcrumb_role_name(self):
         return self.selenium.find_element(*self._roles_role_breadcrumb_locator).text
@@ -149,6 +160,16 @@ class RolesTab(Base):
     @property
     def roles(self):
         return [self.Roles(self.testsetup, element) for element in self.selenium.find_elements(*self._role_list_locator)]
+    
+    def role_user(self, value):
+        for role_user in self.role_users:
+            if value in role_user.name:
+                return role_user
+        raise Exception('User not found: %s' % value)
+    
+    @property
+    def role_users(self):
+        return [self.RoleUsers(self.testsetup, element) for element in self.selenium.find_elements(*self._role_user_list_locator)]
     
     class Roles(Page):
         
@@ -165,8 +186,28 @@ class RolesTab(Base):
         
         @property
         def is_displayed(self):
-            return self.is_element_visible(*self._name_locator)
+            return self.selenium.find_element(*self._name_locator).is_displayed()
         
         def click(self):
             self._root_element.find_element(*self._name_locator).click()
+            
+    class RoleUsers(Page):
+        
+        _name_locator = (By.CSS_SELECTOR, "span.sort_attr")
+        _add_locator = (By.CSS_SELECTOR, "a.fr.content_add_remove.add_user.st_button")
+        
+        def __init__(self, testsetup, element):
+            Page.__init__(self, testsetup)
+            self._root_element = element
 
+        @property
+        def name(self):
+            name_text = self._root_element.find_element(*self._name_locator).text
+            return name_text
+        
+        @property
+        def is_displayed(self):
+            return self.selenium.find_element(*self._name_locator).is_displayed()
+        
+        def add_user(self):
+            self._root_element.find_element(*self._add_locator).click()

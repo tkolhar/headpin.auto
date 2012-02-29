@@ -35,3 +35,30 @@ class TestRoles:
             home_page.jquery_wait()
             displayed_role = rolestab.get_breadcrumb_role_name
             Assert.equal(displayed_role, role, "Expected role was not found")
+
+    def test_add_user_to_administrator_role(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        sysapi = ApiTasks()
+        rolestab = RolesTab(mozwebqa)
+        
+        username = "admin%s" % home_page.random_string()
+        email = username + "@example.com"
+        password = home_page.random_string()
+        
+        sysapi.create_user(username, password, email)
+        
+        home_page.login()
+        Assert.true(home_page.is_successful)   
+        
+        home_page.tabs.click_tab("administration_tab")
+        try:
+            home_page.jquery_wait()
+        finally:
+            home_page.tabs.click_tab("roles_administration")
+            
+        rolestab.role("Administrator").click()
+        rolestab.click_role_users()
+        
+        rolestab.role_user(username).add_user()
+        Assert.true(rolestab.is_remove_visible)  
+        

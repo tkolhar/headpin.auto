@@ -49,7 +49,7 @@ class Base(Page):
     
     @property
     def page_title(self):
-        WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
+        WebDriverWait(self.selenium, 20).until(lambda s: self.selenium.title)
         return self.selenium.title
 
     @property
@@ -152,7 +152,7 @@ class Base(Page):
             self.selenium.find_element(*self._org_switcher_locator).click()
         
         def click_org_from_switcher(self):
-            WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._org_switcher_org_locator).is_displayed())
+            WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._org_switcher_org_locator).is_displayed())
             self.selenium.find_element(*self._org_switcher_org_locator).click()
         
         @property
@@ -211,53 +211,52 @@ class Base(Page):
             hover_locator = ""
             
             if "dashboard_tab" in tab:
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._dashboard_tab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._dashboard_tab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._dashboard_tab_locator)
             elif "content_management_tab" in tab:
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._content_management_tab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._content_management_tab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._content_management_tab_locator)
             elif "providers" in tab:
                 #hover_locator = self.selenium.find_element(*self._content_management_tab_locator)
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._providers_content_management_subtab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._providers_content_management_subtab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._providers_content_management_subtab_locator)
             elif "systems_tab" in tab:
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._systems_tab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._systems_tab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._systems_tab_locator)
             elif "systems_all" in tab:
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._all_systems_subtab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._all_systems_subtab_locator).is_displayed())
                 #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
                 click_locator = self.selenium.find_element(*self._all_systems_subtab_locator)
             elif "systems_by_environment" in tab:
                 #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._all_systems_subtab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._all_systems_subtab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._by_environments_systems_subtab_locator)
             elif "activation_keys" in tab:
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._activiation_keys_systems_subtab_locator).is_displayed)
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._activiation_keys_systems_subtab_locator).is_displayed)
                 #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
                 click_locator = self.selenium.find_element(*self._activiation_keys_systems_subtab_locator)
             elif "organizations_tab" in tab:
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._organizations_tab_locator).is_displayed)      
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._organizations_tab_locator).is_displayed)      
                 click_locator = self.selenium.find_element(*self._organizations_tab_locator)
             elif "organizations_all" in tab:
                 #hover_locator = self.selenium.find_element(*self._organizations_tab_locator)
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._list_organizations_subtab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._list_organizations_subtab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._list_organizations_subtab_locator)
             elif "organizations_subscriptions" in tab:
                 #hover_locator = self.selenium.find_element(*self._organizations_tab_locator)
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._subscriptions_organizations_subtab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._subscriptions_organizations_subtab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._subscriptions_organizations_subtab_locator)
             elif "administration_tab" in tab:
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._administration_tab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._administration_tab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._administration_tab_locator)
             elif "users_administration" in tab:
                 #hover_locator = self.selenium.find_element(*self._administration_tab_locator)
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._users_admin_subtab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._users_admin_subtab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._users_admin_subtab_locator)
             elif "roles_administration" in tab:
                 #hover_locator = self.selenium.find_element(*self._administration_tab_locator)
-                WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*self._roles_admin_subtab_locator).is_displayed())
+                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._roles_admin_subtab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._roles_admin_subtab_locator)
-                print click_locator
             '''
             if hover_locator:
                 ActionChains(self.selenium).move_to_element(hover_locator).\

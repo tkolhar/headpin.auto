@@ -117,11 +117,28 @@ class RolesTab(Base):
     
     _role_list_locator = (By.CSS_SELECTOR, "div.block")
     _role_original_title_locator = (By.XPATH, "//span[@original-title='%s']")
+    _role_permissions_locator = (By.ID, "role_permissions")
+    _role_users_locator = (By.ID, "role_users")
+    _role_customize_window_locator = (By.CSS_SELECTOR, "div.slider_one.slider.will_have_content.has_content")
+    _tree_breadcrumb_locator = (By.CSS_SELECTOR, "div.tree_breadcrumb")
+    _roles_role_breadcrumb_locator = (By.CSS_SELECTOR, "span#roles.currentCrumb.one-line-ellipsis")
 
-    def is_title_visible(self, title):
-        locator = "//span[@original-title='%s']" % title
-        print locator
-        return WebDriverWait(self.selenium, 20).until(lambda s: s.find_element_by_xpath(locator).is_displayed())
+    @property
+    def is_permissions_visible(self):
+        return WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._role_permissions_locator).is_displayed())
+    
+    @property
+    def is_users_visible(self):
+        return WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._role_users_locator).is_displayed())
+    
+    def click_role_permissions(self):
+        click_locator = self.selenium.find_element(*self._role_permissions_locator)
+        ActionChains(self.selenium).move_to_element(click_locator).\
+            click().perform()
+            
+    @property        
+    def get_breadcrumb_role_name(self):
+        return self.selenium.find_element(*self._roles_role_breadcrumb_locator).text
 
     def role(self, value):
         for role in self.roles:

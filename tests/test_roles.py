@@ -51,14 +51,56 @@ class TestRoles:
         Assert.true(home_page.is_successful)   
         
         home_page.tabs.click_tab("administration_tab")
-        try:
-            home_page.jquery_wait()
-        finally:
-            home_page.tabs.click_tab("roles_administration")
+        home_page.jquery_wait(20)
+        home_page.tabs.click_tab("roles_administration")
             
         rolestab.role("Administrator").click()
         rolestab.click_role_users()
         
         rolestab.role_user(username).add_user()
         Assert.true(rolestab.is_remove_visible)  
+        
+    def test_add_user_to_readeverything_role(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        sysapi = ApiTasks()
+        rolestab = RolesTab(mozwebqa)
+        
+        username = "readevery%s" % home_page.random_string()
+        email = username + "@example.com"
+        password = home_page.random_string()
+        
+        sysapi.create_user(username, password, email)
+        
+        home_page.login()
+        Assert.true(home_page.is_successful)   
+        
+        home_page.tabs.click_tab("administration_tab")
+        home_page.jquery_wait(30)
+        home_page.tabs.click_tab("roles_administration")
+            
+        rolestab.role("Read Everything").click()
+        rolestab.click_role_users()
+        
+        rolestab.role_user(username).add_user()
+        Assert.true(rolestab.is_remove_visible)
+        
+    def test_create_new_role(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        rolestab = RolesTab(mozwebqa)
+        
+        home_page.login()
+        Assert.true(home_page.is_successful)   
+        
+        home_page.tabs.click_tab("administration_tab")
+        home_page.jquery_wait(30)
+        home_page.tabs.click_tab("roles_administration")
+        
+        role_name = "plainrole%s" % home_page.random_string()
+        home_page.jquery_wait(20)
+        home_page.click_new()
+        home_page.jquery_wait(20)
+        rolestab.create_new_role(role_name)
+        home_page.jquery_wait(20)
+        rolestab.save_role()
+        Assert.true(home_page.is_successful)
         

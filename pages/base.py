@@ -67,7 +67,7 @@ class Base(Page):
         self.selenium.find_element(*self._remove_item_locator).click()
 
     def click_new(self):
-        self.selenium.find_element(*self_new_item_locator).click()
+        self.selenium.find_element(*self._new_item_locator).click()
             
     def click_confirm(self):
         WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*self._confirmation_yes_locator).is_displayed())

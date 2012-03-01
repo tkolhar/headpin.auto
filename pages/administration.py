@@ -124,6 +124,9 @@ class RolesTab(Base):
     _roles_role_breadcrumb_locator = (By.CSS_SELECTOR, "span#roles.currentCrumb.one-line-ellipsis")
     _role_user_list_locator = (By.CSS_SELECTOR, "li.no_slide")
     _role_user_remove_locator = (By.CSS_SELECTOR, "a.fr.content_add_remove.remove_user.st_button")
+    _role_new_name_locator = (By.ID, "role_name")
+    _role_new_description_locator = (By.ID, "role_description")
+    _role_save_button_locator = (By.ID, "role_save")
 
     @property
     def is_permissions_visible(self):
@@ -150,7 +153,19 @@ class RolesTab(Base):
     @property        
     def get_breadcrumb_role_name(self):
         return self.selenium.find_element(*self._roles_role_breadcrumb_locator).text
-
+    
+    def create_new_role(self, name, desc="Role Created by QE Automations"):
+        input_locator = self.selenium.find_element(*self._role_new_name_locator)
+        for c in name:
+            input_locator.send_keys(c)
+            
+        input_locator = self.selenium.find_element(*self._role_new_description_locator)
+        for c in desc:
+            input_locator.send_keys(c)
+    
+    def save_role(self):
+        self.selenium.find_element(*self._role_save_button_locator).click()
+        
     def role(self, value):
         for role in self.roles:
             if value in role.name:

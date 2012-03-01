@@ -127,6 +127,7 @@ class RolesTab(Base):
     _role_new_name_locator = (By.ID, "role_name")
     _role_new_description_locator = (By.ID, "role_description")
     _role_save_button_locator = (By.ID, "role_save")
+    _role_orgs_list_locator = (By.CSS_SELECTOR, "li.slide_link")
 
     @property
     def is_permissions_visible(self):
@@ -165,13 +166,17 @@ class RolesTab(Base):
     
     def save_role(self):
         self.selenium.find_element(*self._role_save_button_locator).click()
-        
+    ###
+    # The roles that are / will be defined
+    ###    
     def role(self, value):
         for role in self.roles:
             if value in role.name:
                 return role
         raise Exception('Role not found: %s' % value)
-    
+    ###
+    # Users defined to system, can be added / removed to|from a role.
+    ###
     @property
     def roles(self):
         return [self.Roles(self.testsetup, element) for element in self.selenium.find_elements(*self._role_list_locator)]
@@ -185,7 +190,37 @@ class RolesTab(Base):
     @property
     def role_users(self):
         return [self.RoleUsers(self.testsetup, element) for element in self.selenium.find_elements(*self._role_user_list_locator)]
+    ####
+    # Specific to the Organizations that are used to set scope
+    ####
+    def role_org(self, value):
+        for role_org in self.role_orgs:
+            if value in role_org.name:
+                return role_org
+        raise Exception("Organization %s not found" % value)
     
+    def role_orgs(self):
+        return [self.RoleOrgs(self.testsetup, element) for element in self.selenium.find_elements(*self._role_orgs_list_locator)]
+    
+    class RoleOrgs(Page):
+        _name_locator = ()
+        
+        def __init__(self, testsetup, element):
+            Page.__init__(self, testsetup)
+            self._root_element = element
+
+        @property
+        def name(self):
+            name_text = self._root_element.find_element(*self._name_locator).text
+            return name_text
+        
+        @property
+        def is_displayed(self):
+            return self.selenium.find_element(*self._name_locator).is_displayed()
+        
+        def click(self):
+            self._root_element.find_element(*self._name_locator).click()
+            
     class Roles(Page):
         
         _name_locator = (By.CSS_SELECTOR, 'div.column_1')

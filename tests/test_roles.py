@@ -135,6 +135,7 @@ class TestRoles:
     def test_create_environment_ro_role(self, mozwebqa):
         home_page = Home(mozwebqa)
         sysapi = ApiTasks()
+        rolestab = RolesTab(mozwebqa)
         role_name = "environ_ro_%s" % home_page.random_string()
         
         sysapi.create_role(role_name)
@@ -145,4 +146,6 @@ class TestRoles:
         home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
         home_page.tabs.click_tab("roles_administration")
+        home_page.jquery_wait(30)
+        rolestab.click_role_permissions()
         

@@ -132,3 +132,17 @@ class TestRoles:
         rolestab.save_role()
         Assert.true(home_page.is_failed)
         
+    def test_create_environment_ro_role(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        sysapi = ApiTasks()
+        role_name = "environ_ro_%s" % home_page.random_string()
+        
+        sysapi.create_role(role_name)
+        
+        home_page.login()
+        Assert.true(home_page.is_successful)
+        
+        home_page.tabs.click_tab("administration_tab")
+        home_page.jquery_wait(30)
+        home_page.tabs.click_tab("roles_administration")
+        

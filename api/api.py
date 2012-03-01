@@ -165,6 +165,19 @@ class ApiTasks:
         
         return self._POST(path, userdata)[1]
     
+    def role(self, role_id):
+        path = "roles/%s" % str(role_id)
+        return self._GET(path)[1]
+    
+    def create_role(self, name, desc="QE Role created by automation", username='admin', password='admin'):
+        self.set_basic_auth_credentials(username, password)
+        path = "roles"
+        
+        data = {
+                "name" : name,
+                "description" : desc}        
+        return self._POST(path, {"role": data})[1]
+    
     def ping(self, username='admin', password='admin'):
         self.set_basic_auth_credentials(username, password)
         path = "ping"

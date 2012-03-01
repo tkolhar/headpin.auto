@@ -104,3 +104,31 @@ class TestRoles:
         rolestab.save_role()
         Assert.true(home_page.is_successful)
         
+    def test_create_role_name_already_taken(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        rolestab = RolesTab(mozwebqa)
+        
+        home_page.login()
+        Assert.true(home_page.is_successful)   
+        
+        home_page.tabs.click_tab("administration_tab")
+        home_page.jquery_wait(30)
+        home_page.tabs.click_tab("roles_administration")
+        
+        role_name = "plainrole%s" % home_page.random_string()
+        home_page.jquery_wait(20)
+        home_page.click_new()
+        home_page.jquery_wait(20)
+        rolestab.create_new_role(role_name)
+        home_page.jquery_wait(20)
+        rolestab.save_role()
+        Assert.true(home_page.is_successful)
+        
+        home_page.jquery_wait(20)
+        home_page.click_new()
+        home_page.jquery_wait(20)
+        rolestab.create_new_role(role_name)
+        home_page.jquery_wait(20)
+        rolestab.save_role()
+        Assert.true(home_page.is_failed)
+        

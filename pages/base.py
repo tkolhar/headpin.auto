@@ -247,16 +247,22 @@ class Base(Page):
                 WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._subscriptions_organizations_subtab_locator).is_displayed())
                 click_locator = self.selenium.find_element(*self._subscriptions_organizations_subtab_locator)
             elif "administration_tab" in tab:
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._administration_tab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._administration_tab_locator)
+                self.selenium.find_element(*self._administration_tab_locator).click()
+                return
+                #WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._administration_tab_locator).is_displayed())
+                #click_locator = self.selenium.find_element(*self._administration_tab_locator)
             elif "users_administration" in tab:
+                self.selenium.find_element(*self._users_admin_subtab_locator).click()
+                return
                 #hover_locator = self.selenium.find_element(*self._administration_tab_locator)
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._users_admin_subtab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._users_admin_subtab_locator)
+                #WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._users_admin_subtab_locator).is_displayed())
+                #click_locator = self.selenium.find_element(*self._users_admin_subtab_locator)
             elif "roles_administration" in tab:
+                self.selenium.find_element(*self._roles_admin_subtab_locator).click()
+                return
                 #hover_locator = self.selenium.find_element(*self._administration_tab_locator)
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._roles_admin_subtab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._roles_admin_subtab_locator)
+                #WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._roles_admin_subtab_locator).is_displayed())
+                #click_locator = self.selenium.find_element(*self._roles_admin_subtab_locator)
             '''
             if hover_locator:
                 ActionChains(self.selenium).move_to_element(hover_locator).\

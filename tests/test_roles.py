@@ -133,6 +133,7 @@ class TestRoles:
         Assert.true(home_page.is_failed)
         
     def test_create_environment_ro_role(self, mozwebqa):
+        pytest.xfail("work in progress")
         home_page = Home(mozwebqa)
         sysapi = ApiTasks()
         rolestab = RolesTab(mozwebqa)

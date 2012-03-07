@@ -38,6 +38,7 @@ class TestActivationKeys:
     def test_remove_activationkey(self, mozwebqa):
         home_page = Home(mozwebqa)
         api = ApiTasks()
+        activationkeys = ActivationKeysTab(mozwebqa)
         
         home_page.login()
         Assert.true(home_page.is_successful)
@@ -47,21 +48,22 @@ class TestActivationKeys:
         api.create_envs(current_org)
         
         home_page.tabs.click_tab("systems_tab")
+        home_page.jquery_wait(30)
         home_page.tabs.click_tab("activation_keys")
 
-        activationkeys = ActivationKeysTab(mozwebqa)
-        
         new_activationkey_name = "rmactivkey%s" % home_page.random_string()
         activationkeys.click_new()
         activationkeys.enter_activation_key_name(new_activationkey_name)
         activationkeys.enter_activation_key_description(new_activationkey_name)
         activationkeys.click_save()
         Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
         
         home_page.enter_search_criteria(new_activationkey_name)
-        activationkeys.activationkey(new_activationkey_name).click()
-        
+        home_page.jquery_wait(30)
+
+        #activationkeys.activationkey(new_activationkey_name).click()
+        #home_page.jquery_wait(30)
+
         Assert.true(activationkeys.is_block_active)
         home_page.click_remove()
         home_page.click_confirm()

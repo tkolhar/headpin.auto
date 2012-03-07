@@ -21,11 +21,11 @@ class TestRoles:
 
         rolestab = RolesTab(mozwebqa)
 
-        home_page.tabs.click_tabv2("administration_tab")
+        home_page.tabs.click_tab("administration_tab")
         try:
             home_page.jquery_wait()
         finally:
-            home_page.tabs.click_tabv2("roles_administration")
+            home_page.tabs.click_tab("roles_administration")
     
         for role in roles:
             rolestab.role(role).click()
@@ -50,9 +50,9 @@ class TestRoles:
         home_page.login()
         Assert.true(home_page.is_successful)   
         
-        home_page.tabs.click_tabv2("administration_tab")
+        home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(20)
-        home_page.tabs.click_tabv2("roles_administration")
+        home_page.tabs.click_tab("roles_administration")
             
         rolestab.role("Administrator").click()
         rolestab.click_role_users()
@@ -74,9 +74,9 @@ class TestRoles:
         home_page.login()
         Assert.true(home_page.is_successful)   
         
-        home_page.tabs.click_tabv2("administration_tab")
+        home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
-        home_page.tabs.click_tabv2("roles_administration")
+        home_page.tabs.click_tab("roles_administration")
             
         rolestab.role("Read Everything").click()
         rolestab.click_role_users()
@@ -91,9 +91,9 @@ class TestRoles:
         home_page.login()
         Assert.true(home_page.is_successful)   
         
-        home_page.tabs.click_tabv2("administration_tab")
+        home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
-        home_page.tabs.click_tabv2("roles_administration")
+        home_page.tabs.click_tab("roles_administration")
         
         role_name = "plainrole%s" % home_page.random_string()
         home_page.jquery_wait(20)
@@ -111,9 +111,9 @@ class TestRoles:
         home_page.login()
         Assert.true(home_page.is_successful)   
         
-        home_page.tabs.click_tabv2("administration_tab")
+        home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
-        home_page.tabs.click_tabv2("roles_administration")
+        home_page.tabs.click_tab("roles_administration")
         
         role_name = "plainrole%s" % home_page.random_string()
         home_page.jquery_wait(20)
@@ -144,9 +144,9 @@ class TestRoles:
         home_page.login()
         Assert.true(home_page.is_successful)
         
-        home_page.tabs.click_tabv2("administration_tab")
+        home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
-        home_page.tabs.click_tabv2("roles_administration")
+        home_page.tabs.click_tab("roles_administration")
         home_page.jquery_wait(30)
         rolestab.click_role_permissions()
         

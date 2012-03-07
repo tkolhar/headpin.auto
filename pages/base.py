@@ -183,99 +183,20 @@ class Base(Page):
         Define elements of the tab region and 
         appropriate actions on those elements.
         '''
-        _dashboard_tab_locator = (By.XPATH, "//a[.='Dashboard']")
+        _tab_elements = {'dashboard_tab' : (By.XPATH, "//a[.='Dashboard']"),
+                         'content_management_tab' : (By.XPATH, "//a[.='Content Management']"),
+                         'providers' : (By.XPATH, "//a[.='Content Providers']"),
+                         'systems_tab' : (By.XPATH, "//a[.='Systems']"), 
+                         'systems_all' : (By.XPATH, "//a[.='All']"), 
+                         'systems_by_environment' : (By.XPATH, "//a[.='By Environments']"), 
+                         'activation_keys' : (By.XPATH, "//a[.='Activation Keys']"), 
+                         'organizations_tab' : (By.XPATH, "//a[.='Organizations']"),
+                         'organizations_all' : (By.XPATH, "//a[.='List']"),
+                         'organizations_subscriptions' : (By.XPATH, "//a[.='Subscriptions']"), 
+                         'administration_tab' : (By.XPATH, "//a[.='Administration']"),
+                         'users_administration': (By.XPATH, "//a[.='Users']"),
+                         'roles_administration' : (By.XPATH, "//a[.='Roles']"),}
         
-        _content_management_tab_locator = (By.XPATH, "//a[.='Content Management']")
-        _providers_content_management_subtab_locator = (By.XPATH, "//a[.='Content Providers']")
-        
-        _systems_tab_locator = (By.XPATH, "//a[.='Systems']")
-        _all_systems_subtab_locator = (By.XPATH, "//a[.='All']")
-        _by_environments_systems_subtab_locator = (By.XPATH, "//a[.='By Environments']")
-        _activiation_keys_systems_subtab_locator = (By.XPATH, "//a[.='Activation Keys']")
-        #_activiation_keys_systems_subtab_locator = (By.ID, "activation_keys")
-        
-        _organizations_tab_locator = (By.XPATH, "//a[.='Organizations']")
-        _list_organizations_subtab_locator = (By.XPATH, "//a[.='List']")
-        _subscriptions_organizations_subtab_locator = (By.XPATH, "//a[.='Subscriptions']")
-        
-        _administration_tab_locator = (By.XPATH, "//a[.='Administration']")
-        _users_admin_subtab_locator = (By.XPATH, "//a[.='Users']")
-        _roles_admin_subtab_locator = (By.XPATH, "//a[.='Roles']")
-        #_roles_admin_subtab_locator = (By.CSS_SELECTOR, "li#roles.operations.second_level")
-        _tab_elements = {'administration_tab' : (By.XPATH, "//a[.='Administration']"),
-                            'users_administration': (By.XPATH, "//a[.='Users']"),
-                            'roles_administration' : (By.XPATH, "//a[.='Roles']")}
-        
-        
-        def click_tabv2(self, tab):
+        def click_tab(self, tab):
             self.selenium.find_element(*self._tab_elements[tab]).click()
             
-        def click_tab(self, tab):
-            '''
-            Determine which locator to use
-            '''
-            click_locator = ""
-            hover_locator = ""
-            
-            if "dashboard_tab" in tab:
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._dashboard_tab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._dashboard_tab_locator)
-            elif "content_management_tab" in tab:
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._content_management_tab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._content_management_tab_locator)
-            elif "providers" in tab:
-                #hover_locator = self.selenium.find_element(*self._content_management_tab_locator)
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._providers_content_management_subtab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._providers_content_management_subtab_locator)
-            elif "systems_tab" in tab:
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._systems_tab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._systems_tab_locator)
-            elif "systems_all" in tab:
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._all_systems_subtab_locator).is_displayed())
-                #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
-                click_locator = self.selenium.find_element(*self._all_systems_subtab_locator)
-            elif "systems_by_environment" in tab:
-                #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._all_systems_subtab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._by_environments_systems_subtab_locator)
-            elif "activation_keys" in tab:
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._activiation_keys_systems_subtab_locator).is_displayed)
-                #hover_locator = self.selenium.find_element(*self._systems_tab_locator)
-                click_locator = self.selenium.find_element(*self._activiation_keys_systems_subtab_locator)
-            elif "organizations_tab" in tab:
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._organizations_tab_locator).is_displayed)      
-                click_locator = self.selenium.find_element(*self._organizations_tab_locator)
-            elif "organizations_all" in tab:
-                #hover_locator = self.selenium.find_element(*self._organizations_tab_locator)
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._list_organizations_subtab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._list_organizations_subtab_locator)
-            elif "organizations_subscriptions" in tab:
-                #hover_locator = self.selenium.find_element(*self._organizations_tab_locator)
-                WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._subscriptions_organizations_subtab_locator).is_displayed())
-                click_locator = self.selenium.find_element(*self._subscriptions_organizations_subtab_locator)
-            elif "administration_tab" in tab:
-                self.selenium.find_element(*self._administration_tab_locator).click()
-                return
-                #WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._administration_tab_locator).is_displayed())
-                #click_locator = self.selenium.find_element(*self._administration_tab_locator)
-            elif "users_administration" in tab:
-                self.selenium.find_element(*self._users_admin_subtab_locator).click()
-                return
-                #hover_locator = self.selenium.find_element(*self._administration_tab_locator)
-                #WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._users_admin_subtab_locator).is_displayed())
-                #click_locator = self.selenium.find_element(*self._users_admin_subtab_locator)
-            elif "roles_administration" in tab:
-                self.selenium.find_element(*self._roles_admin_subtab_locator).click()
-                return
-                #hover_locator = self.selenium.find_element(*self._administration_tab_locator)
-                #WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*self._roles_admin_subtab_locator).is_displayed())
-                #click_locator = self.selenium.find_element(*self._roles_admin_subtab_locator)
-            '''
-            if hover_locator:
-                ActionChains(self.selenium).move_to_element(hover_locator).\
-                    move_to_element(click_locator).\
-                    click().perform()
-            else:
-            '''
-            ActionChains(self.selenium).move_to_element(click_locator).\
-                click().perform()

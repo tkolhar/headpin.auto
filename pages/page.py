@@ -65,8 +65,14 @@ class Page(object):
         
     @property
     def is_successful(self):
-        self.jquery_wait()
-        return self.selenium.find_element(*self._success_notification_locator).is_displayed()
+        #self.jquery_wait()
+        self.selenium.implicitly_wait(4)
+        try:
+            return self.selenium.find_element(*self._success_notification_locator).is_displayed()
+        except Exception, e:
+            return False
+        finally:
+            self.selenium.implicitly_wait(self.testsetup.default_implicit_wait)
     
     @property
     def is_dialog_cleared(self):
@@ -80,8 +86,14 @@ class Page(object):
     
     @property
     def is_failed(self):
-        self.jquery_wait()
-        return self.selenium.find_element(*self._error_notification_locator).is_displayed()
+        #self.jquery_wait()
+        self.selenium.implicitly_wait(4)
+        try:
+            return self.selenium.find_element(*self._error_notification_locator).is_displayed()
+        except Exception, e:
+            return False
+        finally:
+            self.selenium.implicitly_wait(self.testsetup.default_implicit_wait)
         
     def get_url_current_page(self):
         return(self.selenium.current_url)

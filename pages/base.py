@@ -202,7 +202,14 @@ class Base(Page):
         _users_admin_subtab_locator = (By.XPATH, "//a[.='Users']")
         _roles_admin_subtab_locator = (By.XPATH, "//a[.='Roles']")
         #_roles_admin_subtab_locator = (By.CSS_SELECTOR, "li#roles.operations.second_level")
+        _tab_elements = {'administration_tab' : (By.XPATH, "//a[.='Administration']"),
+                            'users_administration': (By.XPATH, "//a[.='Users']"),
+                            'roles_administration' : (By.XPATH, "//a[.='Roles']")}
         
+        
+        def click_tabv2(self, tab):
+            self.selenium.find_element(*self._tab_elements[tab]).click()
+            
         def click_tab(self, tab):
             '''
             Determine which locator to use

@@ -24,12 +24,11 @@ class TestSystems:
         Assert.true(home_page.is_successful)
         Assert.true(home_page.is_dialog_cleared)
         
-        sysapi = ApiTasks()
-        new_org_name = "ACME_Corporation"
+        api = ApiTasks()
+        current_org = home_page.header.get_text_from_switcher
+        api.create_envs(current_org)
         new_system_name = "system%s" % home_page.random_string()
-
-        sysapi.create_envs(new_org_name)
-        sysapi.create_new_system(new_system_name, new_org_name)
+        api.create_new_system(new_system_name, current_org)
         
         home_page.tabs.click_tab("systems_tab")
         Assert.true(home_page.is_the_current_page)
@@ -52,12 +51,12 @@ class TestSystems:
         home_page.login()
         Assert.true(home_page.header.is_user_logged_in)
         
-        sysapi = ApiTasks()
-        new_org_name = "ACME_Corporation"
+        api = ApiTasks()
+        current_org = home_page.header.get_text_from_switcher
+        api.create_envs(current_org)
         new_system_name = "rmsystem%s" % home_page.random_string()
 
-        sysapi.create_envs(new_org_name)
-        sysapi.create_new_system(new_system_name, new_org_name)
+        api.create_new_system(new_system_name, current_org)
         
         home_page.tabs.click_tab("systems_tab")
         Assert.true(home_page.is_the_current_page)

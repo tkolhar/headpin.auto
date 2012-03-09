@@ -95,16 +95,18 @@ class TestOrganizations:
         
     def test_search_orgs(self,mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.login()
-        Assert.true(home_page.is_successful)
-        
-        home_page.tabs.click_tab("organizations_tab")
-        organizations = OrganizationsTab(mozwebqa)
         sysapi = ApiTasks()
         
         for i in range(1,5):
             new_org_name = "SearchOrg%s" % home_page.random_string()
             sysapi.create_org(new_org_name)
+            
+        home_page.login()
+        Assert.true(home_page.is_successful)
+        
+        home_page.tabs.click_tab("organizations_tab")
+        organizations = OrganizationsTab(mozwebqa)
+        
         
         home_page.enter_search_criteria("SearchOrg*")
         Assert.true(organizations.is_search_correct("SearchOrg"))

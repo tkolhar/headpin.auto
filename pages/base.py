@@ -25,7 +25,7 @@ class Base(Page):
     _current_page_locator = (By.CSS_SELECTOR, ".paginator .num > a:nth-child(1)")
 
     _redhat_logo_link_locator = (By.CSS_SELECTOR, "#head header a")
-    _redhat_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
+    _redhat_logo_image_locator = (By.XPATH, "//img[contains(@src, '/sam/images/rh-logo.png')]")
     #_headpin_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/logo.png')]")
     _headpin_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
     _katello_logo_image_locator = (By.XPATH, "//img[contains(@src, '/katello/images/logo.png')]")

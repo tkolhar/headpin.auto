@@ -19,12 +19,13 @@ class TestActivationKeys:
         Assert.true(home_page.is_successful)
         home_page.is_dialog_cleared
         
-        home_page.tabs.click_tab("systems_tab")
-        home_page.tabs.click_tab("activation_keys")
-        
         current_org = home_page.header.get_text_from_switcher
         api = ApiTasks()
         api.create_envs(current_org)
+        
+        home_page.tabs.click_tab("systems_tab")
+        home_page.jquery_wait(30)
+        home_page.tabs.click_tab("activation_keys")
         
         activationkeys = ActivationKeysTab(mozwebqa)
         
@@ -97,6 +98,7 @@ class TestActivationKeys:
         
         activationkeys = ActivationKeysTab(mozwebqa)
         home_page.tabs.click_tab("systems_tab")
+        home_page.jquery_wait(30)
         home_page.tabs.click_tab("activation_keys")
         
         _new_activationkey_name = "%s" % home_page.random_string()

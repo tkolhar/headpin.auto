@@ -62,8 +62,8 @@ class TestActivationKeys:
         home_page.enter_search_criteria(new_activationkey_name)
         home_page.jquery_wait(30)
 
-        #activationkeys.activationkey(new_activationkey_name).click()
-        #home_page.jquery_wait(30)
+        activationkeys.activationkey(new_activationkey_name).click()
+        home_page.jquery_wait(30)
 
         Assert.true(activationkeys.is_block_active)
         home_page.click_remove()

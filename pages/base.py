@@ -41,6 +41,7 @@ class Base(Page):
     _footer_version_text_locator = (By.CSS_SELECTOR, "div.grid_16.ca.light_text")
     _new_item_locator = (By.ID, "new")
     _remove_item_locator = (By.CSS_SELECTOR, "a.remove_item")
+    _close_item_locator = (By.CSS_SELECTOR, "a.close")
     _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
     
     def random_string(self):
@@ -63,6 +64,9 @@ class Base(Page):
         search_input_locator.send_keys("\n")
         time.sleep(1)
     
+    def click_close(self):
+        self.selenium.find_element(*self._close_item_locator).click()
+        
     def click_remove(self):
         self.selenium.find_element(*self._remove_item_locator).click()
 

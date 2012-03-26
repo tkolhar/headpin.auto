@@ -64,7 +64,9 @@ class TestActivationKeys:
 
         #activationkeys.activationkey(new_activationkey_name).click()
         #home_page.jquery_wait(30)
-
+        if not activationkeys.is_block_active:
+            activationkeys.activationkey(new_activationkey_name).click()
+            
         Assert.true(activationkeys.is_block_active)
         home_page.click_remove()
         home_page.click_confirm()

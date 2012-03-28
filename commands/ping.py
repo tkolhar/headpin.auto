@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import subprocess
-from commands.base import Base
+#from commands.base import Base
 
 class Ping(Base):
     _command_ = "ping"

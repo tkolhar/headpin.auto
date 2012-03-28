@@ -58,7 +58,7 @@ class Testusers:
         
         administration = AdministrationTab(mozwebqa)
         
-        home_page.enter_search_criteria("rmuser") 
+        home_page.enter_search_criteria("rmuser*") 
         
         administration.user(new_user_name).click()
         Assert.true(administration.is_block_active)
@@ -83,7 +83,7 @@ class Testusers:
             email_addr = new_user_name + "@example.com"
             sysapi.create_user(new_user_name, password, email_addr)
             
-        home_page.enter_search_criteria("searchuser")
+        home_page.enter_search_criteria("searchuser*")
         administration.is_search_correct("searchuser")
         
     def test_change_user_password_valid_as_admin(self, mozwebqa):

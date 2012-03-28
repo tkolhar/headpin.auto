@@ -3,7 +3,7 @@
 import subprocess
 #from commands.base import Base
 
-class Ping(Base):
+class Ping:
     _command_ = "ping"
     _user_flag_ = "-u"
     _password_flag_ = "-p"

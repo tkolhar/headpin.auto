@@ -2,7 +2,7 @@
 
 import pytest
 from unittestzero import Assert
-from cli.commands.ping import Ping
+from commands.ping import Ping
 
 class TestPing:
     def test_ping(self):

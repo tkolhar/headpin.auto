@@ -9,7 +9,8 @@ class Ping:
     _password_flag_ = "-p"
     
     def ping_error(self, u="admin", p="admin"):
-        p = subprocess.Popen([self._command_, self._user_flag_, u, self._password_flag_, p], stdout=subprocess.PIPE)
+        pout = subprocess.Popen(["headpin", self._user_flag_, u, self._password_flag_, p, self._command_], stdout=subprocess.PIPE)
+        return pout.communicate()
         
         
         

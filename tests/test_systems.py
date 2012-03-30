@@ -68,3 +68,28 @@ class TestSystems:
         
         systems.remove_a_system()
         Assert.true(home_page.is_successful) 
+        
+    def test_search_systems(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        sysapi = ApiTasks()
+        
+        home_page.login()
+        Assert.true(home_page.is_successful)
+        current_org = home_page.header.get_text_from_switcher
+        
+        # Some bad results
+        for i in range(1,5):
+            new_system_name = "%s" % home_page.random_string()
+            sysapi.create_new_system(new_system_name, current_org)
+        
+        # The actual systems to search for   
+        for i in range(1,5):
+            new_sys_name = "SearchSys%s" % home_page.random_string()
+            sysapi.create_new_system(new_sys_name, current_org)
+        
+        home_page.tabs.click_tab("systems_tab")
+        systems = SystemsTab(mozwebqa)
+        home_page.jquery_wait(30)
+        
+        home_page.enter_search_criteria("SearchSys*")
+        Assert.true(systems.is_search_correct("SearchSys"))

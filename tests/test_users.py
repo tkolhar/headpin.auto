@@ -78,12 +78,19 @@ class Testusers:
         sysapi = ApiTasks()
         
         for i in range(1,5):
+            new_user_name = "%s" % home_page.random_string()
+            password = home_page.random_string()
+            email_addr = new_user_name + "@example.com"
+            sysapi.create_user(new_user_name, password, email_addr)
+            
+        for i in range(1,5):
             new_user_name = "searchuser-%s" % home_page.random_string()
             password = home_page.random_string()
             email_addr = new_user_name + "@example.com"
             sysapi.create_user(new_user_name, password, email_addr)
             
         home_page.enter_search_criteria("searchuser*")
+        home_page.jquery_wait(30)
         administration.is_search_correct("searchuser")
         
     def test_change_user_password_valid_as_admin(self, mozwebqa):

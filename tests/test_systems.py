@@ -22,8 +22,7 @@ class TestSystems:
         home_page.login()
         Assert.true(home_page.header.is_user_logged_in)
         Assert.true(home_page.is_successful)
-        Assert.true(home_page.is_dialog_cleared)
-        
+
         api = ApiTasks()
         current_org = home_page.header.get_text_from_switcher
         api.create_envs(current_org)

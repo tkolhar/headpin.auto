@@ -122,7 +122,7 @@ class ApiTasks:
                    "name" : name,
                    "cp_type" : "system",
                    "facts" : {
-                              "distribution.name": "Fedora",
+                              "distribution.name": "Red Hat Enterprise Linux Server",
                               "cpu.cpu_socket(s)" : "1"}}
         
         return self._POST(path, sysdata)[1]

@@ -31,7 +31,7 @@ class SystemsTab(Base):
     _details_tab_locator = (By.XPATH, "//a[.='Details']")
     _software_tab_locator = (By.XPATH, "//a[.='Software']")
     _subscriptions_tab_locator = (By.XPATH, "//a[.='Subscriptions']")
-    _system_details_name_locator = ""
+    #_system_details_name_locator = ""
     _system_list_locator = (By.CSS_SELECTOR, "div.block")
     _system_block_active_locator = (By.CSS_SELECTOR, "div.block.tall.active")
     
@@ -90,6 +90,13 @@ class SystemsTab(Base):
     @property
     def select_random(self):
         return choice(self.systems).name
+    
+    def is_search_correct(self, criteria):
+        WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*self._system_list_locator).is_displayed())
+        for sys in self.systems:
+            if criteria not in sys.name:
+                raise Exception('%s does not match Search Criteria %s' % (sys.name, criteria))
+        return True
     
     def system(self, value):
         for system in self.systems:

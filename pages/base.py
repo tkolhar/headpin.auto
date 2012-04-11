@@ -60,8 +60,9 @@ class Base(Page):
         search_input_locator = self.selenium.find_element(*self._search_input_locator)
         for c in criteria:
             search_input_locator.send_keys(c)
+        time.sleep(2)
         search_input_locator.send_keys("\n")
-        time.sleep(1)
+        time.sleep(2)
     
     def click_close(self):
         self.selenium.find_element(*self._close_item_locator).click()

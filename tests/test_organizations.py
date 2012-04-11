@@ -98,6 +98,10 @@ class TestOrganizations:
         sysapi = ApiTasks()
         
         for i in range(1,5):
+            new_org_name = "%s" % home_page.random_string()
+            sysapi.create_org(new_org_name)
+            
+        for i in range(1,5):
             new_org_name = "SearchOrg%s" % home_page.random_string()
             sysapi.create_org(new_org_name)
             
@@ -107,6 +111,6 @@ class TestOrganizations:
         home_page.tabs.click_tab("organizations_tab")
         organizations = OrganizationsTab(mozwebqa)
         
-        
+        home_page.jquery_wait(30)
         home_page.enter_search_criteria("SearchOrg*")
         Assert.true(organizations.is_search_correct("SearchOrg"))

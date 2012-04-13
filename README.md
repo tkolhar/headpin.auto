@@ -19,7 +19,7 @@ You can run: ``pip-python install -r ./requirements.txt`` from the root of the p
 So far only selenium standalone testing has been verified:
 
 On Linux, start your selenium server:  
-``java -jar /path/to/your/selenium/selenium-serr-standalone-2.16.1.jar \``
+``java -jar /path/to/your/selenium/selenium-X.Y.jar \``
 ``-firefoxProfileTemplate /path/to/ff_profile/.mozilla/firefox/[profile]/``
 
 # RUN TESTS

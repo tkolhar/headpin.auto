@@ -14,7 +14,7 @@ Test use Mozilla's AMO methodology: https://github.com/mozilla/Addon-Tests
  * pytest-mozwebqa==0.7.1
  * unittestzero
 
-You can run pip-python install -r ./requirements.txt from the root of the project.
+You can run: ``pip-python install -r ./requirements.txt`` from the root of the project.
 
 So far only selenium standalone testing has been verified:
 

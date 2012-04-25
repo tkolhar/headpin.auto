@@ -19,7 +19,42 @@ class ElementNotFound(Exception):
         self.parameter = value
     def __str__(self):
         return repr(self.parameter)
-    
+  
+class BaseProductFactory(object):
+    '''
+    Factory for products
+    '''
+    @staticmethod
+    def get(self, product):
+        productClass = None
+        if product == "sam":
+            productClass = SamProduct()
+        if product == "headpin":
+            productClass = HeadpinProduct()
+        if product == "katello":
+            productClass = KatelloProduct()
+        return productClass
+
+class BaseProduct(object):
+    '''
+    Base class for all Products
+    '''
+    self._my_locator = "FooBaz"
+
+    def __init__(self):
+        ''' do nothing '''
+        pass
+   
+class SamProduct(BaseProduct):
+    self._page_title = "SAM"
+
+class HeadpinProduct(BaseProduct):
+    self._page_title = "Headpin"
+
+class KatelloProduct(BaseProduct):
+    self._page_title = "Katello"
+    self._my_locator = "FooBar"
+
 class Page(object):
     '''
     Base class for all Pages
@@ -38,26 +73,16 @@ class Page(object):
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
         self.url = urlparse.urlparse(self.base_url)
-        self.product = self.url.path.split('/')[1]
+        self.product = testsetup.product
         #self.product = os.environ.get("PRODUCT")
 
     @property
     def is_the_current_page(self):
-        if self.product == "sam":
-            if self._sam_page_title:
-                WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
-            Assert.equal(self.selenium.title, self._sam_page_title,
-                         "Expected page title: %s. Actual page title: %s" % (self._sam_page_title, self.selenium.title))
-        elif self.product == "headpin":
-            if self._headpin_page_title:
-                WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
-            Assert.equal(self.selenium.title, self._headpin_page_title,
-                         "Expected page title: %s. Actual page title: %s" % (self._headpin_page_title, self.selenium.title))
-        elif self.product == "katello":
-            if self._katello_page_title:
-                WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
-            Assert.equal(self.selenium.title, self._katello_page_title,
-                         "Expected page title: %s. Actual page title: %s" % (self._katello_page_title, self.selenium.title))
+        myProduct = BaseProductFactory.get(self.product)
+        if self._page_title:
+            WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
+        Assert.equal(self.selenium.title, self._page_title,
+                     "Expected page title: %s. Actual page title: %s" % (self._page_title, self.selenium.title))
         return True
     
     def jquery_wait(self, timeout=20):

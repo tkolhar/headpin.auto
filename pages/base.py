@@ -19,7 +19,6 @@ import time
 import string
 import random
 
-
 class Base(Page):
 
     _current_page_locator = (By.CSS_SELECTOR, ".paginator .num > a:nth-child(1)")
@@ -46,7 +45,11 @@ class Base(Page):
     def random_string(self):
         chars = string.ascii_letters + string.digits
         return "".join(random.choice(chars) for x in range(random.randint(8, 16)))
-    
+   
+    def send_characters_to_locator(self, *locator, string_to_send):
+        for k in string_to_send:
+            locator.send_keys(k)
+
     @property
     def page_title(self):
         WebDriverWait(self.selenium, 20).until(lambda s: self.selenium.title)

@@ -3,6 +3,7 @@
 
 from unittestzero import Assert
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
 import os
@@ -24,65 +25,63 @@ class BaseProductFactory(object):
     '''
     Factory for products
     '''
-    @staticmethod
-    def get(self, product):
-        productClass = None
-        if product == "sam":
-            productClass = SamProduct()
-        if product == "headpin":
-            productClass = HeadpinProduct()
-        if product == "katello":
-            productClass = KatelloProduct()
-        return productClass
+    @classmethod
+    def get(self, project):
+        projectClass = None
+        if project == "sam":
+            projectClass = SamProduct()
+        if project == "headpin":
+            projectClass = HeadpinProduct()
+        if project == "katello":
+            projectClass = KatelloProduct()
+        return projectClass
 
 class BaseProduct(object):
     '''
     Base class for all Products
     '''
-    self._my_locator = "FooBaz"
-
     def __init__(self):
         ''' do nothing '''
         pass
    
 class SamProduct(BaseProduct):
-    self._page_title = "SAM"
-
+    _page_title = "Subscription Asset Manager - Subscription Management"
+    _logo_locator = (By.XPATH, "//img[contains(@src, '/sam/images/rh-logo.png')]")
+    _footer = "Subscription Asset Manager Version:"
+    
 class HeadpinProduct(BaseProduct):
-    self._page_title = "Headpin"
-
+    _page_title = "Headpin - Open Source Subscription Management"
+    _logo_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
+    
 class KatelloProduct(BaseProduct):
-    self._page_title = "Katello"
-    self._my_locator = "FooBar"
-
+    _page_title = "Katello - Open Source Systems Management"
+    _logo_locator = (By.XPATH, "//img[contains(@src, '/katello/images/logo.png')]")
+    
 class Page(object):
     '''
     Base class for all Pages
     '''
-
     def __init__(self, testsetup):
         '''
         Constructor
         '''
         self.testsetup = testsetup
-        if not os.environ.get("APP_SERVER"):
-            raise EnvironmentNotSetException('APP_SERVER environment variable not set!')
+        #if not os.environ.get("APP_SERVER"):
+        #    raise EnvironmentNotSetException('APP_SERVER environment variable not set!')
             #sys.exit(-1)
-        testsetup.base_url = os.environ.get("APP_SERVER")
+        #testsetup.base_url = os.environ.get("APP_SERVER")
         self.base_url = testsetup.base_url
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
-        self.url = urlparse.urlparse(self.base_url)
-        self.product = testsetup.product
-        #self.product = os.environ.get("PRODUCT")
+        self.project = testsetup.project
 
     @property
     def is_the_current_page(self):
-        myProduct = BaseProductFactory.get(self.product)
-        if self._page_title:
+        myProject = BaseProductFactory.get(self.project)
+        if myProject._page_title:
             WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
-        Assert.equal(self.selenium.title, self._page_title,
-                     "Expected page title: %s. Actual page title: %s" % (self._page_title, self.selenium.title))
+        Assert.equal(self.selenium.title, myProject._page_title,
+                     "Expected page title: %s. Actual page title: %s" % (myProject._page_title, self.selenium.title))
         return True
     
     def jquery_wait(self, timeout=20):

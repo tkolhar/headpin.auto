@@ -14,6 +14,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.page import Page
+from pages.page import BaseProductFactory
 
 import time
 import string
@@ -22,12 +23,7 @@ import random
 class Base(Page):
 
     _current_page_locator = (By.CSS_SELECTOR, ".paginator .num > a:nth-child(1)")
-
     _redhat_logo_link_locator = (By.CSS_SELECTOR, "#head header a")
-    _redhat_logo_image_locator = (By.XPATH, "//img[contains(@src, '/sam/images/rh-logo.png')]")
-    _headpin_logo_image_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
-    _katello_logo_image_locator = (By.XPATH, "//img[contains(@src, '/katello/images/logo.png')]")
-
     _sam_header_locator = (By.CSS_SELECTOR, "#head header h1")
     _success_notification_locator = (By.CSS_SELECTOR, "div.jnotify-notification.jnotify-notification-success")
     _error_notification_locator = (By.CSS_SELECTOR, "div.jnotify-notification.jnotify-notification-error")
@@ -45,11 +41,11 @@ class Base(Page):
     def random_string(self):
         chars = string.ascii_letters + string.digits
         return "".join(random.choice(chars) for x in range(random.randint(8, 16)))
-   
+    '''
     def send_characters_to_locator(self, *locator, string_to_send):
         for k in string_to_send:
             locator.send_keys(k)
-
+    '''
     @property
     def page_title(self):
         WebDriverWait(self.selenium, 20).until(lambda s: self.selenium.title)
@@ -92,14 +88,10 @@ class Base(Page):
     
     @property
     def is_redhat_logo_visible(self):
-        if self.product == "sam":
-            return self.is_element_visible(*self._redhat_logo_image_locator)
-        elif self.product == "headpin":
-            return self.is_element_visible(*self._headpin_logo_image_locator)
-        elif self.product == "katello":
-            return self.is_element_visible(*self._katello_logo_image_locator)
-            
-
+        myProject = BaseProductFactory.get(self.project)
+        if myProject._logo_locator:
+            return self.is_element_visible(*myProject._logo_locator)
+      
     def click_redhat_logo(self):
         self.selenium.find_element(*self._redhat_logo_link_locator).click()
         

@@ -41,7 +41,7 @@ class Testusers:
         Test to remove a single user.
         '''
         home_page = Home(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
 
         new_user_name = home_page.random_string()
         new_user_name = "rmuser-%s" % home_page.random_string()
@@ -75,7 +75,7 @@ class Testusers:
         
         home_page.tabs.click_tab("administration_tab")
         administration = AdministrationTab(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         
         for i in range(1,5):
             new_user_name = "%s" % home_page.random_string()
@@ -99,7 +99,7 @@ class Testusers:
         Assert.true(home_page.is_successful)
         
         administration = AdministrationTab(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         
         new_user_name = "chgpasswd-%s" % home_page.random_string()
         password = home_page.random_string()
@@ -120,7 +120,7 @@ class Testusers:
         Assert.true(home_page.is_successful)
         
         administration = AdministrationTab(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         
         new_user_name = "chgpasswd-%s" % home_page.random_string()
         password = home_page.random_string()
@@ -137,7 +137,7 @@ class Testusers:
         Assert.true(administration.passwords_do_not_match_visible)
 
     def test_login_non_admin(self, mozwebqa):
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         home_page= Home(mozwebqa)
        
         new_user_name = "random%s" % home_page.random_string()

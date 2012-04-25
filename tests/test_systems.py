@@ -23,7 +23,7 @@ class TestSystems:
         Assert.true(home_page.header.is_user_logged_in)
         Assert.true(home_page.is_successful)
 
-        api = ApiTasks()
+        api = ApiTasks(mozwebqa)
         current_org = home_page.header.get_text_from_switcher
         api.create_envs(current_org)
         new_system_name = "system%s" % home_page.random_string()
@@ -50,7 +50,7 @@ class TestSystems:
         home_page.login()
         Assert.true(home_page.header.is_user_logged_in)
         
-        api = ApiTasks()
+        api = ApiTasks(mozwebqa)
         current_org = home_page.header.get_text_from_switcher
         api.create_envs(current_org)
         new_system_name = "rmsystem%s" % home_page.random_string()
@@ -70,7 +70,7 @@ class TestSystems:
         
     def test_search_systems(self, mozwebqa):
         home_page = Home(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         
         home_page.login()
         Assert.true(home_page.is_successful)

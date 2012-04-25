@@ -47,7 +47,7 @@ class TestOrganizations:
         
         home_page.tabs.click_tab("organizations_tab")
         organizations = OrganizationsTab(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
 
         _new_org_name = "recreateorg%s" % home_page.random_string()
         sysapi.create_org(_new_org_name)
@@ -95,7 +95,7 @@ class TestOrganizations:
         
     def test_search_orgs(self,mozwebqa):
         home_page = Home(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         
         for i in range(1,5):
             new_org_name = "%s" % home_page.random_string()

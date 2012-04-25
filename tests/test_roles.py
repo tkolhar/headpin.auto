@@ -38,7 +38,7 @@ class TestRoles:
 
     def test_add_user_to_administrator_role(self, mozwebqa):
         home_page = Home(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         rolestab = RolesTab(mozwebqa)
         
         username = "admin%s" % home_page.random_string()
@@ -62,7 +62,7 @@ class TestRoles:
         
     def test_add_user_to_readeverything_role(self, mozwebqa):
         home_page = Home(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         rolestab = RolesTab(mozwebqa)
         
         username = "readevery%s" % home_page.random_string()
@@ -135,7 +135,7 @@ class TestRoles:
     def test_create_environment_ro_role(self, mozwebqa):
         pytest.xfail("work in progress")
         home_page = Home(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         rolestab = RolesTab(mozwebqa)
         role_name = "environ_ro_%s" % home_page.random_string()
         

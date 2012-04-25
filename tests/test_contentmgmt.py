@@ -19,7 +19,7 @@ class TestContentManagement:
     _bz786963_manifest = "/var/tmp/manifest_bz786963.zip"
     
     def test_switch_org(self, mozwebqa):
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         home_page = Home(mozwebqa)
         
         new_org_name = "someorg%s" % home_page.random_string()
@@ -40,7 +40,7 @@ class TestContentManagement:
         Scenario 1: Import Manifest (M1) from Distributor (D1) input Org1
         Result: Pass
         '''
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         home_page = Home(mozwebqa)
         
         new_org_name = "manifest%s" % home_page.random_string()
@@ -72,7 +72,7 @@ class TestContentManagement:
         Org1 w/o useing force.
         Result: Expect Fail
         '''
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         home_page = Home(mozwebqa)
         
         new_org_name = "manifest%s" % home_page.random_string()
@@ -106,7 +106,7 @@ class TestContentManagement:
         Result: Pass
         '''
         home_page = Home(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
@@ -121,15 +121,17 @@ class TestContentManagement:
 
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
-
-        if home_page.product == "katello" or home_page.product == "cfse":
+        '''
+        Need to clean this up a bit
+        '''
+        if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
         Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org4_m1_manifest)
         Assert.true(home_page.is_successful)
-
+        
         cm.click_force()
         cm.enter_manifest(self._org4_m1_manifest)
         Assert.true(home_page.is_successful)
@@ -139,7 +141,7 @@ class TestContentManagement:
         Scenario 5: Load updated (new) manifest into org where a manifest already exists.
         Result: Pass
         '''
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         home_page = Home(mozwebqa)
         
         new_org_name = "manifest-%s" % home_page.random_string()
@@ -169,7 +171,7 @@ class TestContentManagement:
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
         
     def test_load_second_manifest_second_org(self, mozwebqa):
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         home_page = Home(mozwebqa)
         
         new_org_name = "manifest-%s" % home_page.random_string()
@@ -202,7 +204,7 @@ class TestContentManagement:
         Result Expected: Fail
         '''
         home_page = Home(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)
@@ -231,7 +233,7 @@ class TestContentManagement:
         Regression Test for bz786963
         '''
         home_page = Home(mozwebqa)
-        sysapi = ApiTasks()
+        sysapi = ApiTasks(mozwebqa)
         
         new_org_name = "manifest-%s" % home_page.random_string()
         sysapi.create_org(new_org_name)

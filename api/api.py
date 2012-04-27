@@ -23,7 +23,6 @@ class ApiTasks(object):
                            'content-type': 'application/json',
                            'User-Agent': 'katello-cli/0.1'}
         
-        #self.path_prefix = "/%s/api" % os.environ.get("PRODUCT")
         self.url = urlparse.urlparse(testsetup.base_url)
         self.host = self.url.netloc
         if ":" in self.host:

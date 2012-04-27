@@ -35,7 +35,7 @@ class TestHello:
         
     def test_update_helptips(self, mozwebqa):
         #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784016")
-        pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=806478")
+        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=806478")
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)

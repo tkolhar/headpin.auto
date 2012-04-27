@@ -57,7 +57,7 @@ class TestContentManagement:
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
         
-        if home_page.product == "katello" or home_page.product == "cfse":
+        if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
             
@@ -89,7 +89,7 @@ class TestContentManagement:
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
 
-        if home_page.product == "katello" or home_page.product == "cfse":
+        if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
@@ -158,7 +158,7 @@ class TestContentManagement:
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
 
-        if home_page.product == "katello" or home_page.product == "cfse":
+        if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
@@ -188,7 +188,7 @@ class TestContentManagement:
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
 
-        if home_page.product == "katello" or home_page.product == "cfse":
+        if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
@@ -220,7 +220,7 @@ class TestContentManagement:
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
 
-        if home_page.product == "katello" or home_page.product == "cfse":
+        if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
@@ -249,7 +249,7 @@ class TestContentManagement:
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
 
-        if home_page.product == "katello" or home_page.product == "cfse":
+        if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 

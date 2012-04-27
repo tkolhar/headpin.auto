@@ -20,7 +20,7 @@ class TestActivationKeys:
         home_page.is_dialog_cleared
         
         current_org = home_page.header.get_text_from_switcher
-        api = ApiTasks()
+        api = ApiTasks(mozwebqa)
         api.create_envs(current_org)
         
         home_page.tabs.click_tab("systems_tab")
@@ -38,7 +38,7 @@ class TestActivationKeys:
         
     def test_remove_activationkey(self, mozwebqa):
         home_page = Home(mozwebqa)
-        api = ApiTasks()
+        api = ApiTasks(mozwebqa)
         activationkeys = ActivationKeysTab(mozwebqa)
         
         home_page.login()
@@ -72,7 +72,7 @@ class TestActivationKeys:
         
     def test_activation_key_workflow(self, mozwebqa):
         home_page = Home(mozwebqa)
-        api = ApiTasks()
+        api = ApiTasks(mozwebqa)
         _new_org_name = "activationkeyorg%s" % home_page.random_string()
         api.create_org(_new_org_name)
         api.create_envs(_new_org_name)
@@ -88,7 +88,7 @@ class TestActivationKeys:
         cm = ContentManagementTab(mozwebqa)
         home_page.tabs.click_tab("content_management_tab")
         
-        if home_page.product == "katello" or home_page.product == "cfse":
+        if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
             

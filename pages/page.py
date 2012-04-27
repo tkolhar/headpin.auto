@@ -46,16 +46,16 @@ class BaseProduct(object):
    
 class SamProduct(BaseProduct):
     _page_title = "Subscription Asset Manager - Subscription Management"
-    _logo_locator = (By.XPATH, "//img[contains(@src, '/sam/images/rh-logo.png')]")
+    _logo_locator = (By.XPATH, "//img[contains(@src, 'rh-logo.png')]")
     _footer = "Subscription Asset Manager Version:"
     
 class HeadpinProduct(BaseProduct):
     _page_title = "Headpin - Open Source Subscription Management"
-    _logo_locator = (By.XPATH, "//img[contains(@src, '/headpin/images/rh-logo.png')]")
+    _logo_locator = (By.XPATH, "//img[contains(@src, 'logo.png')]")
     
 class KatelloProduct(BaseProduct):
     _page_title = "Katello - Open Source Systems Management"
-    _logo_locator = (By.XPATH, "//img[contains(@src, '/katello/images/logo.png')]")
+    _logo_locator = (By.XPATH, "//img[contains(@src, 'logo.png')]")
     
 class Page(object):
     '''

@@ -131,7 +131,8 @@ class TestRoles:
         home_page.jquery_wait(20)
         rolestab.save_role()
         Assert.true(home_page.is_failed)
-        
+    '''' Likely won't need this test with the new challenge being added.'''
+    '''    
     def test_create_environment_ro_role(self, mozwebqa):
         pytest.xfail("work in progress")
         home_page = Home(mozwebqa)
@@ -149,4 +150,4 @@ class TestRoles:
         home_page.tabs.click_tab("roles_administration")
         home_page.jquery_wait(30)
         rolestab.click_role_permissions()
-        
+    ''' 

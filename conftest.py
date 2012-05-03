@@ -10,7 +10,7 @@ def pytest_addoption(parser):
                      action="store",
                      dest='project',
                      metavar='str',
-                     default="",
+                     default="sam",
                      help="Specify project - [sam|headpin|katello|cfse]")
 
 def pytest_funcarg__mozwebqa(request):

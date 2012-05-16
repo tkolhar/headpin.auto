@@ -39,6 +39,23 @@ class TestOrganizations:
         Assert.true(organizations.is_org_details_tab_present)
         Assert.true(organizations.is_org_history_tab_present)
         
+    def test_duplicate_org_disallowed(self, mozwebqa):
+        """
+        Returns PASS if trying to create a org that exists
+        fails.
+        """
+        home_page = Home(mozwebqa)
+        sysapi = ApiTasks(mozwebqa)
+        
+        new_org_name = "duporg%s" % home_page.random_string()
+        sysapi.create_org(new_org_name)
+        
+        home_page.login()
+        home_page.tabs.click_tab("organizations_tab")
+        organizations.create_new_org(new_org_name)
+        
+        Assert.true(home_page.is_failed)
+        
     def test_recreate_previously_deleted_org(self, mozwebqa):
         #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=772575")
         home_page = Home(mozwebqa)

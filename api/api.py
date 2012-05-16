@@ -114,6 +114,12 @@ class ApiTasks(object):
         return env
 
     def create_new_system(self, name, org, username='admin', password='admin'):
+        """
+        Creates a new system name in org and creates default environments.
+        
+        Usage: api.create_new_system(name, org)
+        Optional arguments; username and password.
+        """
         ENVIRONMENTS = ["DEV", "TEST", "STAGE", "PROD"]
         env_name = random.choice(ENVIRONMENTS)
         self.set_basic_auth_credentials(username, password)
@@ -129,6 +135,12 @@ class ApiTasks(object):
         return self._POST(path, sysdata)[1]
     
     def create_org(self, name, username='admin', password='admin'):
+        """
+        Creates org name.
+        
+        Usage: api.create_org(org)
+        Optional arguments; username and password.
+        """
         self.set_basic_auth_credentials(username, password)
         path = "organizations"
         orgdata = {
@@ -137,6 +149,12 @@ class ApiTasks(object):
         return self._POST(path,orgdata)
     
     def create_envs(self, org, username='admin', password='admin'):
+        """
+        Creates default environments in org.
+        
+        Usage: api.create_envs(org)
+        Optional arguments; username and password.
+        """
         self.set_basic_auth_credentials(username, password)
         ENVIRONMENTS = ["DEV", "TEST", "STAGE", "PROD"]
         
@@ -157,6 +175,12 @@ class ApiTasks(object):
                 envids.append(existing_env["id"])
                 
     def create_user(self, name, pw, email, username='admin', password='admin'):
+        """
+        Creates user name with password and email.
+        
+        Usage: api.create_user(name, pw, email)
+        Optional arguments; username and password.
+        """
         self.set_basic_auth_credentials(username, password)
         path = "users"
         userdata = {"username" : name,
@@ -167,10 +191,21 @@ class ApiTasks(object):
         return self._POST(path, userdata)[1]
     
     def role(self, role_id):
+        """
+        Get role by role_id.
+        
+        Usage: api.role(role_id)
+        """
         path = "roles/%s" % str(role_id)
         return self._GET(path)[1]
     
     def create_role(self, name, desc="QE Role created by automation", username='admin', password='admin'):
+        """
+        Create role name with description.
+        
+        Usage: api.create_role(name)
+        Optional arguments; desc, username, and password.
+        """
         self.set_basic_auth_credentials(username, password)
         path = "roles"
         
@@ -180,6 +215,12 @@ class ApiTasks(object):
         return self._POST(path, {"role": data})[1]
     
     def ping(self, username='admin', password='admin'):
+        """
+        Pings the application and returns a status for services.
+        
+        Usage: api.ping()
+        Optional arguments: username and password
+        """
         self.set_basic_auth_credentials(username, password)
         path = "ping"
         return self._GET(path)

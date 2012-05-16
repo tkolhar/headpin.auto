@@ -5,6 +5,7 @@
 import pytest
 from unittestzero import Assert
 from pages.home import Home
+from pages.administration import AdministrationTab
 from pages.administration import RolesTab
 from api.api import ApiTasks
 import time
@@ -63,7 +64,7 @@ class TestRoles:
         sysapi = ApiTasks(mozwebqa)
         rolestab = RolesTab(mozwebqa)
         
-        username = "readevery%s" % home_page.random_string()
+        username = "readeveryrole%s" % home_page.random_string()
         email = username + "@example.com"
         password = home_page.random_string()
         
@@ -72,12 +73,10 @@ class TestRoles:
         home_page.login()
                 
         home_page.tabs.click_tab("administration_tab")
-        home_page.jquery_wait(30)
         home_page.tabs.click_tab("roles_administration")
-            
         rolestab.role("Read Everything").click()
         rolestab.click_role_users()
-        
+        time.sleep(5)
         rolestab.role_user(username).add_user()
         Assert.true(rolestab.is_remove_visible)
         
@@ -91,58 +90,22 @@ class TestRoles:
         home_page.jquery_wait(30)
         home_page.tabs.click_tab("roles_administration")
         
-        role_name = "plainrole%s" % home_page.random_string()
-        home_page.jquery_wait(20)
-        home_page.click_new()
-        home_page.jquery_wait(20)
+        role_name = "newrole%s" % home_page.random_string()
+
         rolestab.create_new_role(role_name)
-        home_page.jquery_wait(20)
-        rolestab.save_role()
         Assert.true(home_page.is_successful)
         
-    def test_create_role_name_already_taken(self, mozwebqa):
+    def test_duplicate_rolename_disallowed(self, mozwebqa):
         home_page = Home(mozwebqa)
         rolestab = RolesTab(mozwebqa)
         
         home_page.login()
         
         home_page.tabs.click_tab("administration_tab")
-        home_page.jquery_wait(30)
         home_page.tabs.click_tab("roles_administration")
         
-        role_name = "plainrole%s" % home_page.random_string()
-        home_page.jquery_wait(20)
-        home_page.click_new()
-        home_page.jquery_wait(20)
+        role_name = "duprole%s" % home_page.random_string()
         rolestab.create_new_role(role_name)
-        home_page.jquery_wait(20)
-        rolestab.save_role()
-        
-        home_page.jquery_wait(20)
-        home_page.click_new()
-        home_page.jquery_wait(20)
+        time.sleep(4)
         rolestab.create_new_role(role_name)
-        home_page.jquery_wait(20)
-        rolestab.save_role()
         Assert.true(home_page.is_failed)
-        
-    '''' Likely won't need this test with the new challenge being added.'''
-    '''    
-    def test_create_environment_ro_role(self, mozwebqa):
-        pytest.xfail("work in progress")
-        home_page = Home(mozwebqa)
-        sysapi = ApiTasks(mozwebqa)
-        rolestab = RolesTab(mozwebqa)
-        role_name = "environ_ro_%s" % home_page.random_string()
-        
-        sysapi.create_role(role_name)
-        
-        home_page.login()
-        Assert.true(home_page.is_successful)
-        
-        home_page.tabs.click_tab("administration_tab")
-        home_page.jquery_wait(30)
-        home_page.tabs.click_tab("roles_administration")
-        home_page.jquery_wait(30)
-        rolestab.click_role_permissions()
-    ''' 

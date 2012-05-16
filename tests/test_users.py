@@ -25,7 +25,7 @@ class Testusers:
         new_user_name = home_page.random_string()
         new_user_name = "newuser-%s" % home_page.random_string()
         
-        password = home_page.random_string()
+        password = "password%s" % home_page.random_string()
         
         email_addr = new_user_name + "@example.com"
         administration.create_new_user(new_user_name, password, password, email_addr)
@@ -41,7 +41,7 @@ class Testusers:
         sysapi = ApiTasks(mozwebqa)
         
         new_user_name = "dupuser%s" % home_page.random_string()
-        password = home_page.random_string()
+        password = "password%s" % home_page.random_string()
         email_addr = new_user_name + "@example.com"
         sysapi.create_user(new_user_name, password, email_addr)
         
@@ -60,19 +60,16 @@ class Testusers:
         home_page = Home(mozwebqa)
         sysapi = ApiTasks(mozwebqa)
 
-        new_user_name = home_page.random_string()
-        new_user_name = "rmuser-%s" % home_page.random_string()
-        password = home_page.random_string()
+        new_user_name = "rmuser%s" % home_page.random_string()
+        password = "password%s" % home_page.random_string()
         email_addr = new_user_name + "@example.com"
         sysapi.create_user(new_user_name, password, email_addr)   
 
         home_page.login()
         
         home_page.tabs.click_tab("administration_tab")
-        
         administration = AdministrationTab(mozwebqa)
-        
-        home_page.enter_search_criteria("rmuser*") 
+        home_page.enter_search_criteria(new_user_name) 
         
         administration.user(new_user_name).click()
 
@@ -91,13 +88,13 @@ class Testusers:
         
         for i in range(1,5):
             new_user_name = "%s" % home_page.random_string()
-            password = home_page.random_string()
+            password = "password%s" % home_page.random_string()
             email_addr = new_user_name + "@example.com"
             sysapi.create_user(new_user_name, password, email_addr)
             
         for i in range(1,5):
             new_user_name = "searchuser-%s" % home_page.random_string()
-            password = home_page.random_string()
+            password = "password%s" % home_page.random_string()
             email_addr = new_user_name + "@example.com"
             sysapi.create_user(new_user_name, password, email_addr)
             
@@ -113,7 +110,7 @@ class Testusers:
         sysapi = ApiTasks(mozwebqa)
         
         new_user_name = "chgpasswd-%s" % home_page.random_string()
-        password = home_page.random_string()
+        password = "password%s" % home_page.random_string()
         email_addr = new_user_name + "@example.com"
         
         sysapi.create_user(new_user_name, password, email_addr)
@@ -121,7 +118,7 @@ class Testusers:
         home_page.enter_search_criteria(new_user_name)
         administration.user(new_user_name).click()
         
-        new_password = home_page.random_string()
+        new_password = "password%s" % home_page.random_string()
         administration.change_password(new_password)
         Assert.true(home_page.is_successful)
         
@@ -133,7 +130,7 @@ class Testusers:
         sysapi = ApiTasks(mozwebqa)
         
         new_user_name = "chgpasswd-%s" % home_page.random_string()
-        password = home_page.random_string()
+        password = "password%s" % home_page.random_string()
         email_addr = new_user_name + "@example.com"
         
         sysapi.create_user(new_user_name, password, email_addr)
@@ -141,8 +138,8 @@ class Testusers:
         home_page.enter_search_criteria(new_user_name)
         administration.user(new_user_name).click()
         
-        new_password = home_page.random_string()
-        confirm_password = home_page.random_string()
+        new_password = "password%s" % home_page.random_string()
+        confirm_password = "password%s" % home_page.random_string()
         administration.change_password(new_password, confirm_password)
         Assert.true(administration.passwords_do_not_match_visible)
 
@@ -151,7 +148,7 @@ class Testusers:
         home_page= Home(mozwebqa)
        
         new_user_name = "random%s" % home_page.random_string()
-        password = home_page.random_string()
+        password = "password%s" % home_page.random_string()
         email_addr = new_user_name + "@example.com"
 
         sysapi.create_user(new_user_name, password, email_addr)

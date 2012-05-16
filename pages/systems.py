@@ -34,10 +34,10 @@ class SystemsTab(Base):
     #_system_details_name_locator = ""
     _system_list_locator = (By.CSS_SELECTOR, "div.block")
     _system_block_active_locator = (By.CSS_SELECTOR, "div.block.tall.active")
-    
+    _system_block_locator = (By.CSS_SELECTOR, "div.block.tall")
     _remove_system_locator = (By.CLASS_NAME, "remove_item")
     _confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Yes']")
-        
+    
     def remove_a_system(self):
         '''
         Revmove a system.
@@ -92,7 +92,7 @@ class SystemsTab(Base):
         return choice(self.systems).name
     
     def is_search_correct(self, criteria):
-        time.sleep(5)
+        WebDriverWait(self.selenium, 30).until(lambda s: s.find_element(*self._system_block_locator).is_displayed())
         for sys in self.systems:
             if criteria not in sys.name:
                 raise Exception('%s does not match Search Criteria %s' % (sys.name, criteria))

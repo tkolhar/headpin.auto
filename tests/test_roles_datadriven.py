@@ -74,4 +74,3 @@ class TestRolesDataDriven(object):
         
         for t in disallowed:
             Assert.false(t(home_page))
-        #home_page.header.click_logout()

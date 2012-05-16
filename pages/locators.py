@@ -55,7 +55,7 @@ confirmation_yes_locator = (By.XPATH, "//span[@class='ui-button-text'][text()='Y
 next_button_locator = (By.ID, "next_button")
 activation_key_new_name_locator = (By.ID, "activation_key_name")
 organization_new_name_locator = (By.ID, "new")
-
+close_locator = (By.CLASS_NAME, "close")
 """
 Tabs
 """

@@ -11,8 +11,6 @@ from data.datadrv import *
 class TestRolesDataDriven(object):
     scenarios = [scenario1,scenario2]
     
-    @pytest.mark.challenge    
-    @pytest.mark.nondestructive
     def test_datadriven_rbac(self, mozwebqa, org, perm_name, resource, verbs, allowed, disallowed):
         """
         Perform a data driven test related to role based access controls.

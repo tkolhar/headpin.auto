@@ -52,9 +52,7 @@ class Base(Page):
         Search for criteria
         :param criteria: string
         """
-        self.send_text(criteria, *search_input_locator)
-        #search_input_locator.send_keys("\n")
-        time.sleep(2)
+        self.send_text(criteria + "\n", *search_input_locator)
     
     def click_next(self):
         """

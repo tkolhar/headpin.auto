@@ -67,17 +67,15 @@ class TestSystems:
         
         home_page.login()
         current_org = home_page.header.get_text_from_switcher
-        
         # Some bad results
         for i in range(1,5):
             new_system_name = "%s" % home_page.random_string()
             sysapi.create_new_system(new_system_name, current_org)
-        
         # The actual systems to search for   
         for i in range(1,5):
             new_sys_name = "SearchSys%s" % home_page.random_string()
             sysapi.create_new_system(new_sys_name, current_org)
-        
+            
         home_page.tabs.click_tab("systems_tab")
         systems = SystemsTab(mozwebqa)
         home_page.jquery_wait(30)

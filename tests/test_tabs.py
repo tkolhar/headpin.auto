@@ -19,7 +19,7 @@ class TestTabs:
                               "dashboard_tab")
            
         home_page = Home(mozwebqa)
-        
+        home_page.login()
         for tab in tabs:
             home_page.tabs.click_tab(tab)
             Assert.true(home_page.is_the_current_page)

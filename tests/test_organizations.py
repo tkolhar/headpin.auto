@@ -42,6 +42,7 @@ class TestOrganizations:
         """
         home_page = Home(mozwebqa)
         sysapi = ApiTasks(mozwebqa)
+        organizations = OrganizationsTab(mozwebqa)
         
         new_org_name = "duporg%s" % home_page.random_string()
         sysapi.create_org(new_org_name)

@@ -36,6 +36,25 @@ class Testusers:
         Assert.true(home_page.is_successful)
         Assert.true(administration.user(new_user_name).is_displayed)
         
+    def duplicate_user_disallowed(self, mozwebqa):
+        """
+        Returns Pass if creating a existing user fails.
+        """
+        home_page = Home(mozwebqa)
+        sysapi = ApiTasks(mozwebqa)
+        
+        new_user_name = "dupuser%s" % home_page.random_string()
+        email_addr = new_user_name + "@example.com"
+        sysapi.create_user(new_user_name, password, email_addr)
+        
+        home_page.login()
+        home_page.tabs.click_tab("administration_tab")
+        
+        administration = AdministrationTab(mozwebqa)
+        administration.create_new_user(new_user_name, password, password, email_addr)
+        
+        Assert.true(home_page.is_failed)
+        
     def test_remove_a_user(self, mozwebqa):
         '''
         Test to remove a single user.

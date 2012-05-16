@@ -16,8 +16,6 @@ class TestActivationKeys:
     def test_create_activation_key(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
         
         current_org = home_page.header.get_text_from_switcher
         api = ApiTasks(mozwebqa)
@@ -42,8 +40,6 @@ class TestActivationKeys:
         activationkeys = ActivationKeysTab(mozwebqa)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
         
         current_org = home_page.header.get_text_from_switcher
         api.create_envs(current_org)
@@ -57,7 +53,6 @@ class TestActivationKeys:
         activationkeys.enter_activation_key_name(new_activationkey_name)
         activationkeys.enter_activation_key_description(new_activationkey_name)
         activationkeys.click_save()
-        Assert.true(home_page.is_successful)
 
         home_page.enter_search_criteria(new_activationkey_name)
         home_page.jquery_wait(30)
@@ -65,7 +60,6 @@ class TestActivationKeys:
         if not activationkeys.is_block_active:
             activationkeys.activationkey(new_activationkey_name).click()
 
-        Assert.true(activationkeys.is_block_active)
         home_page.click_remove()
         home_page.click_confirm()
         Assert.true(home_page.is_successful)
@@ -78,8 +72,6 @@ class TestActivationKeys:
         api.create_envs(_new_org_name)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
         
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(_new_org_name)
@@ -93,7 +85,6 @@ class TestActivationKeys:
             cm.select_redhat_content_provider()
             
         cm.enter_manifest(self._activationkey_manifest)
-        Assert.true(home_page.is_successful)
         home_page.is_dialog_cleared
         
         activationkeys = ActivationKeysTab(mozwebqa)
@@ -106,16 +97,11 @@ class TestActivationKeys:
         activationkeys.enter_activation_key_name(_new_activationkey_name)
         activationkeys.enter_activation_key_description(_new_activationkey_name)
         activationkeys.click_save()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
-        Assert.true(activationkeys.is_block_active)
 
         activationkeys.click_available_subscriptions()
         
         rand_sub_id = activationkeys.select_a_random_sub()
         activationkeys.click_add_sub()
 
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
         activationkeys.click_applied_subscriptions()
         Assert.true(activationkeys.find_sub_by_id(rand_sub_id))

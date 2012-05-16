@@ -17,7 +17,6 @@ class TestRoles:
     
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
 
         rolestab = RolesTab(mozwebqa)
 
@@ -48,7 +47,6 @@ class TestRoles:
         sysapi.create_user(username, password, email)
         
         home_page.login()
-        Assert.true(home_page.is_successful)   
         
         home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(20)
@@ -72,8 +70,7 @@ class TestRoles:
         sysapi.create_user(username, password, email)
         
         home_page.login()
-        Assert.true(home_page.is_successful)   
-        
+                
         home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
         home_page.tabs.click_tab("roles_administration")
@@ -89,7 +86,6 @@ class TestRoles:
         rolestab = RolesTab(mozwebqa)
         
         home_page.login()
-        Assert.true(home_page.is_successful)   
         
         home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
@@ -109,7 +105,6 @@ class TestRoles:
         rolestab = RolesTab(mozwebqa)
         
         home_page.login()
-        Assert.true(home_page.is_successful)   
         
         home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
@@ -122,7 +117,6 @@ class TestRoles:
         rolestab.create_new_role(role_name)
         home_page.jquery_wait(20)
         rolestab.save_role()
-        Assert.true(home_page.is_successful)
         
         home_page.jquery_wait(20)
         home_page.click_new()
@@ -131,6 +125,7 @@ class TestRoles:
         home_page.jquery_wait(20)
         rolestab.save_role()
         Assert.true(home_page.is_failed)
+        
     '''' Likely won't need this test with the new challenge being added.'''
     '''    
     def test_create_environment_ro_role(self, mozwebqa):

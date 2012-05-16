@@ -19,8 +19,6 @@ class TestTabs:
                               "dashboard_tab")
            
         home_page = Home(mozwebqa)
-        home_page.login()
-        Assert.true(home_page.header.is_user_logged_in)
         
         for tab in tabs:
             home_page.tabs.click_tab(tab)

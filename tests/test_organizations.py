@@ -22,11 +22,8 @@ class TestOrganizations:
         '''
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
-        Assert.true(home_page.header.is_user_logged_in)
         
         home_page.tabs.click_tab("organizations_tab")
-        Assert.true(home_page.is_the_current_page)
         
         organizations = OrganizationsTab(mozwebqa)
         new_org_name = home_page.random_string()
@@ -34,7 +31,6 @@ class TestOrganizations:
         
         organizations.create_new_org(new_org_name)
         Assert.true(home_page.is_successful)
-        
         Assert.true(organizations.organization(new_org_name).is_displayed)
         Assert.true(organizations.is_org_details_tab_present)
         Assert.true(organizations.is_org_history_tab_present)

@@ -26,8 +26,6 @@ class TestContentManagement:
         sysapi.create_org(new_org_name)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
 
         active_org = home_page.header.get_text_from_switcher
         home_page.header.click_switcher()
@@ -47,8 +45,6 @@ class TestContentManagement:
         sysapi.create_org(new_org_name)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
 
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
@@ -61,7 +57,6 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
             
-        Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
@@ -79,8 +74,6 @@ class TestContentManagement:
         sysapi.create_org(new_org_name)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
 
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
@@ -93,9 +86,7 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._scenario2_m1_d1_manifest)
-        Assert.true(home_page.is_successful)
 
         cm.enter_manifest(self._scenario2_m1_d1_manifest)
         Assert.true(home_page.is_failed)
@@ -112,8 +103,6 @@ class TestContentManagement:
         sysapi.create_org(new_org_name)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
 
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
@@ -128,9 +117,7 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org4_m1_manifest)
-        Assert.true(home_page.is_successful)
         
         cm.click_force()
         cm.enter_manifest(self._org4_m1_manifest)
@@ -148,8 +135,6 @@ class TestContentManagement:
         sysapi.create_org(new_org_name)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
 
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
@@ -162,9 +147,7 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._scenario5_o1_m1_manifest)
-        Assert.true(home_page.is_successful)
 
         cm.enter_manifest(self._scenario5_o1_m2_manifest)
         Assert.true(home_page.is_successful)
@@ -178,8 +161,6 @@ class TestContentManagement:
         sysapi.create_org(new_org_name)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
 
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
@@ -192,7 +173,6 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org2_m1_manifest)
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
@@ -210,8 +190,6 @@ class TestContentManagement:
         sysapi.create_org(new_org_name)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
 
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
@@ -224,7 +202,6 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_failed)
         
@@ -239,8 +216,6 @@ class TestContentManagement:
         sysapi.create_org(new_org_name)
         
         home_page.login()
-        Assert.true(home_page.is_successful)
-        home_page.is_dialog_cleared
 
         home_page.header.click_switcher()
         home_page.header.filter_org_in_switcher(new_org_name)
@@ -253,7 +228,6 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        Assert.true(home_page.is_the_current_page)
         cm.enter_manifest(self._bz786963_manifest)
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")

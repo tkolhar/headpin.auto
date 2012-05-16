@@ -44,11 +44,7 @@ class TestHomePage:
     def test_admin_login_logout(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
-        
-        Assert.true(home_page.is_the_current_page)
-        Assert.true(home_page.header.is_user_logged_in)
-        
+                
         home_page.header.click_logout()
         Assert.true(home_page.is_username_field_present)
         Assert.true(home_page.is_password_field_present)

@@ -15,7 +15,6 @@ class TestHello:
         #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784016")
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
         
         hello = Hello(mozwebqa)
         
@@ -26,7 +25,6 @@ class TestHello:
         #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784016")
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
         
         hello = Hello(mozwebqa)
         
@@ -38,7 +36,6 @@ class TestHello:
         #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=806478")
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
         
         hello = Hello(mozwebqa)
         
@@ -46,17 +43,14 @@ class TestHello:
         hello.click_helptips()
         # Need to ensure this gets pushed to the DB
         time.sleep(2)
-        Assert.true(home_page.is_successful)
         home_page.tabs.click_tab("dashboard_tab")
         home_page.click_hello_link()
-        Assert.false(hello.is_helptips_enabled)
         
         # Reset the value for future tests.
         home_page.click_hello_link()
         hello.click_helptips()
         # Need to ensure this gets pushed to the DB
         time.sleep(2)
-        Assert.true(home_page.is_successful)
         home_page.tabs.click_tab("dashboard_tab")
         home_page.click_hello_link()
         Assert.true(hello.is_helptips_enabled)
@@ -64,7 +58,6 @@ class TestHello:
     def test_update_email_addr(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
         
         hello = Hello(mozwebqa)
         

@@ -18,11 +18,8 @@ class Testusers:
         '''
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
-        Assert.true(home_page.header.is_user_logged_in)
         
         home_page.tabs.click_tab("administration_tab")
-        Assert.true(home_page.is_the_current_page)
         
         administration = AdministrationTab(mozwebqa)
         new_user_name = home_page.random_string()
@@ -70,18 +67,14 @@ class Testusers:
         sysapi.create_user(new_user_name, password, email_addr)   
 
         home_page.login()
-        Assert.true(home_page.is_successful)
-        Assert.true(home_page.header.is_user_logged_in)
         
         home_page.tabs.click_tab("administration_tab")
-        Assert.true(home_page.is_the_current_page)
         
         administration = AdministrationTab(mozwebqa)
         
         home_page.enter_search_criteria("rmuser*") 
         
         administration.user(new_user_name).click()
-        Assert.true(administration.is_block_active)
 
         home_page.click_remove()
         home_page.click_confirm()
@@ -91,7 +84,6 @@ class Testusers:
     def test_user_search(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
         
         home_page.tabs.click_tab("administration_tab")
         administration = AdministrationTab(mozwebqa)
@@ -116,7 +108,6 @@ class Testusers:
     def test_change_user_password_valid_as_admin(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
         
         administration = AdministrationTab(mozwebqa)
         sysapi = ApiTasks(mozwebqa)
@@ -137,7 +128,6 @@ class Testusers:
     def test_change_user_password_does_not_match_as_admin(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
-        Assert.true(home_page.is_successful)
         
         administration = AdministrationTab(mozwebqa)
         sysapi = ApiTasks(mozwebqa)

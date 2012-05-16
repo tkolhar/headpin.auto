@@ -50,7 +50,7 @@ class TestRoles:
         home_page.login()
         
         home_page.tabs.click_tab("administration_tab")
-        home_page.jquery_wait(20)
+        home_page.jquery_wait(30)
         home_page.tabs.click_tab("roles_administration")
             
         rolestab.role("Administrator").click()
@@ -73,6 +73,7 @@ class TestRoles:
         home_page.login()
                 
         home_page.tabs.click_tab("administration_tab")
+        home_page.jquery_wait(30)
         home_page.tabs.click_tab("roles_administration")
         rolestab.role("Read Everything").click()
         rolestab.click_role_users()
@@ -102,6 +103,7 @@ class TestRoles:
         home_page.login()
         
         home_page.tabs.click_tab("administration_tab")
+        home_page.jquery_wait(30)
         home_page.tabs.click_tab("roles_administration")
         
         role_name = "duprole%s" % home_page.random_string()

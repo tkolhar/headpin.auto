@@ -39,7 +39,7 @@ class TestRolesDataDriven(object):
         
         home_page.tabs.click_tab("administration_tab")
         home_page.tabs.click_tab("roles_administration")
-        rolestab.create_role(role_name)
+        rolestab.create_new_role(role_name)
         
         rolestab.click_role_permissions()
             

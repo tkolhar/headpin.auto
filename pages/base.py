@@ -300,4 +300,4 @@ class Base(Page):
             """
             Execute a left mouse click on `tab`.
             """
-            WebDriverWait(self.selenium, 20).until(lambda s: s.find_element(*tab_elements[tab])).click()
+            self.click(*tab_elements[tab])

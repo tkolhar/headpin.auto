@@ -10,23 +10,22 @@ from pages.organizations import OrganizationsTab
 from api.api import ApiTasks
 import random
 import time
-import sys
 
 xfail = pytest.mark.xfail
 
+@pytest.mark.nondestructive
 class TestOrganizations:
-
+    
     def test_create_new_org(self, mozwebqa):
-        '''
-        Test to create a new org, no environment.
-        '''
+        """
+        Returns Pass if creating a new org is successfull
+        """
         home_page = Home(mozwebqa)
         home_page.login()
         
         home_page.tabs.click_tab("organizations_tab")
         
         organizations = OrganizationsTab(mozwebqa)
-        new_org_name = home_page.random_string()
         new_org_name = "Org%s" % home_page.random_string()
         
         organizations.create_new_org(new_org_name)
@@ -34,7 +33,7 @@ class TestOrganizations:
         Assert.true(organizations.organization(new_org_name).is_displayed)
         Assert.true(organizations.is_org_details_tab_present)
         Assert.true(organizations.is_org_history_tab_present)
-        
+    
     def test_duplicate_org_disallowed(self, mozwebqa):
         """
         Returns PASS if trying to create a org that exists
@@ -52,7 +51,7 @@ class TestOrganizations:
         organizations.create_new_org(new_org_name)
         
         Assert.true(home_page.is_failed)
-        
+    
     def test_recreate_previously_deleted_org(self, mozwebqa):
         #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=772575")
         home_page = Home(mozwebqa)
@@ -80,7 +79,7 @@ class TestOrganizations:
         
         organizations.create_new_org(_new_org_name)
         Assert.true(home_page.is_successful)
-
+        
     def test_create_new_org_w_env(self, mozwebqa):
         '''
         Test to create a new org, with environment.
@@ -124,7 +123,6 @@ class TestOrganizations:
         
         home_page.tabs.click_tab("organizations_tab")
         organizations = OrganizationsTab(mozwebqa)
-        
-        home_page.jquery_wait(30)
+
         home_page.enter_search_criteria("SearchOrg*")
         Assert.true(organizations.is_search_correct("SearchOrg"))

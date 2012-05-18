@@ -1,11 +1,19 @@
 #!/usr/bin/env python
 
-import mozwebqa
+import py
 
 def pytest_runtest_setup(item):
-    mozwebqa.TestSetup.project = item.config.option.project
+    """ 
+    pytest setup
+    """
+    pytest_mozwebqa = py.test.config.pluginmanager.getplugin("mozwebqa")
+    pytest_mozwebqa.TestSetup.project = item.config.option.project
 
 def pytest_addoption(parser):
+    """ 
+    Add option to the py.test command line, option is specific to 
+    this project.
+    """
     parser.addoption("--project",
                      action="store",
                      dest='project',
@@ -14,4 +22,5 @@ def pytest_addoption(parser):
                      help="Specify project - [sam|headpin|katello|cfse]")
 
 def pytest_funcarg__mozwebqa(request):
-    return mozwebqa.TestSetup(request)
+    pytest_mozwebqa = py.test.config.pluginmanager.getplugin("mozwebqa")
+    return pytest_mozwebqa.TestSetup(request)

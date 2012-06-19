@@ -10,6 +10,7 @@ from api.api import ApiTasks
 
 xfail = pytest.mark.xfail
 
+@pytest.mark.nondestructive
 class Testusers:
 
     def test_create_new_user(self, mozwebqa):

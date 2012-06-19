@@ -7,6 +7,7 @@ import time
 import pytest
 from data.datadrv import *
 
+@pytest.mark.nondestructive
 class TestRolesDataDriven(object):
     scenarios = [scenario1,scenario2]
     

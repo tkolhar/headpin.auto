@@ -8,6 +8,8 @@ import time
 
 xfail = pytest.mark.xfail
 
+@pytest.mark.nondestructive
+@pytest.mark.bugzilla(12345)
 class TestTabs:
 
     def test_navigate_tabs(self, mozwebqa):

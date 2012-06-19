@@ -13,7 +13,11 @@ xfail = pytest.mark.xfail
 class TestActivationKeys:
     _activationkey_manifest = "/var/tmp/ActivationKeys_M1.zip"
     
+    @pytest.mark.nondestructive
     def test_create_activation_key(self, mozwebqa):
+        """
+        Return True if create activation key is successful.
+        """
         home_page = Home(mozwebqa)
         home_page.login()
         
@@ -33,8 +37,12 @@ class TestActivationKeys:
         activationkeys.enter_activation_key_description(new_activationkey_name)
         activationkeys.click_save()
         Assert.true(home_page.is_successful)
-        
+    
+    @pytest.mark.nondestructive
     def test_remove_activationkey(self, mozwebqa):
+        """
+        Return True if removing a activation key is successful.
+        """
         home_page = Home(mozwebqa)
         api = ApiTasks(mozwebqa)
         activationkeys = ActivationKeysTab(mozwebqa)
@@ -64,7 +72,13 @@ class TestActivationKeys:
         home_page.click_confirm()
         Assert.true(home_page.is_successful)
         
+    @pytest.mark.destructive
     def test_activation_key_workflow(self, mozwebqa):
+        """
+        Return True of a activation key can be created and a single
+        subscription from a multi subscription manifest can be
+        added.
+        """
         home_page = Home(mozwebqa)
         api = ApiTasks(mozwebqa)
         _new_org_name = "activationkeyorg%s" % home_page.random_string()

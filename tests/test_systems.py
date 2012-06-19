@@ -11,13 +11,14 @@ import sys
 
 xfail = pytest.mark.xfail
 
+@pytest.mark.nondestructive
 class TestSystems:
     
     def test_systems_page(self, mozwebqa):
-        '''
+        """
         Randomly select a system from the systems page
         and verify that key elements are present.
-        '''
+        """
         home_page = Home(mozwebqa)
         home_page.login()
 

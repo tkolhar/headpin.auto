@@ -18,7 +18,12 @@ class TestContentManagement:
     _scenario5_o1_m1_manifest = "/var/tmp/scenario5_O1_M1.zip"
     _bz786963_manifest = "/var/tmp/manifest_bz786963.zip"
     
+    @pytest.mark.nondestructive
     def test_switch_org(self, mozwebqa):
+        """
+        Return True if switching to a random org in the 
+        org switcher is successful.
+        """
         sysapi = ApiTasks(mozwebqa)
         home_page = Home(mozwebqa)
         
@@ -32,7 +37,8 @@ class TestContentManagement:
         home_page.header.select_a_random_switcher_org()
         
         Assert.true(home_page.header.is_dashboard_selected)
-            
+    
+    @pytest.mark.destructive        
     def test_load_manifest(self, mozwebqa):
         '''
         Scenario 1: Import Manifest (M1) from Distributor (D1) input Org1
@@ -60,7 +66,8 @@ class TestContentManagement:
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
-        
+    
+    @pytest.mark.destructive    
     def test_load_same_manifest_to_same_org_wo_force(self, mozwebqa):
         '''
         Scenario 2 with a twist. Import Manifest (M1) from Distributor (D1) into 
@@ -91,6 +98,7 @@ class TestContentManagement:
         cm.enter_manifest(self._scenario2_m1_d1_manifest)
         Assert.true(home_page.is_failed)
     
+    @pytest.mark.destructive
     def test_load_same_manifest_to_same_org_w_force(self, mozwebqa):
         '''
         Scenario 2: Re-import same manifest into same org.
@@ -122,7 +130,8 @@ class TestContentManagement:
         cm.click_force()
         cm.enter_manifest(self._org4_m1_manifest)
         Assert.true(home_page.is_successful)
-        
+    
+    @pytest.mark.destructive    
     def test_load_new_manifest_into_same_org_wo_force(self, mozwebqa):
         '''
         Scenario 5: Load updated (new) manifest into org where a manifest already exists.
@@ -152,7 +161,8 @@ class TestContentManagement:
         cm.enter_manifest(self._scenario5_o1_m2_manifest)
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
-        
+    
+    @pytest.mark.destructive    
     def test_load_second_manifest_second_org(self, mozwebqa):
         sysapi = ApiTasks(mozwebqa)
         home_page = Home(mozwebqa)
@@ -176,9 +186,10 @@ class TestContentManagement:
         cm.enter_manifest(self._org2_m1_manifest)
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
-        
+    
+    @pytest.mark.destructive
+    @pytest.mark.bugzilla(787278)    
     def test_load_previous_manifest_to_another_org(self, mozwebqa):
-        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=787278")
         '''
         Scenario 3: Import Manifest (M1) from Distributor (D1) into Org2.
         Result Expected: Fail
@@ -205,10 +216,11 @@ class TestContentManagement:
         cm.enter_manifest(self._org1_m1_manifest)
         Assert.true(home_page.is_failed)
         
+    @pytest.mark.destructive    
     def test_NumberFormatException_forInputString(self, mozwebqa):
-        '''
+        """
         Regression Test for bz786963
-        '''
+        """
         home_page = Home(mozwebqa)
         sysapi = ApiTasks(mozwebqa)
         

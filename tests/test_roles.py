@@ -12,6 +12,7 @@ import time
 
 xfail = pytest.mark.xfail
 
+@pytest.mark.nondestructive
 class TestRoles:
     def test_confirm_default_roles(self, mozwebqa):
         roles = ["Administrator", "Read Everything"]

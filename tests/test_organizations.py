@@ -51,9 +51,9 @@ class TestOrganizations:
         organizations.create_new_org(new_org_name)
         
         Assert.true(home_page.is_failed)
-    
+        
+    @pytest.mark.bugzilla(772575)
     def test_recreate_previously_deleted_org(self, mozwebqa):
-        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=772575")
         home_page = Home(mozwebqa)
         home_page.login()
         Assert.true(home_page.is_successful)

@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
 from pages.locators import *
+import time
 
 class EnvironmentNotSetException(Exception):
     """
@@ -203,13 +204,19 @@ class Page(object):
             click().perform()
         self.jquery_wait()
     
+    def send_characters(self, text, *locator):
+        WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_enabled())
+        input_locator = self.selenium.find_element(*locator)
+        for c in text:
+            input_locator.send_keys(c)
+            
     def send_text(self, text, *locator):
         """
         Sends text to locator, one character at a time.
         """
+        WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_enabled())
         input_locator = self.selenium.find_element(*locator)
-        for c in text:
-            input_locator.send_keys(c)
+        input_locator.send_keys(text)
             
     def select(self, locatorid, value):
         """

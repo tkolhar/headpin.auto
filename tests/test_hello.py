@@ -10,9 +10,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 xfail = pytest.mark.xfail
 
+@pytest.mark.nondestructive
 class TestHello:
+    @pytest.mark.bugzilla(784016)
     def test_hello_link_works(self, mozwebqa):
-        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784016")
         home_page = Home(mozwebqa)
         home_page.login()
         
@@ -20,9 +21,9 @@ class TestHello:
         
         home_page.click_hello_link()
         Assert.true(hello.is_username_present)
-        
+
+    @pytest.mark.bugzilla(784016)        
     def test_helptips_enabled_default(self, mozwebqa):
-        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784016")
         home_page = Home(mozwebqa)
         home_page.login()
         
@@ -30,10 +31,10 @@ class TestHello:
         
         home_page.click_hello_link()
         Assert.true(hello.is_helptips_enabled_present)
-        
+    
+    @pytest.mark.bugzilla(784016)
+    @pytest.mark.bguzilla(806478)
     def test_update_helptips(self, mozwebqa):
-        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784016")
-        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=806478")
         home_page = Home(mozwebqa)
         home_page.login()
         

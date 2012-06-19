@@ -6,8 +6,8 @@ from api.api import ApiTasks
 
 @pytest.mark.skip_selenium
 class TestAPI:
+    @pytest.mark.bugzilla(784973)
     def test_ping(self,mozwebqa):
-        #pytest.xfail("https://bugzilla.redhat.com/show_bug.cgi?id=784973")
         sysapi = ApiTasks(mozwebqa)
         
         response = sysapi.ping()[0]

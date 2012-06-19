@@ -7,6 +7,7 @@ from pages.dashboard import Dashboard
 
 xfail = pytest.mark.xfail
 
+@pytest.mark.nondestructive
 class TestDashboard:
 
     def test_dashboard_present(self, mozwebqa):

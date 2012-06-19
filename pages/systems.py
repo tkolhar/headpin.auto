@@ -12,7 +12,6 @@ from pages.base import Base
 from pages.page import Page
 from random import choice
 import random
-import time
 
 class SystemsTab(Base):
     _systems_search_form_locator = (By.XPATH, "//form[@id='search_form']")

@@ -52,7 +52,7 @@ class Base(Page):
         Search for criteria
         :param criteria: string
         """
-        self.send_text(criteria + "\n", *search_input_locator)
+        self.send_text_and_wait(criteria + "\n", *search_input_locator)
     
     def click_next(self):
         """
@@ -300,4 +300,4 @@ class Base(Page):
             """
             Execute a left mouse click on `tab`.
             """
-            self.click(*tab_elements[tab])
+            self.click_and_wait(*tab_elements[tab])

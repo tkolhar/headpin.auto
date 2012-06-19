@@ -141,8 +141,7 @@ class RolesTab(Base):
         """
         Click on the role users locator.
         """
-        self.click(*role_users_locator)
-        time.sleep(4)
+        self.click_and_wait(*role_users_locator)
         
     def click_add_permission(self):
         """

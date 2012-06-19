@@ -220,6 +220,10 @@ class Page(object):
         WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_enabled())
         input_locator = self.selenium.find_element(*locator)
         input_locator.send_keys(text)
+        
+    def send_text_and_wait(self, text, *locator):
+        self.send_text(text, *locator)
+        self.jquery_wait()
             
     def select(self, locatorid, value):
         """

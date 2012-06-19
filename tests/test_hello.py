@@ -5,8 +5,7 @@ from unittestzero import Assert
 from pages.home import Home
 from pages.hello import Hello
 import time
-import sys
-from selenium.webdriver.support.ui import WebDriverWait
+
 
 xfail = pytest.mark.xfail
 

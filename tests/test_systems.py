@@ -5,9 +5,6 @@ from unittestzero import Assert
 from pages.home import Home
 from pages.systems import SystemsTab
 from api.api import ApiTasks
-import random
-import time
-import sys
 
 xfail = pytest.mark.xfail
 
@@ -79,7 +76,6 @@ class TestSystems:
             
         home_page.tabs.click_tab("systems_tab")
         systems = SystemsTab(mozwebqa)
-        home_page.jquery_wait(30)
         
         home_page.enter_search_criteria("SearchSys*")
         Assert.true(systems.is_search_correct("SearchSys"))

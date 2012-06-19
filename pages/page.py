@@ -202,6 +202,9 @@ class Page(object):
         click_locator = self.selenium.find_element(*locator)
         ActionChains(self.selenium).move_to_element(click_locator).\
             click().perform()
+        
+    def click_and_wait(self, *locator):
+        self.click(*locator)
         self.jquery_wait()
     
     def send_characters(self, text, *locator):

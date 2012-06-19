@@ -78,7 +78,6 @@ class TestRoles:
         home_page.tabs.click_tab("roles_administration")
         rolestab.role("Read Everything").click()
         rolestab.click_role_users()
-        time.sleep(5)
         rolestab.role_user(username).add_user()
         Assert.true(rolestab.is_remove_visible)
         

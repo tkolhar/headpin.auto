@@ -6,17 +6,16 @@ from unittestzero import Assert
 from pages.home import Home
 from api.api import ApiTasks
 from pages.contentmgmt import ContentManagementTab
-import time
-xfail = pytest.mark.xfail
+
 
 class TestContentManagement:
-    _org1_m1_manifest = "/var/tmp/manifest_D1_O1_M1.zip"
-    _org2_m1_manifest = "/var/tmp/manifest_D2_O2_M1.zip"
-    _org4_m1_manifest = "/var/tmp/manifest_D4_O4_M1.zip"
-    _scenario2_m1_d1_manifest = "/var/tmp/scenario2_M1_D1.zip"
-    _scenario5_o1_m2_manifest = "/var/tmp/scenario5_O1_M2.zip"
-    _scenario5_o1_m1_manifest = "/var/tmp/scenario5_O1_M1.zip"
-    _bz786963_manifest = "/var/tmp/manifest_bz786963.zip"
+    _org1_m1_manifest = "./manifest_D1_O1_M1.zip"
+    _org2_m1_manifest = "manifest_D2_O2_M1.zip"
+    _org4_m1_manifest = "manifest_D4_O4_M1.zip"
+    _scenario2_m1_d1_manifest = "scenario2_M1_D1.zip"
+    _scenario5_o1_m2_manifest = "scenario5_O1_M2.zip"
+    _scenario5_o1_m1_manifest = "scenario5_O1_M1.zip"
+    _bz786963_manifest = "manifest_bz786963.zip"
     
     @pytest.mark.nondestructive
     def test_switch_org(self, mozwebqa):
@@ -188,7 +187,7 @@ class TestContentManagement:
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
     
     @pytest.mark.destructive
-    @pytest.mark.bugzilla(787278)    
+    @pytest.mark.bugzilla('787278')    
     def test_load_previous_manifest_to_another_org(self, mozwebqa):
         '''
         Scenario 3: Import Manifest (M1) from Distributor (D1) into Org2.

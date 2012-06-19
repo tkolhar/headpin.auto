@@ -27,11 +27,15 @@ class ContentManagementTab(Base):
         self.selenium.find_element(*self._redhat_content_provider_locator).click()
     
     def enter_manifest(self, manifest_file_location):
+        self.send_text(manifest_file_location, *self._input_provider_manifest_locator)
+        self.click(*self._provider_manifest_upload_locator)
+        """
         manifest_location = self.selenium.find_element(*self._input_provider_manifest_locator)
         manifest_location.send_keys(manifest_file_location)
         upload_locator = self.selenium.find_element(*self._provider_manifest_upload_locator)
         ActionChains(self.selenium).move_to_element(upload_locator).\
             click().perform()
+        """
      
     @property    
     def get_content_table_text(self):

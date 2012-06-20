@@ -10,7 +10,7 @@ import os
 
 
 class TestContentManagement:
-    _org1_m1_manifest = "/var/tmp/manifest_D1_O1_M1.zip"
+    _org1_m1_manifest = "manifest_D1_O1_M1.zip"
     _org2_m1_manifest = "manifest_D2_O2_M1.zip"
     _org4_m1_manifest = "manifest_D4_O4_M1.zip"
     _scenario2_m1_d1_manifest = "scenario2_M1_D1.zip"

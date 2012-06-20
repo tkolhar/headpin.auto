@@ -18,8 +18,7 @@ class TestHello(object):
         home_page.login()
         
         hello = Hello(mozwebqa)
-        
-        home_page.click_hello_link()
+        hello.click_hello_link()
         Assert.true(hello.is_username_present)
 
     @pytest.mark.bugzilla('784016')        
@@ -29,7 +28,7 @@ class TestHello(object):
         
         hello = Hello(mozwebqa)
         
-        home_page.click_hello_link()
+        hello.click_hello_link()
         Assert.true(hello.is_helptips_enabled_present)
     
     @pytest.mark.bugzilla('784016')
@@ -40,20 +39,20 @@ class TestHello(object):
         
         hello = Hello(mozwebqa)
         
-        home_page.click_hello_link()
+        hello.click_hello_link()
         hello.click_helptips()
         # Need to ensure this gets pushed to the DB
         time.sleep(2)
         home_page.tabs.click_tab("dashboard_tab")
-        home_page.click_hello_link()
+        hello.click_hello_link()
         
         # Reset the value for future tests.
-        home_page.click_hello_link()
+        hello.click_hello_link()
         hello.click_helptips()
         # Need to ensure this gets pushed to the DB
         time.sleep(2)
         home_page.tabs.click_tab("dashboard_tab")
-        home_page.click_hello_link()
+        hello.click_hello_link()
         Assert.true(hello.is_helptips_enabled)
         
     def test_update_email_addr(self, mozwebqa):
@@ -62,7 +61,7 @@ class TestHello(object):
         
         hello = Hello(mozwebqa)
         
-        home_page.click_hello_link()
+        hello.click_hello_link()
         
         new_user_email = "user-%s@example.com" % home_page.random_string()
         hello.update_email_addr(new_user_email)

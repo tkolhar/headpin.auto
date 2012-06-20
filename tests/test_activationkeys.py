@@ -8,8 +8,6 @@ from pages.contentmgmt import ContentManagementTab
 from api.api import ApiTasks
 import time
 
-xfail = pytest.mark.xfail
-
 class TestActivationKeys:
     _activationkey_manifest = "/var/tmp/ActivationKeys_M1.zip"
     

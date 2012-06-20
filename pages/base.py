@@ -116,13 +116,15 @@ class Base(Page):
         """
         self.click(*redhat_logo_link_locator)
         
-    def click_hello_link(self):
+    
+    #def click_hello_link(self):
         """
         Will execute a left mouse click on the user name locator
         that appears after a user is logged in, also referred to as the
         hello link.
         """
-        self.click(*hello_link_locator)
+        #self.click(*hello_link_locator)
+
     
     @property
     def is_sam_h1_visible(self):

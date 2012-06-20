@@ -5,6 +5,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from pages.base import Base
 from pages.page import Page
+from pages.locators import *
 import time
 
 class Hello(Base):
@@ -30,6 +31,9 @@ class Hello(Base):
     
     def click_helptips(self):
         self.selenium.find_element(*self._helptips_checkbox_locator).click()
+        
+    def click_hello_link(self):
+        self.click_and_wait(*hello_link_locator)
     
     @property
     def is_helptips_enabled(self):

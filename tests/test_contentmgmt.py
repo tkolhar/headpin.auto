@@ -6,10 +6,11 @@ from unittestzero import Assert
 from pages.home import Home
 from api.api import ApiTasks
 from pages.contentmgmt import ContentManagementTab
+import os
 
 
 class TestContentManagement:
-    _org1_m1_manifest = "./manifest_D1_O1_M1.zip"
+    _org1_m1_manifest = "/var/tmp/manifest_D1_O1_M1.zip"
     _org2_m1_manifest = "manifest_D2_O2_M1.zip"
     _org4_m1_manifest = "manifest_D4_O4_M1.zip"
     _scenario2_m1_d1_manifest = "scenario2_M1_D1.zip"
@@ -61,8 +62,8 @@ class TestContentManagement:
         if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
-            
-        cm.enter_manifest(self._org1_m1_manifest)
+ 
+        cm.enter_manifest(os.path.realpath(self._org1_m1_manifest))
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
     
@@ -92,9 +93,9 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        cm.enter_manifest(self._scenario2_m1_d1_manifest)
+        cm.enter_manifest(os.path.realpath(self._scenario2_m1_d1_manifest))
 
-        cm.enter_manifest(self._scenario2_m1_d1_manifest)
+        cm.enter_manifest(os.path.realpath(self._scenario2_m1_d1_manifest))
         Assert.true(home_page.is_failed)
     
     @pytest.mark.destructive
@@ -123,11 +124,11 @@ class TestContentManagement:
         if home_page.project == "katello" or home_page.project == "cfse":
             cm.click_content_providers()
             cm.select_redhat_content_provider()
-
-        cm.enter_manifest(self._org4_m1_manifest)
+         
+        cm.enter_manifest(os.path.realpath(self._org4_m1_manifest))
         
         cm.click_force()
-        cm.enter_manifest(self._org4_m1_manifest)
+        cm.enter_manifest(os.path.realpath(self._org4_m1_manifest))
         Assert.true(home_page.is_successful)
     
     @pytest.mark.destructive    
@@ -155,9 +156,9 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        cm.enter_manifest(self._scenario5_o1_m1_manifest)
-
-        cm.enter_manifest(self._scenario5_o1_m2_manifest)
+        cm.enter_manifest(os.path.realpath(self._scenario5_o1_m1_manifest))
+        cm.enter_manifest(os.path.realpath(self._scenario5_o1_m2_manifest))
+        
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
     
@@ -182,7 +183,7 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        cm.enter_manifest(self._org2_m1_manifest)
+        cm.enter_manifest(os.path.realpath(self._org2_m1_manifest))
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
     
@@ -212,7 +213,7 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        cm.enter_manifest(self._org1_m1_manifest)
+        cm.enter_manifest(os.path.realpath(self._org1_m1_manifest))
         Assert.true(home_page.is_failed)
         
     @pytest.mark.destructive    
@@ -239,7 +240,7 @@ class TestContentManagement:
             cm.click_content_providers()
             cm.select_redhat_content_provider()
 
-        cm.enter_manifest(self._bz786963_manifest)
+        cm.enter_manifest(os.path.realpath(self._bz786963_manifest))
         Assert.true(home_page.is_successful)
         Assert.not_equal(cm.get_content_table_text, "No subscriptions have been imported.")
 

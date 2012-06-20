@@ -33,7 +33,7 @@ class Hello(Base):
         self.selenium.find_element(*self._helptips_checkbox_locator).click()
         
     def click_hello_link(self):
-        self.click_and_wait(*hello_link_locator)
+        self.click(*hello_link_locator)
     
     @property
     def is_helptips_enabled(self):

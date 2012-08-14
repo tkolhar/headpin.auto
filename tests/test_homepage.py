@@ -40,9 +40,8 @@ class TestHomePage:
         Assert.true(home_page.is_username_field_present)
         Assert.true(home_page.is_password_field_present)
         
-    def test_invalid_login(selfself, mozwebqa):
+    def test_invalid_login(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login("admin", "badpassword")
-        
         Assert.true(home_page.is_failed)
         

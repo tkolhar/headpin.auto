@@ -6,9 +6,10 @@ from selenium.webdriver.common.by import By
 Locators for all pages are contained within.
 """
 
-username_text_field = (By.ID, "username")
-password_text_field = (By.ID, "password")
-login_locator = (By.NAME, "commit")
+username_text_field = (By.CSS_SELECTOR, "input#username.username")
+password_text_field = (By.CSS_SELECTOR, "input#password-input.password")
+login_locator = (By.CSS_SELECTOR, "input#login_btn.button.fr")
+switcher_button = (By.CSS_SELECTOR, "a#switcherButton")
 logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
 account_controller_locator = (By.CSS_SELECTOR, "li.hello")
 org_switcher_locator = (By.ID, "switcherButton")

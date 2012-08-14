@@ -5,6 +5,10 @@ Automation testing framework for Katello and Headpin projects:
 
 Test use Mozilla's AMO methodology: https://github.com/mozilla/Addon-Tests
 
+# DOCUMENTATION
+
+http://eanxgeek.github.com/katello_challenge/index.html
+
 # REQUIRES
  * selenium
  * mozwebqa

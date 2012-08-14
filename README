@@ -2,6 +2,9 @@ Automation testing for HEADPIN project: https://fedorahosted.org/candlepin/wiki/
 
 Test use Mozilla's AMO methodology: https://github.com/mozilla/Addon-Tests
 
+Documentation:
+http://eanxgeek.github.com/katello_challenge/index.html
+
 Requires:
 selenium
 mozwebqa==0.7.1

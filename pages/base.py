@@ -338,4 +338,5 @@ class Base(Page):
             """
             Execute a left mouse click on `tab`.
             """
+            self.jquery_wait()
             self.click_and_wait(*tab_elements[tab])

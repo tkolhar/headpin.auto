@@ -5,12 +5,25 @@ from selenium.webdriver.common.by import By
 """
 Locators for all pages are contained within.
 """
-
+# Home Page and login related locators
 username_text_field = (By.CSS_SELECTOR, "input#username.username")
 password_text_field = (By.CSS_SELECTOR, "input#password-input.password")
 login_locator = (By.CSS_SELECTOR, "input#login_btn.button.fr")
 switcher_button = (By.CSS_SELECTOR, "a#switcherButton")
 logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
+# Dashboard locators
+dashboard_dropbutton_locator = (By.XPATH, "//div[contains(@class, 'dropbutton')]")
+dashboard_subscriptions_locator = (By.XPATH, "//div[@id='dashboard_subscriptions']")
+dashboard_nofications_locator = (By.XPATH, "//div[@id='dashboard_notifications']")
+# Tabs
+dashboard_tab = (By.ID, "dashboard")
+content_tab = (By.ID, "content")
+providers_tab = (By.XPATH, "//a[.='Content Providers']")
+systems_tab = (By.ID, "systems")
+systems_all_tab = (By.ID, "registered") 
+systems_by_environment_tab (By.ID, "env") 
+activation_keys_tab = (By.XPATH, "//a[.='Activation Keys']")
+administer_tab = (By.ID, "admin")
 account_controller_locator = (By.CSS_SELECTOR, "li.hello")
 org_switcher_locator = (By.ID, "switcherButton")
 org_switcher_org_locator = (By.CSS_SELECTOR, "a[href*='org_id=2']")
@@ -68,10 +81,4 @@ tab_elements = {'dashboard_tab' : (By.XPATH, "//a[.='Dashboard']"),
                          'systems_tab' : (By.XPATH, "//a[.='Systems']"), 
                          'systems_all' : (By.XPATH, "//a[.='All']"), 
                          'systems_by_environment' : (By.XPATH, "//a[.='By Environments']"), 
-                         'activation_keys' : (By.XPATH, "//a[.='Activation Keys']"), 
-                         'organizations_tab' : (By.XPATH, "//a[.='Organizations']"),
-                         'organizations_all' : (By.XPATH, "//a[.='List']"),
-                         'organizations_subscriptions' : (By.XPATH, "//a[.='Subscriptions']"), 
-                         'administration_tab' : (By.XPATH, "//a[.='Administration']"),
-                         'users_administration': (By.XPATH, "//a[.='Users']"),
-                         'roles_administration' : (By.XPATH, "//a[.='Roles']"),}
+                         'activation_keys' : (By.XPATH, "//a[.='Activation Keys']"),}

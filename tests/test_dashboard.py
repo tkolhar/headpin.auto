@@ -11,11 +11,12 @@ xfail = pytest.mark.xfail
 class TestDashboard:
 
     def test_dashboard_present(self, mozwebqa):
-        '''
+        """
         Verify dashboard page contains key elements.
-        '''
+        """
         home_page = Home(mozwebqa)
         home_page.login()
+        home_page.select_org(home_page.org).click()
         
         dashboard = Dashboard(mozwebqa)
         Assert.true(dashboard.is_dashboard_dropbutton_present)

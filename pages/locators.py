@@ -57,7 +57,7 @@ next_button_locator = (By.ID, "next_button")
 activation_key_new_name_locator = (By.ID, "activation_key_name")
 organization_new_name_locator = (By.ID, "new")
 close_locator = (By.CLASS_NAME, "close")
-login_org_selector = (By.CSS_SELECTOR, "div.jspPane")
+login_org_selector = (By.CSS_SELECTOR, "div#orgbox")
 login_org_dropdown = (By.CSS_SELECTOR, "div.one-line-ellipsis")
 """
 Tabs

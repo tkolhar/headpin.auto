@@ -227,7 +227,6 @@ class Base(Page):
         :param value: The org to look for, by text.
         """
         self.click(*login_org_dropdown)
-        self.jquery_wait()
         for org in self.selectable_orgs():
             if value in org.name:
                 return org
@@ -237,7 +236,8 @@ class Base(Page):
         """
         Iterate over the available orgs in the login org selector.
         """
-        return [self.LoginOrgSelector(self.testsetup, element) for element in self.selenium.find_elements(*login_org_selector)]
+        return [self.LoginOrgSelector(self.testsetup, element) 
+                for element in self.selenium.find_elements(*login_org_selector)]
     
     class LoginOrgSelector(Page):
         _name_locator = (By.CSS_SELECTOR, 'a.fl.clear')

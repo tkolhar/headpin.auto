@@ -124,7 +124,6 @@ class Base(Page):
         hello link.
         """
         #self.click(*hello_link_locator)
-
     
     @property
     def is_sam_h1_visible(self):
@@ -222,6 +221,36 @@ class Base(Page):
             return False
         return self.is_element_visible(*new_item_locator)
 
+    def select_org(self, value='ACME_Corporation'):
+        self.click(*login_org_dropdown)
+        self.jquery_wait()
+        for org in self.selectable_orgs():
+            if value in org.name:
+                return org
+        raise Exception('Organization not found: %s' % value)
+    
+    def selectable_orgs(self):
+        return [self.LoginOrgSelector(self.testsetup, element) for element in self.selenium.find_elements(*login_org_selector)]
+    
+    class LoginOrgSelector(Page):
+        _name_locator = (By.CSS_SELECTOR, 'a.fl.clear')
+        
+        def __init__(self, testsetup, element):
+            Page.__init__(self, testsetup)
+            self._root_element = element
+            
+        @property
+        def name(self):
+            name_text = self._root_element.find_element(*self._name_locator).text
+            return name_text
+        
+        @property
+        def is_displayed(self):
+            return self.is_element_visible(*self._name_locator)
+        
+        def click(self):
+            self._root_element.find_element(*self._name_locator).click()
+            
     class HeaderRegion(Page):
         """
         Define actions specific to the *Header* Region of the page.

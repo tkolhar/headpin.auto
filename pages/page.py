@@ -99,6 +99,7 @@ class Page(object):
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
         self.project = testsetup.project
+        self.org = testsetup.org
 
 
     @property

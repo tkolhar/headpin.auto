@@ -7,7 +7,7 @@ from pages.home import Home
 import time
 
 @pytest.mark.nondestructive
-class TestHomePage:
+class TestHomePage(object):
 
     def test_verify_page_title(self, mozwebqa):
         home_page = Home(mozwebqa)
@@ -21,7 +21,7 @@ class TestHomePage:
     def test_admin_login_logout(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
-        home_page.select_org().click()
+        home_page.select_org(home_page.org).click()
                 
         home_page.header.click_logout()
         Assert.true(home_page.is_username_field_present)

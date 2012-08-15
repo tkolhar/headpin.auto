@@ -221,7 +221,11 @@ class Base(Page):
             return False
         return self.is_element_visible(*new_item_locator)
 
-    def select_org(self, value='ACME_Corporation'):
+    def select_org(self, value):
+        """
+        Select an org from the available orgs.
+        :param value: The org to look for, by text.
+        """
         self.click(*login_org_dropdown)
         self.jquery_wait()
         for org in self.selectable_orgs():
@@ -230,6 +234,9 @@ class Base(Page):
         raise Exception('Organization not found: %s' % value)
     
     def selectable_orgs(self):
+        """
+        Iterate over the available orgs in the login org selector.
+        """
         return [self.LoginOrgSelector(self.testsetup, element) for element in self.selenium.find_elements(*login_org_selector)]
     
     class LoginOrgSelector(Page):

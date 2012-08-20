@@ -4,8 +4,7 @@ import pytest
 from unittestzero import Assert
 from pages.home import Home
 from pages.dashboard import Dashboard
-
-xfail = pytest.mark.xfail
+from pages.locators import *
 
 @pytest.mark.nondestructive
 class TestDashboard:
@@ -16,9 +15,11 @@ class TestDashboard:
         """
         home_page = Home(mozwebqa)
         home_page.login()
-        home_page.select_org(home_page.org).click()
+        home_page.click(*login_org_dropdown)
+        home_page.click_by_text(login_org_name_selector_css, home_page.org)
         
         dashboard = Dashboard(mozwebqa)
+        
         Assert.true(dashboard.is_dashboard_dropbutton_present)
         Assert.true(dashboard.is_dashboard_subscriptions_present)
         Assert.true(dashboard.is_dashboard_notificaitons_present)

@@ -6,7 +6,6 @@ from pages.home import Home
 from pages.systems import SystemsTab
 from api.api import ApiTasks
 
-xfail = pytest.mark.xfail
 
 @pytest.mark.nondestructive
 class TestSystems:

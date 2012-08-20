@@ -21,9 +21,11 @@ content_tab = (By.ID, "content")
 providers_tab = (By.XPATH, "//a[.='Content Providers']")
 systems_tab = (By.ID, "systems")
 systems_all_tab = (By.ID, "registered") 
-systems_by_environment_tab (By.ID, "env") 
+systems_by_environment_tab = (By.ID, "env") 
 activation_keys_tab = (By.XPATH, "//a[.='Activation Keys']")
 administer_tab = (By.ID, "admin")
+#
+#
 account_controller_locator = (By.CSS_SELECTOR, "li.hello")
 org_switcher_locator = (By.ID, "switcherButton")
 org_switcher_org_locator = (By.CSS_SELECTOR, "a[href*='org_id=2']")
@@ -70,15 +72,19 @@ next_button_locator = (By.ID, "next_button")
 activation_key_new_name_locator = (By.ID, "activation_key_name")
 organization_new_name_locator = (By.ID, "new")
 close_locator = (By.CLASS_NAME, "close")
-login_org_selector = (By.CSS_SELECTOR, "div#orgbox")
+login_org_name_selector_css = ('a')
+login_org_selector = (By.CSS_SELECTOR, "a.fl")
 login_org_dropdown = (By.CSS_SELECTOR, "div.one-line-ellipsis")
+admin_drop_down = (By.ID, "admin")
+
 """
 Tabs
 """
-tab_elements = {'dashboard_tab' : (By.XPATH, "//a[.='Dashboard']"),
-                         'content_management_tab' : (By.XPATH, "//a[.='Content Management']"),
-                         'providers' : (By.XPATH, "//a[.='Content Providers']"),
-                         'systems_tab' : (By.XPATH, "//a[.='Systems']"), 
-                         'systems_all' : (By.XPATH, "//a[.='All']"), 
-                         'systems_by_environment' : (By.XPATH, "//a[.='By Environments']"), 
-                         'activation_keys' : (By.XPATH, "//a[.='Activation Keys']"),}
+tab_elements = {"dashboard_tab" : (By.ID, "dashboard"),
+                    "content_tab" : (By.ID, "content"),
+                    "providers_tab" : (By.XPATH, "//a[.='Content Providers']"),
+                    "systems_tab" : (By.ID, "systems"),
+                    "systems_all_tab" : (By.ID, "registered"), 
+                    "systems_by_environment_tab" : (By.ID, "env") ,
+                    "activation_keys_tab" : (By.XPATH, "//a[.='Activation Keys']"),
+                    "roles_tab" : (By.ID, "roles"),}

@@ -8,9 +8,10 @@ from pages.home import Home
 from pages.administration import AdministrationTab
 from pages.administration import RolesTab
 from api.api import ApiTasks
+from pages.locators import *
 import time
+import sys
 
-xfail = pytest.mark.xfail
 
 @pytest.mark.nondestructive
 class TestRoles:
@@ -19,14 +20,15 @@ class TestRoles:
     
         home_page = Home(mozwebqa)
         home_page.login()
-
+        home_page.select_org(home_page.org).click()
+        
         rolestab = RolesTab(mozwebqa)
 
-        home_page.tabs.click_tab("administration_tab")
-        try:
-            home_page.jquery_wait()
-        finally:
-            home_page.tabs.click_tab("roles_administration")
+        #home_page.tabs.click_tab("administer_tab")
+        print admin_drop_down
+        home_page.mouse_to_element(*admin_drop_down)
+        
+        home_page.tabs.click_tab("roles_tab")
     
         for role in roles:
             rolestab.role(role).click()
@@ -49,6 +51,7 @@ class TestRoles:
         sysapi.create_user(username, password, email)
         
         home_page.login()
+        home_page.select_org(home_page.org).click()
         
         home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
@@ -72,6 +75,7 @@ class TestRoles:
         sysapi.create_user(username, password, email)
         
         home_page.login()
+        home_page.select_org(home_page.org).click()
                 
         home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
@@ -86,6 +90,7 @@ class TestRoles:
         rolestab = RolesTab(mozwebqa)
         
         home_page.login()
+        home_page.select_org(home_page.org).click()
         
         home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)
@@ -101,6 +106,7 @@ class TestRoles:
         rolestab = RolesTab(mozwebqa)
         
         home_page.login()
+        home_page.select_org(home_page.org).click()
         
         home_page.tabs.click_tab("administration_tab")
         home_page.jquery_wait(30)

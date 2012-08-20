@@ -329,7 +329,8 @@ class Base(Page):
             Return True if the dashboard tab is active and displayed.
             """
             return self.selenium.find_element(*dashboard_tab_active_locator).is_displayed()
-    
+        
+        
     class TabRegion(Page):
         """
         Define actions specific to the *Tab Region* of the page.
@@ -338,5 +339,5 @@ class Base(Page):
             """
             Execute a left mouse click on `tab`.
             """
-            self.jquery_wait()
             self.click_and_wait(*tab_elements[tab])
+            

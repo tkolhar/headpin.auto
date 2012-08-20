@@ -207,6 +207,10 @@ class Page(object):
     def click_and_wait(self, *locator):
         self.click(*locator)
         self.jquery_wait()
+        
+    def click_by_text(self, css, name):
+        _text_locator = (By.XPATH, "//%s[text() = '%s']" % (css, name))
+        self.selenium.find_element(*_text_locator).click()
     
     def send_characters(self, text, *locator):
         WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_enabled())
@@ -237,3 +241,8 @@ class Page(object):
         Simulates a Back (Return to prior page).
         """
         self.selenium.back()
+        
+    def mouse_to_element(self, *locator):
+        WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_displayed())
+        element = self.selenium.find_element(*locator)
+        ActionChains(self.selenium).move_to_element(element).perform()

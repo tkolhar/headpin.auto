@@ -1,6 +1,1 @@
-*.swap
-*.py[co]
-*pycache*
-results
-.project
-.pydevproject
+results/

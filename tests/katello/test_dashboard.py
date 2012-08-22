@@ -15,11 +15,11 @@ class TestDashboard:
         """
         home_page = Home(mozwebqa)
         home_page.login()
-        #home_page.click(*login_org_dropdown)
-        #home_page.click_by_text(login_org_name_selector_css, home_page.org)
+        home_page.click(*login_org_dropdown)
+        home_page.click_by_text(login_org_name_selector_css, home_page.org)
         
         dashboard = Dashboard(mozwebqa)
         
-        #Assert.true(dashboard.is_dashboard_dropbutton_present)
+        Assert.true(dashboard.is_dashboard_dropbutton_present)
         Assert.true(dashboard.is_dashboard_subscriptions_present)
         Assert.true(dashboard.is_dashboard_notificaitons_present)

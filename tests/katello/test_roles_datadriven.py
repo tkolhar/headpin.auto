@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 from unittestzero import Assert
-from pages.home import Home
-from pages.administration import RolesTab
+from pages.katello.home import Home
+from pages.katello.administration import RolesTab
 from api.api import ApiTasks
-import time
-import pytest
 from data.datadrv import *
+import time, pytest
 
 @pytest.mark.nondestructive
 class TestRolesDataDriven(object):

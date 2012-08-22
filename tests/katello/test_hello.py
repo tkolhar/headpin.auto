@@ -2,8 +2,8 @@
 
 import pytest
 from unittestzero import Assert
-from pages.home import Home
-from pages.hello import Hello
+from pages.katello.home import Home
+from pages.katello.hello import Hello
 import time
 
 

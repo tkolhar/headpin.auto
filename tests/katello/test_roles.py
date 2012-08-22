@@ -4,13 +4,11 @@
 
 import pytest
 from unittestzero import Assert
-from pages.home import Home
-from pages.administration import AdministrationTab
-from pages.administration import RolesTab
+from pages.katello.home import Home
+from pages.katello.administration import AdministrationTab
+from pages.katello.administration import RolesTab
 from api.api import ApiTasks
-from pages.locators import *
-import time
-import sys
+import time, sys
 
 
 @pytest.mark.nondestructive

@@ -3,7 +3,7 @@
 from selenium.webdriver.common.by import By
 
 """
-Common locators for all products are contained within.
+Locators for aeolus pages are contained within.
 """
 # principle nav by direct URL
 # in that case only forms and buttons need locators
@@ -14,4 +14,7 @@ Common locators for all products are contained within.
 # some_locator_by_xpath = (By.XPATH, "//div[@id='someLocator']")
 # some_elements_locator = (By.CSS_SELECTOR, 'li .someElementsLocator')
 
+username_text_field = (By.NAME, "login")
+password_text_field = (By.ID, "password-input")
+login_locator = (By.NAME, "commit")
 

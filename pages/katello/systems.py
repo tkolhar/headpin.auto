@@ -10,6 +10,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from pages.base import Base
 from pages.page import Page
+from pages.katello.locators import *
 from random import choice
 import random
 
@@ -17,7 +18,8 @@ class SystemsTab(Base):
     _systems_search_form_locator = (By.XPATH, "//form[@id='search_form']")
     _systems_search_input_locator = (By.XPATH, "//input[@id='search']")
     _systems_search_button_locator = (By.XPATH, "//button[@id='search_button']")
-    _systems_create_new_locator = (By.XPATH, "//a[@id='new']")
+    #_systems_create_new_locator = (By.XPATH, "//a[@id='new']")
+    #_systems_create_new_locator = (By.ID, "new")
     
     _new_systemname_field_locator = (By.XPATH, "//input[@id='name_field']")
     _new_system_arch_select_locator = (By.XPATH, "//select[@id='arch_arch_id']")
@@ -106,7 +108,30 @@ class SystemsTab(Base):
     @property
     def systems(self):
         return [self.Systems(self.testsetup, element) for element in self.selenium.find_elements(*self._system_list_locator)]
-    
+
+###
+# from aw
+###
+    def create_system_template(self, name, desc):
+        '''
+        create system template, name and description
+        '''
+        #self.selenium.find_element(*new_template).click()
+        self.selenium.find_element(*new_template).click()
+        self.send_text(name, *system_template_name)
+        self.send_text(desc, *system_template_description)
+        self.selenium.find_element(*template_save).click()
+
+    def remove_element(self):
+        '''
+        click remove button
+        '''
+        self.selenium.find_element(*remove_template).click()
+        self.click_by_text('span', 'Yes')
+###
+# end from aw
+###
+
     class Systems(Page):
         
         _name_locator = (By.CLASS_NAME, 'one-line-ellipsis')

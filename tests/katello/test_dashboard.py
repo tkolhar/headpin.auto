@@ -2,9 +2,9 @@
 
 import pytest
 from unittestzero import Assert
-from pages.home import Home
-from pages.dashboard import Dashboard
-from pages.locators import *
+from pages.katello.home import Home
+from pages.katello.dashboard import Dashboard
+from pages.katello.locators import *
 
 @pytest.mark.nondestructive
 class TestDashboard:

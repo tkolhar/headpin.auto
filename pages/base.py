@@ -5,17 +5,22 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from pages.page import Page
 from pages.page import BaseProductFactory
+# common locators
 from pages.locators import *
 
-import time
-import string
-import random
+import time, string, random
+
+###
+#
+# Defines test helper methods common for all sites
+# Page-specific methods belong in individual pages
+#
+###
 
 class Base(Page):
     """
     Tasks that are reusable through out the test suite are defined within.
     """
-    
     @property
     def header(self):
         return Base.HeaderRegion(self.testsetup)
@@ -53,7 +58,184 @@ class Base(Page):
         :param criteria: string
         """
         self.send_text_and_wait(criteria + "\n", *search_input_locator)
+
+###
+#
+# from page.py
+#
+###
+
+    def click(self, *locator):
+        """
+        Executes a Left Mouse Click on locator.
+        """
+        WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_displayed())
+        click_locator = self.selenium.find_element(*locator)
+        ActionChains(self.selenium).move_to_element(click_locator).\
+            click().perform()
+        
+    def click_and_wait(self, *locator):
+        self.click(*locator)
+        self.jquery_wait()
+        
+    def click_by_text(self, css, name):
+        _text_locator = (By.XPATH, "//%s[text() = '%s']" % (css, name))
+        self.selenium.find_element(*_text_locator).click()
     
+    def send_characters(self, text, *locator):
+        WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_enabled())
+        input_locator = self.selenium.find_element(*locator)
+        for c in text:
+            input_locator.send_keys(c)
+            
+    def send_text(self, text, *locator):
+        """
+        Sends text to locator, one character at a time.
+        """
+        WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_enabled())
+        input_locator = self.selenium.find_element(*locator)
+        input_locator.send_keys(text)
+        
+    def send_text_and_wait(self, text, *locator):
+        self.send_text(text, *locator)
+        self.jquery_wait()
+            
+    def select(self, locatorid, value):
+        """
+        Selects options in locatorid by value.
+        """
+        Select(self.selenium.find_element_by_id(locatorid)).select_by_value(value)
+                
+    def return_to_previous_page(self):
+        """
+        Simulates a Back (Return to prior page).
+        """
+        self.selenium.back()
+        
+    def mouse_to_element(self, *locator):
+        WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_displayed())
+        element = self.selenium.find_element(*locator)
+        ActionChains(self.selenium).move_to_element(element).perform()
+
+    @property
+    def is_the_current_page(self):
+        """
+        Returns True if page title matches expected page title.
+        """
+        myProject = BaseProductFactory.get(self.project)
+        if myProject._page_title:
+            WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
+        Assert.equal(self.selenium.title, myProject._page_title,
+                     "Expected page title: %s. Actual page title: %s" % (myProject._page_title, self.selenium.title))
+        return True
+    
+    def jquery_wait(self, timeout=20):
+        """
+        For Active jQuery to complete, default timeout is 20 seconds.
+        """
+        WebDriverWait(self.selenium, timeout).until(lambda s: s.execute_script("return jQuery.active == 0"))
+        
+    @property
+    def is_successful(self):
+        """
+        Returns True if test is successful resulting in the success notification locator being displayed.
+        """
+        self.selenium.implicitly_wait(4)
+        return WebDriverWait(self.selenium, 6).until(lambda s: s.find_element(*success_notification_locator).is_displayed())
+    
+    @property
+    def is_dialog_cleared(self):
+        """
+        Returns True if the success notification locator has cleared.
+        """
+        self.selenium.implicitly_wait(2)
+        try:
+            return WebDriverWait(self.selenium, 6).until_not(lambda s: s.find_element(*success_notification_locator).is_displayed())
+        except Exception, e:
+            return False
+        finally:
+            self.selenium.implicitly_wait(self.testsetup.default_implicit_wait)
+    
+    @property
+    def is_failed(self):
+        """
+        Returns True if the error notification locator is displayed.
+        """
+        self.selenium.implicitly_wait(4)
+        try:
+            return self.selenium.find_element(*error_notification_locator).is_displayed()
+        except Exception, e:
+            return False
+        finally:
+            self.selenium.implicitly_wait(self.testsetup.default_implicit_wait)
+        
+    def get_url_current_page(self):
+        """
+        Returns the url of the current page.
+        """
+        return(self.selenium.current_url)
+    
+    def is_element_present(self, *locator):
+        """
+        Returns True if locator is present.
+        """
+        try:
+            WebDriverWait(self.selenium, 5).until(lambda s: s.find_element(*locator))
+            return True
+        except Exception as e:
+            return False
+        
+    def is_element_visible(self, *locator):
+        """
+        Returns True if locator is visible.
+        """
+        try:
+            return WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*locator).is_displayed())
+        except Exception as e:
+            return False
+    
+    def is_element_editable(self, *locator):
+        """
+        Returns True if the element can be edited.
+        """
+        return WebDriverWait(self.selenium, 10).until(lambda s: s.find_element(*locator).is_enabled())
+            
+    def get_location(self, *locator):
+        """
+        Returns the location of locator.
+        """
+        try:
+            return self.selenium.find_element(*locator).location
+        except NoSuchElementException, ElementNotVisibleException:
+            return False
+
+###
+#
+# end from page.py
+#
+###
+
+    # basic nav
+    def go_to_home_page(self):
+        # from --baseurl= arg
+        self.selenium.get(self.base_url)
+
+    def go_to_katello(self):
+        # from --katello_url= arg
+        self.selenium.get(self.katello_url)
+
+    def go_to_aeolus(self):
+        # from --aeolus_url= arg
+        self.selenium.get(self.aeolus_url)
+
+    def go_to_url(self, url):
+        # pass in url
+        self.selenium.get(url)
+    def go_to_page_view(self, view):
+        # pass in view, e.g. system for katello/system
+        self.selenium.get(self.base_url + "/" + view)
+
+    # click functions
     def click_next(self):
         """
         Click the *Next* button.
@@ -92,7 +274,7 @@ class Base(Page):
         """
         return self.selenium.find_element(*self._amo_logo_image_locator).get_attribute('src')
     '''
-        
+    # UI elements    
     def is_footer_version_text_visible(self):
         """
         Return True if the Footer version Text is visible.

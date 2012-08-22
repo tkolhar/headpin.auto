@@ -4,8 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from pages.base import Base
-from pages.page import Page
-from pages.locators import *
+#from pages.page import Page
+from pages.katello.locators import *
 import time
 
 class Hello(Base):

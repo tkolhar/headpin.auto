@@ -3,7 +3,7 @@
 import pytest
 
 from unittestzero import Assert
-from pages.home import Home
+from pages.katello.home import Home
 from api.api import ApiTasks
 from pages.contentmgmt import ContentManagementTab
 import os

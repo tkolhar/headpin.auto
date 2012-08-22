@@ -4,8 +4,8 @@
 
 import pytest
 from unittestzero import Assert
-from pages.home import Home
-from pages.administration import AdministrationTab
+from pages.katello.home import Home
+from pages.katello.administration import AdministrationTab
 from api.api import ApiTasks
 
 xfail = pytest.mark.xfail

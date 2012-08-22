@@ -5,8 +5,8 @@
 
 import pytest
 from unittestzero import Assert
-from pages.home import Home
-from pages.organizations import OrganizationsTab
+from pages.katello.home import Home
+from pages.katello.organizations import OrganizationsTab
 from api.api import ApiTasks
 import random
 import time

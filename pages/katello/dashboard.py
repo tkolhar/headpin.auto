@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-from selenium.webdriver.common.by import By
 from pages.base import Base
-from pages.locators import *
+from pages.katello.locators import *
 
 class Dashboard(Base):
     """

@@ -2,9 +2,9 @@
 
 import pytest
 from unittestzero import Assert
-from pages.home import Home
-from pages.systems import ActivationKeysTab
-from pages.contentmgmt import ContentManagementTab
+from pages.katello.home import Home
+from pages.katello.systems import ActivationKeysTab
+from pages.katello.contentmgmt import ContentManagementTab
 from api.api import ApiTasks
 import time
 

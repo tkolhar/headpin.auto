@@ -21,8 +21,8 @@ def pytest_addoption(parser):
                      action="store",
                      dest='project',
                      metavar='str',
-                     default="sam",
-                     help="Specify project - [sam|headpin|katello|cfse]")
+                     default="katello",
+                     help="Specify project - [sam|headpin|katello|cfse|aeolus|cfce]")
 
     parser.addoption("--org",
                      action="store",

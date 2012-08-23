@@ -79,24 +79,3 @@ class TestSystems:
         home_page.enter_search_criteria("SearchSys*")
         Assert.true(systems.is_search_correct("SearchSys"))
 
-    @pytest.mark.katello_workflow
-    def test_create_tdl(self, mozwebqa):
-        '''
-        Create TDL name and description, then remove
-        '''
-        home_page = Home(mozwebqa)
-        home_page.login()
-
-        page = SystemsTab(mozwebqa)
-        page.go_to_page_view("system_templates")
-
-        template_name = 'My System ' + str(time.time())
-        template_description = 'My template description'
-        page.create_system_template(template_name, template_description)
-        time.sleep(1)
-        page.click_by_text('span', template_name)
-        time.sleep(1)
-        page.remove_element()
-
-        time.sleep(1)
-

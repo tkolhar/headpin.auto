@@ -24,16 +24,25 @@ You can run: ``pip-python install -r ./requirements.txt`` from the root of the p
 
 So far only selenium standalone testing has been verified:
 
-On Linux, start your selenium server:  
+On Linux, start your selenium server:
+NOTE: This step is optional if you are using the instructions below.
 ``java -jar /path/to/your/selenium/selenium-X.Y.jar \``
 ``-firefoxProfileTemplate /path/to/ff_profile/.mozilla/firefox/[profile]/``
 
 # RUN TESTS
+NOTE: [project] == aeolus|katello|sam|cfse
+
  * For a single test suite, use:  
-``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[aeolus|sam|cfse|katello|headpin] --project=[aeolus|sam|cfse|headpin|katello] --org=[orgname [DEFAULT: ACME_Corporation]] /tests/[project]/suite_to_run.py]``
+``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project] \``
+``--project=[project] --org=[orgname [DEFAULT: ACME_Corporation]] \``
+``/tests/[project]/suite_to_run.py]``
 
  * For a specific test, use:  
-``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[aeolus|sam|cfse|katello|headpin] --project=[aeolus|sam|cfse|headpin|katello] --org=[orgname [DEFAULT: ACME_Corporation]] [tests/[project]/suite_to_run.py] -k [name_of_test_to_run]``
+``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project] \`` 
+``--project=[project] --org=[orgname [DEFAULT: ACME_Corporation]] \``
+``[tests/[project]/suite_to_run.py] -k [name_of_test_to_run]``
 
  * To run all tests for a project
- ``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[aeolus|sam|cfse|katello|headpin] --project=[aeolus|sam|cfse|headpin|katello] --org=[orgname [DEFAULT: ACME_Corporation]] tests/[project]``
+ ``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project] \`` 
+ ``--project=[project]`` --org=[orgname [DEFAULT: ACME_Corporation]] \ ``
+ ``tests/[project]``

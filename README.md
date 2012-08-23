@@ -34,15 +34,15 @@ NOTE: [project] == aeolus|katello|sam|cfse
 
  * For a single test suite, use:  
 ``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project]`` 
---project=[project] --org=[orgname [DEFAULT: ACME_Corporation]] 
+``--project=[project] --org=[orgname [DEFAULT: ACME_Corporation]]``
 /tests/[project]/suite_to_run.py]``
 
  * For a specific test, use:  
-``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project] \`` 
-``--project=[project] --org=[orgname [DEFAULT: ACME_Corporation]] \``
+``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project]`` 
+``--project=[project] --org=[orgname [DEFAULT: ACME_Corporation]]``
 ``[tests/[project]/suite_to_run.py] -k [name_of_test_to_run]``
 
  * To run all tests for a project
- ``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project] \`` 
- ``--project=[project]`` --org=[orgname [DEFAULT: ACME_Corporation]] \ ``
+ ``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project]`` 
+ ``--project=[project]`` --org=[orgname [DEFAULT: ACME_Corporation]]``
  ``tests/[project]``

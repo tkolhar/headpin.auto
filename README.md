@@ -33,9 +33,9 @@ NOTE: This step is optional if you are using the instructions below.
 NOTE: [project] == aeolus|katello|sam|cfse
 
  * For a single test suite, use:  
-``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project] \``
-``--project=[project] --org=[orgname [DEFAULT: ACME_Corporation]] \``
-``/tests/[project]/suite_to_run.py]``
+``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project]`` 
+--project=[project] --org=[orgname [DEFAULT: ACME_Corporation]] 
+/tests/[project]/suite_to_run.py]``
 
  * For a specific test, use:  
 ``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[project] \`` 

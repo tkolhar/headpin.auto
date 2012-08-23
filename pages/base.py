@@ -8,8 +8,6 @@ from pages.page import BaseProductFactory
 # common locators
 from pages.locators import *
 
-import time, string, random
-
 ###
 #
 # Defines test helper methods common for all sites
@@ -219,14 +217,6 @@ class Base(Page):
     def go_to_home_page(self):
         # from --baseurl= arg
         self.selenium.get(self.base_url)
-
-    def go_to_katello(self):
-        # from --katello_url= arg
-        self.selenium.get(self.katello_url)
-
-    def go_to_aeolus(self):
-        # from --aeolus_url= arg
-        self.selenium.get(self.aeolus_url)
 
     def go_to_url(self, url):
         # pass in url

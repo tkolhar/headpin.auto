@@ -1,20 +1,22 @@
-Automation testing framework for Katello and Headpin projects:  
+Automation testing framework for Aeolus, Katello and Headpin projects:  
  
- * https://fedorahosted.org/candlepin/wiki/headpin/Headpin  
- * https://fedorahosted.org/katello/wiki
+ * http://aeolusproject.org/
+ * http://katello.org
+   (Note: Headpin is a lite version of Katello)
 
-Test use Mozilla's AMO methodology: https://github.com/mozilla/Addon-Tests
+Tests use Mozilla's AMO methodology: https://github.com/mozilla/Addon-Tests
 
 # DOCUMENTATION
+
+Check out some cool documentation I started for a "challenge" that 
+uses the same structure and helper methods found here.
 
 http://eanxgeek.github.com/katello_challenge/index.html
 
 # REQUIRES
  * selenium
- * mozwebqa
  * pytest==2.2.3
  * pytest-xdist==1.6
- * BeautifulSoup==3.2.0
  * pytest-mozwebqa==0.7.1
  * unittestzero
 
@@ -28,9 +30,10 @@ On Linux, start your selenium server:
 
 # RUN TESTS
  * For a single test suite, use:  
-``py.test --browsername=firefox --platform=Linux --browserver=11 \``
-``--baseurl=SERVER_FQDN/[sam|cfse|katello|headpin] -q [tests/suite_to_run.py]``
+``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[aeolus|sam|cfse|katello|headpin] --project=[aeolus|sam|cfse|headpin|katello] --org=[orgname [DEFAULT: ACME_Corporation]] /tests/[project]/suite_to_run.py]``
 
  * For a specific test, use:  
-``py.test --browsername=firefox --platform=Linux --browserver=11 \``
-``--baseurl=SERVER_FQDN/[sam|cfse|katello|headpin] -q [tests/suite_to_run.py] -k [name_of_test_to_run]``
+``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[aeolus|sam|cfse|katello|headpin] --project=[aeolus|sam|cfse|headpin|katello] --org=[orgname [DEFAULT: ACME_Corporation]] [tests/[project]/suite_to_run.py] -k [name_of_test_to_run]``
+
+ * To run all tests for a project
+ ``py.test --driver=firefox --baseurl=https://[SERVER_FQDN]/[aeolus|sam|cfse|katello|headpin] --project=[aeolus|sam|cfse|headpin|katello] --org=[orgname [DEFAULT: ACME_Corporation]] tests/[project]``

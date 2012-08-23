@@ -105,8 +105,6 @@ class Page(object):
     :param base_url: url of the application.
     :param timeout: default is 10, can be overridden.
     :param project: Name of project to be tested (sam, headpin, cfse, katello)
-    :param katello_url: base URL for katello
-    :param aeolus_url: base URL for aeolus
     :param org: org selector for katello
     """
     def __init__(self, testsetup):
@@ -114,9 +112,7 @@ class Page(object):
         Constructor
         '''
         self.testsetup = testsetup
-        self.base_url = testsetup.base_url
-        self.katello_url = testsetup.katello_url
-        self.aeolus_url = testsetup.aeolus_url
+        self.base_url = testsetup.baseurl
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
         self.project = testsetup.project

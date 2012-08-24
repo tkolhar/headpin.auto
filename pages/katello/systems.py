@@ -93,7 +93,9 @@ class SystemsTab(Base):
         return choice(self.systems).name
     
     def is_search_correct(self, criteria):
+        
         WebDriverWait(self.selenium, 30).until(lambda s: s.find_element(*self._system_block_locator).is_displayed())
+        self.jquery_wait()
         for sys in self.systems:
             if criteria not in sys.name:
                 raise Exception('%s does not match Search Criteria %s' % (sys.name, criteria))

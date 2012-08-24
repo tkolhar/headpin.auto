@@ -9,7 +9,6 @@ def pytest_runtest_setup(item):
     pytest_mozwebqa = py.test.config.pluginmanager.getplugin("mozwebqa")
     pytest_mozwebqa.TestSetup.project = item.config.option.project
     pytest_mozwebqa.TestSetup.org = item.config.option.org
-    pytest_mozwebqa.TestSetup.katello_url = item.config.option.url
 
 def pytest_addoption(parser):
     """ 

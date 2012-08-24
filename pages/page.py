@@ -112,7 +112,7 @@ class Page(object):
         Constructor
         '''
         self.testsetup = testsetup
-        self.base_url = testsetup.baseurl
+        self.base_url = testsetup.base_url
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
         self.project = testsetup.project

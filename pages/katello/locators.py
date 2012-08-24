@@ -10,7 +10,7 @@ Locators for katello pages are contained within.
 #password_text_field = (By.CSS_SELECTOR, "input#password-input.password")
 #login_locator = (By.CSS_SELECTOR, "input#login_btn.button.fr")
 username_text_field = (By.ID, "username")
-password_text_field = (By.ID, "password")
+password_text_field = (By.ID, "password-input")
 login_locator = (By.NAME, "commit")
 switcher_button = (By.CSS_SELECTOR, "a#switcherButton")
 logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")

@@ -12,6 +12,22 @@ class TestProvider():
 
     @pytest.mark.provider_admin
     @pytest.mark.aeolus_setup
+    def test_provider_connection(self, mozwebqa):
+        '''
+        test provider connection
+        '''
+        home_page = Home(mozwebqa)
+        home_page.login()
+
+        page = Aeolus(mozwebqa)
+
+        for account in Provider.accounts:
+            page.connection_test_provider(account)
+            # TODO: assert return
+            time.sleep(5)
+
+    @pytest.mark.provider_admin
+    @pytest.mark.aeolus_setup
     def test_create_provider_account(self, mozwebqa):
         '''
         Create provider account and test provider account connection
@@ -42,16 +58,3 @@ class TestProvider():
                 # TODO: assert return
                 time.sleep(5)
 
-    def test_provider_connection(self, mozwebqa):
-        '''
-        test provider connection
-        '''
-        home_page = Home(mozwebqa)
-        home_page.login()
-
-        page = Aeolus(mozwebqa)
-
-        for account in Provider.accounts:
-            page.connection_test_provider(account)
-            # TODO: assert return
-            time.sleep(5)

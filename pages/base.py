@@ -7,6 +7,7 @@ from pages.page import Page
 from pages.page import BaseProductFactory
 # common locators
 from pages.locators import *
+from pages.katello.locators import *
 
 import time, string, random
 
@@ -73,7 +74,7 @@ class Base(Page):
         click_locator = self.selenium.find_element(*locator)
         ActionChains(self.selenium).move_to_element(click_locator).\
             click().perform()
-        
+
     def click_and_wait(self, *locator):
         self.click(*locator)
         self.jquery_wait()
@@ -217,22 +218,33 @@ class Base(Page):
 
     # basic nav
     def go_to_home_page(self):
-        # from --baseurl= arg
+        """
+        got to url defined in arg --baseurl= 
+        """
         self.selenium.get(self.base_url)
 
     def go_to_katello(self):
-        # from --katello_url= arg
+        """
+        go to url defined in arg --katello_url=
+        """
         self.selenium.get(self.katello_url)
 
     def go_to_aeolus(self):
-        # from --aeolus_url= arg
+        """
+        go to url defined in arg --aeolus_url=
+        """
         self.selenium.get(self.aeolus_url)
 
     def go_to_url(self, url):
-        # pass in url
+        """
+        go to url passed
+        """
         self.selenium.get(url)
     def go_to_page_view(self, view):
-        # pass in view, e.g. system for katello/system
+        """
+        go to view
+        for example 'system' for base_url/system
+        """
         self.selenium.get(self.base_url + "/" + view)
 
     # click functions
@@ -253,6 +265,12 @@ class Base(Page):
         Click on *Remove item* locator.
         """
         self.click(*remove_item_locator)
+
+    def click_remove_sys_template(self):
+        """
+        Click on "Remove" system template locator
+        """
+        self.click(*remove_sys_template_locator)
 
     def click_new(self):
         """

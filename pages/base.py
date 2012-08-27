@@ -5,11 +5,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from pages.page import Page
 from pages.page import BaseProductFactory
+import string
+import random
+
 # common locators
 from pages.locators import *
 from pages.katello.locators import *
-
-import time, string, random
 
 ###
 #
@@ -25,10 +26,6 @@ class Base(Page):
     @property
     def header(self):
         return Base.HeaderRegion(self.testsetup)
-    
-    @property
-    def tabs(self):
-        return Base.TabRegion(self.testsetup)
 
     def random_string(self):
         """
@@ -59,13 +56,11 @@ class Base(Page):
         :param criteria: string
         """
         self.send_text_and_wait(criteria + "\n", *search_input_locator)
-
 ###
 #
 # from page.py
 #
 ###
-
     def click(self, *locator):
         """
         Executes a Left Mouse Click on locator.
@@ -223,6 +218,7 @@ class Base(Page):
         """
         self.selenium.get(self.base_url)
 
+<<<<<<< HEAD
     def go_to_katello(self):
         """
         go to url defined in arg --katello_url=
@@ -235,6 +231,8 @@ class Base(Page):
         """
         self.selenium.get(self.aeolus_url)
 
+=======
+>>>>>>> 4b9e033228775628336b69f2dda46c43c29fd44d
     def go_to_url(self, url):
         """
         go to url passed
@@ -283,7 +281,13 @@ class Base(Page):
         Click on the *Confirm* locator.
         """
         self.click(*confirmation_yes_locator)
-    
+        
+    def click_tab(self, tab):
+        """
+        Execute a left mouse click on `tab`.
+        :param tab: str tab to click
+        """
+        self.click_and_wait(*tab_elements[tab])
     '''
     @property
     def redhat_logo_image_source(self):
@@ -529,15 +533,5 @@ class Base(Page):
             Return True if the dashboard tab is active and displayed.
             """
             return self.selenium.find_element(*dashboard_tab_active_locator).is_displayed()
-        
-        
-    class TabRegion(Page):
-        """
-        Define actions specific to the *Tab Region* of the page.
-        """
-        def click_tab(self, tab):
-            """
-            Execute a left mouse click on `tab`.
-            """
-            self.click_and_wait(*tab_elements[tab])
+
             

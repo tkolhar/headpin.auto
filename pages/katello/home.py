@@ -23,9 +23,9 @@ class Home(Base):
         return self.is_element_present(*password_text_field)
     
     def login(self, user="admin", password="admin"):
-        time.sleep(1)
-        self.send_text(user, *username_text_field)
-        self.send_text(password, *password_text_field)
-        self.click(*login_locator)
-        time.sleep(1)
+        #time.sleep(4)
+        self.send_characters(user, *username_text_field)
+        self.send_characters(password, *password_text_field)
+        self.click_and_wait(*login_locator)
+        #time.sleep(4)
     

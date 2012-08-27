@@ -5,6 +5,7 @@ from unittestzero import Assert
 from pages.katello.home import Home
 from pages.katello.systems import SystemsTab
 from api.api import ApiTasks
+from pages.katello.locators import *
 import time
 
 @pytest.mark.nondestructive
@@ -17,6 +18,8 @@ class TestSystems:
         """
         home_page = Home(mozwebqa)
         home_page.login()
+        home_page.click(*login_org_dropdown)
+        home_page.click_by_text(login_org_name_selector_css, home_page.org)
 
         api = ApiTasks(mozwebqa)
         current_org = home_page.header.get_text_from_switcher
@@ -24,7 +27,7 @@ class TestSystems:
         new_system_name = "system%s" % home_page.random_string()
         api.create_new_system(new_system_name, current_org)
         
-        home_page.tabs.click_tab("systems_tab")
+        home_page.click_tab("systems_tab")
         
         systems = SystemsTab(mozwebqa)
         system_object = systems.select_random
@@ -41,6 +44,8 @@ class TestSystems:
         '''
         home_page = Home(mozwebqa)
         home_page.login()
+        home_page.click(*login_org_dropdown)
+        home_page.click_by_text(login_org_name_selector_css, home_page.org)
         
         api = ApiTasks(mozwebqa)
         current_org = home_page.header.get_text_from_switcher
@@ -49,7 +54,7 @@ class TestSystems:
 
         api.create_new_system(new_system_name, current_org)
         
-        home_page.tabs.click_tab("systems_tab")
+        home_page.click_tab("systems_tab")
         
         systems = SystemsTab(mozwebqa)
         home_page.enter_search_criteria(new_system_name)
@@ -63,17 +68,19 @@ class TestSystems:
         sysapi = ApiTasks(mozwebqa)
         
         home_page.login()
+        home_page.click(*login_org_dropdown)
+        home_page.click_by_text(login_org_name_selector_css, home_page.org)
         current_org = home_page.header.get_text_from_switcher
-        # Some bad results
+
         for i in range(1,5):
             new_system_name = "%s" % home_page.random_string()
             sysapi.create_new_system(new_system_name, current_org)
-        # The actual systems to search for   
+
         for i in range(1,5):
             new_sys_name = "SearchSys%s" % home_page.random_string()
             sysapi.create_new_system(new_sys_name, current_org)
             
-        home_page.tabs.click_tab("systems_tab")
+        home_page.click_tab("systems_tab")
         systems = SystemsTab(mozwebqa)
         
         home_page.enter_search_criteria("SearchSys*")

@@ -5,7 +5,7 @@ import pytest
 from unittestzero import Assert
 from pages.katello.home import Home
 from api.api import ApiTasks
-from pages.contentmgmt import ContentManagementTab
+from pages.katello.contentmgmt import ContentManagementTab
 import os
 
 

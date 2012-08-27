@@ -27,10 +27,7 @@ class Home(Base):
         return self.is_element_present(*password_text_field)
     
     def login(self, user="admin", password="password"):
-        time.sleep(1)
-        print "logging in now................."
         self.send_text(user, *username_text_field)
         self.send_text(password, *password_text_field)
         self.click(*login_locator)
-        time.sleep(1)
-    
+

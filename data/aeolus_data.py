@@ -30,13 +30,31 @@ class Admin(object):
 
 class Provider(object):
     # provider_name string must match
-    provider_accounts = [
-        {"provider_name" : "ec2-us-east-1",
-        "account_name" : "my ec2",
-        "access_key" : "KIAJ4MRLWELDTLRNVNA",
-        "secret_access_key" : "NtwIubgKpedYIzwu9x8P+JiHv9Pv/U8ZF6yj7nQO",
+    # valid account types: "ec2", "rhevm", "vsphere"
+    accounts = [
+        {"type" : "ec2",
+        "provider_name" : "ec2-us-east-1",
+        "provider_account_name" : "Public cloud east",
+        "username_access_key" : "AKIAIXO4IC7JLNX24DZQ",
+        "password_secret_access_key" : "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",
         "account_number" : "7835-8090-1744",
-        "key_file" : "data/certificates/pk-VWEQTLOB2QVXYQYVJOFDFTDQ7J3GSF4E.pem",
-        "key_cert_file" : "data/certificates/cert-VWEQTLOB2QVXYQYVJOFDFTDQ7J3GSF4E.pem",
-        "priority" : "",
-        "quota" : "4"}]
+        "key_file" : "/home/aaron/dev/proj/CloudForms.Auto/data/keys/pk-VWEQTLOB2QVXYQYVJOFDFTDQ7J3GSF4E.pem",
+        "key_cert_file" : "/home/aaron/dev/proj/CloudForms.Auto/data/keys/cert-VWEQTLOB2QVXYQYVJOFDFTDQ7J3GSF4E.pem",
+        "provider_account_priority" : "",
+        "provider_account_quota" : ""},
+
+        {"type" : "rhevm",
+        "provider_name" : "rhevm-default",
+        "provider_account_name" : "rhevm",
+        "username_access_key" : "admin@internal",
+        "password_secret_access_key" : "dog8code",
+        "provider_account_priority" : "",
+        "provider_account_quota" : "" },
+        
+        {"type" : "vsphere",
+        "provider_name" : "vsphere-default",
+        "provider_account_name" : "vsphere",
+        "username_access_key" : "Administrator",
+        "password_secret_access_key" : "R3dhat!",
+        "provider_account_priority" : "",
+        "provider_account_quota" : "" }]

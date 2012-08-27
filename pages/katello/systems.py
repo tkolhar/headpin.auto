@@ -109,28 +109,24 @@ class SystemsTab(Base):
     def systems(self):
         return [self.Systems(self.testsetup, element) for element in self.selenium.find_elements(*self._system_list_locator)]
 
-###
-# from aw
-###
     def create_system_template(self, name, desc):
         '''
         create system template, name and description
         '''
-        #self.selenium.find_element(*new_template).click()
         self.selenium.find_element(*new_template).click()
         self.send_text(name, *system_template_name)
         self.send_text(desc, *system_template_description)
         self.selenium.find_element(*template_save).click()
 
-    def remove_element(self):
+    def remove_sys_template(self):
         '''
         click remove button
         '''
-        self.selenium.find_element(*remove_template).click()
+        self.selenium.find_element(*remove_sys_template_locator).click()
+        # use js conf box control instead:
+        # alert = self.selenium.switch_to_alert()
+        # alert.accept()
         self.click_by_text('span', 'Yes')
-###
-# end from aw
-###
 
     class Systems(Page):
         

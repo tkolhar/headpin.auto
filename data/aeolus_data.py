@@ -37,7 +37,7 @@ class Provider(object):
         "provider_account_name" : "Public cloud east",
         "username_access_key" : "",
         "password_secret_access_key" : "",
-        "account_number" : "7835-8090-1744",
+        "account_number" : "",
         "key_file" : "data/keys/pk-VWEQTLOB2QVXYQYVJOFDFTDQ7J3GSF4E.pem",
         "key_cert_file" : "data/keys/cert-VWEQTLOB2QVXYQYVJOFDFTDQ7J3GSF4E.pem",
         "provider_account_priority" : "",

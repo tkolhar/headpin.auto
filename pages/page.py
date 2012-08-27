@@ -85,18 +85,15 @@ class KatelloProduct(BaseProduct):
     """
     Elements specific to Katello
     """
-    _page_title = "Katello - Open Source Systems Management"
-    _logo_locator = (By.XPATH, "//img[contains(@src, 'logo.png')]")
-    #print "importing katello locators..................."
-    #from pages.katello import locators as loc
+    #_page_title = "Katello - Open Source Systems Management"
+    #_logo_locator = (By.XPATH, "//img[contains(@src, 'logo.png')]")
 
 class AeolusProduct(BaseProduct):
     """
-    Elements specific to Katello
+    Elements specific to Aeolus
     """
-    #_page_title = "Katello - Open Source Systems Management"
+    # override locators here
     #_logo_locator = (By.XPATH, "//img[contains(@src, 'logo.png')]")
-    #from pages.aeolus import locators as loc
     
 class Page(object):
     """
@@ -121,4 +118,6 @@ class Page(object):
         self.timeout = testsetup.timeout
         self.project = testsetup.project
         self.org = testsetup.org
+        self.test_cleanup = testsetup.test_cleanup
+
 

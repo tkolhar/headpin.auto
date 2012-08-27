@@ -11,6 +11,7 @@ Locators for katello pages are contained within.
 #login_locator = (By.CSS_SELECTOR, "input#login_btn.button.fr")
 username_text_field = (By.ID, "username")
 password_text_field = (By.ID, "password")
+# move to common
 login_locator = (By.NAME, "commit")
 switcher_button = (By.CSS_SELECTOR, "a#switcherButton")
 logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
@@ -78,12 +79,13 @@ close_locator = (By.CLASS_NAME, "close")
 login_org_name_selector_css = ('a')
 login_org_selector = (By.CSS_SELECTOR, "a.fl")
 login_org_dropdown = (By.CSS_SELECTOR, "div.one-line-ellipsis")
+#login_org_dropdown = (By.ID, "switcherButton")
 admin_drop_down = (By.ID, "admin")
 new_template = (By.ID, "new")
 system_template_name = (By.ID, "system_template_name")
 system_template_description = (By.ID, "system_template_description")
 template_save = (By.ID, "template_save")
-remove_template = (By.ID, "remove_template")
+remove_sys_template_locator = (By.ID, "remove_template")
 
 """
 Tabs

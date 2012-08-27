@@ -24,7 +24,7 @@ class TestProvider():
         for account in Provider.accounts:
             page.connection_test_provider(account)
             # TODO: assert return
-            time.sleep(5)
+            time.sleep(2)
 
     @pytest.mark.provider_admin
     @pytest.mark.aeolus_setup
@@ -43,18 +43,18 @@ class TestProvider():
         for account in Provider.accounts:
             page.create_provider_account(account)
             # TODO: assert return
-            time.sleep(5)
+            time.sleep(2)
 
         # test provider account
         for account in Provider.accounts:
             page.connection_test_provider_account(account)
             # TODO: assert return
-            time.sleep(5)
+            time.sleep(2)
 
         # test cleanup
         if page.test_cleanup in ['True', 'true', '1']:
             for account in Provider.accounts:
                 page.delete_provider_account(account)
                 # TODO: assert return
-                time.sleep(5)
+                time.sleep(2)
 

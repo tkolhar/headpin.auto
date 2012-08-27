@@ -19,6 +19,7 @@ class Aeolus(Base):
         self.send_text(user["passwd"], *user_password_confirmation_field)
         self.send_text(user["max_instances"], *user_quota_max_running_instances_field)
         self.selenium.find_element(*user_submit_locator).click()
+        return self.get_text(*confirmation_msg)
 
     def delete_user(self, username):
         '''
@@ -29,6 +30,7 @@ class Aeolus(Base):
         self.selenium.find_element(*user_delete_locator).click()
         alert = self.selenium.switch_to_alert()
         alert.accept()
+        return self.get_text(*confirmation_msg)
 
     def create_user_group(self, user_group):
         '''
@@ -38,6 +40,7 @@ class Aeolus(Base):
         self.send_text(user_group["name"], *user_group_name_field)
         self.send_text(user_group["description"], *user_group_description_field)
         self.selenium.find_element(*user_group_submit_locator).click()
+        return self.get_text(*confirmation_msg)
 
     def delete_user_group(self, name):
         '''
@@ -48,6 +51,7 @@ class Aeolus(Base):
         self.selenium.find_element(*user_group_delete_locator).click()
         alert = self.selenium.switch_to_alert()
         alert.accept()
+        return self.get_text(*confirmation_msg)
 
     def create_provider_account(self, acct):
         '''
@@ -62,16 +66,12 @@ class Aeolus(Base):
         self.send_text(acct["password_secret_access_key"], *prov_acct_secret_access_key_field)
         if acct["type"] == "ec2":
             self.send_text(acct["account_number"], *prov_acct_number_field)
-            self.selenium.find_element(*prov_acct_key_file_locator).click()
-            # OS dialog box -- TODO: manual step
-            #self.selenium.send_keys(acct["key_file"])
-            self.selenium.find_element(*prov_acct_cert_file_locator).click()
-            # OS dialog box -- TODO: manual step
-            #self.selenium.send_keys(acct["key_cert_file"])
+            self.send_text(acct["key_file"], *prov_acct_key_file_locator)
+            self.send_text(acct["key_cert_file"], *prov_acct_cert_file_locator)
         self.send_text(acct["provider_account_priority"], *prov_acct_prior_field)
         self.send_text(acct["provider_account_quota"], *prov_acct_quota_field)
         self.selenium.find_element(*prov_acct_save_locator).click()
-        # return
+        return self.get_text(*confirmation_msg)
         # success: "Provider Account updated!"
         # failure: "Provider Account wasn't updated!"
 
@@ -87,6 +87,7 @@ class Aeolus(Base):
         self.click_by_text("a", "Delete Account")
         alert = self.selenium.switch_to_alert()
         alert.accept()
+        return self.get_text(*confirmation_msg)
         # return success: "Provider account was deleted!"
 
     def connection_test_provider_account(self, acct):
@@ -98,6 +99,7 @@ class Aeolus(Base):
         self.selenium.find_element(*prov_acct_details_locator).click()
         self.click_by_text("a", acct['provider_account_name'])
         self.click_by_text("a", "Test Connection")
+        return self.get_text(*confirmation_msg)
         # return success: "Test Connection Success: Valid Account Details"
 
     def connection_test_provider(self, acct):
@@ -107,5 +109,6 @@ class Aeolus(Base):
         self.go_to_page_view("providers")
         self.click_by_text("a", acct['provider_name'])
         self.click_by_text("a", "Test Connection")
+        return self.get_text(*confirmation_msg)
         # return success: "Successfully Connected to Provider"
 

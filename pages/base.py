@@ -56,11 +56,7 @@ class Base(Page):
         :param criteria: string
         """
         self.send_text_and_wait(criteria + "\n", *search_input_locator)
-###
-#
-# from page.py
-#
-###
+
     def click(self, *locator):
         """
         Executes a Left Mouse Click on locator.
@@ -95,7 +91,10 @@ class Base(Page):
     def send_text_and_wait(self, text, *locator):
         self.send_text(text, *locator)
         self.jquery_wait()
-            
+    
+    def get_text(self, *locator):
+        return self.selenium.find_element(*locator).text
+
     def select(self, locatorid, value):
         """
         Selects options in locatorid by value.
@@ -218,21 +217,6 @@ class Base(Page):
         """
         self.selenium.get(self.base_url)
 
-<<<<<<< HEAD
-    def go_to_katello(self):
-        """
-        go to url defined in arg --katello_url=
-        """
-        self.selenium.get(self.katello_url)
-
-    def go_to_aeolus(self):
-        """
-        go to url defined in arg --aeolus_url=
-        """
-        self.selenium.get(self.aeolus_url)
-
-=======
->>>>>>> 4b9e033228775628336b69f2dda46c43c29fd44d
     def go_to_url(self, url):
         """
         go to url passed

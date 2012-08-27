@@ -11,6 +11,9 @@ username_text_field = (By.NAME, "login")
 password_text_field = (By.ID, "password-input")
 login_locator = (By.NAME, "commit")
 
+# flash confirmation message
+confirmation_msg = (By.XPATH, "//ul[@class='flashes']")
+
 # new user fields
 user_first_name_field = (By.ID, "user_first_name")
 user_last_name_field = (By.ID, "user_last_name")
@@ -42,6 +45,4 @@ prov_acct_quota_field = (By.ID, "quota_instances")
 prov_acct_save_locator = (By.ID, "save")
 prov_acct_delete_locator = (By.ID, "delete_button")
 
-# confirmation flash message locators
-success_confirmation_locator = (By.ID, "flashes")
 fail_confirmation_locator = (By.ID, "flash-subset")

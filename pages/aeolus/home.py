@@ -30,4 +30,5 @@ class Home(Base):
         self.send_text(user, *username_text_field)
         self.send_text(password, *password_text_field)
         self.click(*login_locator)
+        return self.get_text(*confirmation_msg)
 

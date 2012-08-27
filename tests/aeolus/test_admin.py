@@ -8,6 +8,8 @@ from data.aeolus_data import Admin
 import time
 from pprint import pprint
 
+# TODO: move hard-coded assert messages
+
 class TestAdmin():
 
     @pytest.mark.user_admin
@@ -17,17 +19,21 @@ class TestAdmin():
         Create users
         '''
         home_page = Home(mozwebqa)
-        home_page.login()
+        msg = home_page.login()
+        assert msg == "Login successful!"
 
         page = Aeolus(mozwebqa)
 
         for user in Admin.users:
-            page.create_user(user)
+            msg = page.create_user(user)
+            assert msg == "User registered!"
 
         # test cleanup
         if page.test_cleanup in ['True', 'true', '1']:
             for user in Admin.users:
-                page.delete_user(user["username"])
+                msg = page.delete_user(user["username"])
+                #assert msg == "Deleted user " + user["username"]
+                assert msg == "User has been successfully deleted."
 
     @pytest.mark.user_admin
     @pytest.mark.aeolus_setup
@@ -36,16 +42,18 @@ class TestAdmin():
         create user groups
         '''
         home_page = Home(mozwebqa)
-        home_page.login()
+        msg = home_page.login()
+        assert msg == "Login successful!"
 
         page = Aeolus(mozwebqa)
 
         for user_group in Admin.user_groups:
-            page.create_user_group(user_group)
-            page.go_to_page_view("user_groups/new")
+            msg = page.create_user_group(user_group)
+            assert msg == "User Group added"
 
         # test cleanup
         if page.test_cleanup in ['True', 'true', '1']:
             for user_group in Admin.user_groups:
-                page.delete_user_group(user_group["name"])
+                msg = page.delete_user_group(user_group["name"])
+                assert msg == "Deleted user group " + user_group["name"]
 

@@ -45,4 +45,21 @@ prov_acct_quota_field = (By.ID, "quota_instances")
 prov_acct_save_locator = (By.ID, "save")
 prov_acct_delete_locator = (By.ID, "delete_button")
 
-fail_confirmation_locator = (By.ID, "flash-subset")
+# new environment pool family
+env_name_field = (By.ID, "pool_family_name")
+env_max_running_instances_field = (By.ID, "pool_family_quota_attributes_maximum_running_instances")
+env_submit_locator = (By.ID, "pool_family_submit")
+pool_family_delete_locator = (By.ID, "delete_pool_family_button")
+
+# new pool
+pool_name_field = (By.ID, "pool_name")
+pool_family_parent_field = (By.ID, "pool_pool_family_id")
+pool_enabled_checkbox = (By.ID, "pool_enabled")
+pool_save_locator = (By.ID, "save_button")
+pool_delete_locator = (By.ID, "delete_pool_button")
+
+# new catalog
+catalog_name_field = (By.ID, "catalog_name")
+catalog_family_parent_field = (By.ID, "catalog_pool_id")
+catalog_save_locator = (By.ID, "save_button")
+catalog_delete_locator = (By.ID, "delete")

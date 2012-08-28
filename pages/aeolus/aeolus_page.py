@@ -112,3 +112,69 @@ class Aeolus(Base):
         return self.get_text(*confirmation_msg)
         # return success: "Successfully Connected to Provider"
 
+    def new_environment(self, env):
+        '''
+        create new environment or pool family
+        '''
+        self.go_to_page_view("pool_families/new")
+        self.send_text(env["name"], *env_name_field)
+        self.send_text(env["max_running_instances"], *env_max_running_instances_field)
+        self.selenium.find_element(*env_submit_locator).click()
+        return self.get_text(*confirmation_msg)
+
+    def delete_environment(self, env):
+        '''
+        delete environment or pool family
+        '''
+        self.go_to_page_view("pool_families")
+        self.click_by_text("a", env["name"])
+        self.selenium.find_element(*pool_family_delete_locator).click()
+        self.click_popup_confirm()
+        return self.get_text(*confirmation_msg)
+
+    def new_pool(self, pool):
+        '''
+        create new pool in environment
+        '''
+        self.go_to_page_view("pools/new")
+        self.send_text(pool["name"], *pool_name_field)
+        self.select_dropdown(pool["environment_parent"], *pool_family_parent_field)
+        if pool["enabled"] == True:
+            self.selenium.find_element(*pool_enabled_checkbox).click()
+        self.selenium.find_element(*pool_save_locator).click()
+        return self.get_text(*confirmation_msg)
+
+    def delete_pool(self, pool):
+        '''
+        delete environment or pool family
+        '''
+        self.go_to_page_view("pools")
+        self.click_by_text("a", pool["name"])
+        self.selenium.find_element(*pool_delete_locator).click()
+        self.click_popup_confirm()
+        return self.get_text(*confirmation_msg)
+
+    def new_catalog(self, catalog):
+        '''
+        create new catalog
+        '''
+        self.go_to_page_view("catalogs/new")
+        self.send_text(catalog["name"], *catalog_name_field)
+        self.select_dropdown(catalog["pool_parent"], *catalog_family_parent_field)
+        self.selenium.find_element(*catalog_save_locator).click()
+        return self.get_text(*confirmation_msg)
+
+    def delete_catalog(self, catalog):
+        self.go_to_page_view("catalogs")
+        self.click_by_text("a", catalog["name"])
+        self.selenium.find_element(*catalog_delete_locator).click()
+        self.click_popup_confirm()
+        return self.get_text(*confirmation_msg)
+
+    def new_image_from_url(self, image):
+        '''
+        create new image from url
+        '''
+        self.go_to_page_view("")
+        self.click_by_text("a", "From URL")
+

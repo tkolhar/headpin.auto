@@ -3,6 +3,7 @@
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from pages.page import Page
 from pages.page import BaseProductFactory
 import string
@@ -95,11 +96,12 @@ class Base(Page):
     def get_text(self, *locator):
         return self.selenium.find_element(*locator).text
 
-    def select(self, locatorid, value):
+    def select_dropdown(self, value, *locator):
         """
         Selects options in locatorid by value.
         """
-        Select(self.selenium.find_element_by_id(locatorid)).select_by_value(value)
+        select = Select(self.selenium.find_element(*locator))
+        select.select_by_visible_text(value)
                 
     def return_to_previous_page(self):
         """
@@ -259,13 +261,22 @@ class Base(Page):
         Click on the *New item* locator.
         """
         self.click(*new_item_locator)
-            
+
+    # per selenium docs use click_popup_confirm() below
+    # for more elegant solution
     def click_confirm(self):
         """
         Click on the *Confirm* locator.
         """
         self.click(*confirmation_yes_locator)
         
+    def click_popup_confirm(self):
+        """
+        Confirm javascript popup
+        """
+        alert = self.selenium.switch_to_alert()
+        alert.accept()
+
     def click_tab(self, tab):
         """
         Execute a left mouse click on `tab`.
@@ -280,6 +291,7 @@ class Base(Page):
         """
         return self.selenium.find_element(*self._amo_logo_image_locator).get_attribute('src')
     '''
+
     # UI elements    
     def is_footer_version_text_visible(self):
         """

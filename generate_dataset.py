@@ -15,7 +15,7 @@ from random import *
 class Dataset(object):
 
     def __init__(self):
-        self.data_file = '../data/large_aeolus_dataset.py'
+        self.data_file = 'data/large_dataset.py'
         self.outfile = open(self.data_file, 'w')
 
         header = '''#!/usr/bin/env python
@@ -33,10 +33,15 @@ class Dataset(object):
         self.outfile.write('%s\n' % string)
 
     def write_dataset(self, name, data):
-        self.outfile.write('%s = [%s]\n\n' % (name, data))
+        self.outfile.write('    %s = [%s]\n\n' % (name, data))
 
-    def write_comment(self, string):
-        self.write_string('\n###\n# %s\n###\n' % string)
+    def write_class(self, my_class, docstring):
+        string = """class %s(object):
+    '''
+    %s
+    '''""" % (my_class, docstring)
+
+        self.write_string(string)
 
     def write_indented_string(self, string):
         self.write_string('    %s' % string)
@@ -91,33 +96,34 @@ class Dataset(object):
     @property
     def provider_accounts(self):
         provider_acct = '''\
-accounts = [
-    {"type" : "ec2",
-    "provider_name" : "ec2-us-east-1",
-    "provider_account_name" : "Public cloud east",
-    "username_access_key" : "",
-    "password_secret_access_key" : "",
-    "account_number" : "",
-    "key_file" : "",
-    "key_cert_file" : "",
-    "provider_account_priority" : "",
-    "provider_account_quota" : "" },
+    accounts = [
+        {"type" : "ec2",
+        "provider_name" : "ec2-us-east-1",
+        "provider_account_name" : "Public cloud east",
+        "username_access_key" : "",
+        "password_secret_access_key" : "",
+        "account_number" : "",
+        "key_file" : "",
+        "key_cert_file" : "",
+        "provider_account_priority" : "",
+        "provider_account_quota" : "" },
 
-    {"type" : "rhevm",
-    "provider_name" : "rhevm-default",
-    "provider_account_name" : "rhevm",
-    "username_access_key" : "admin@internal",
-    "password_secret_access_key" : "dog8code",
-    "provider_account_priority" : "",
-    "provider_account_quota" : "" },
+        {"type" : "rhevm",
+        "provider_name" : "rhevm-default",
+        "provider_account_name" : "rhevm",
+        "username_access_key" : "admin@internal",
+        "password_secret_access_key" : "dog8code",
+        "provider_account_priority" : "",
+        "provider_account_quota" : "" },
 
-    {"type" : "vsphere",
-    "provider_name" : "vsphere-default",
-    "provider_account_name" : "vsphere",
-    "username_access_key" : "Administrator",
-    "password_secret_access_key" : "R3dhat!",
-    "provider_account_priority" : "",
-    "provider_account_quota" : "" }]'''
+        {"type" : "vsphere",
+        "provider_name" : "vsphere-default",
+        "provider_account_name" : "vsphere",
+        "username_access_key" : "Administrator",
+        "password_secret_access_key" : "R3dhat!",
+        "provider_account_priority" : "",
+        "provider_account_quota" : "" }]
+        '''
 
         return provider_acct
 
@@ -147,15 +153,16 @@ accounts = [
     @property
     def images(self):
         images = '''\
-images_from_url = [
-    {"name" : "rhel6-x86_64",
-    "template_url" : "https://qeblade40.rhq.lab.eng.bos.redhat.com/templates/Dev/rhel-x86_64-6Server-cf-tools.xml"},
+    images_from_url = [
+        {"name" : "rhel6-x86_64",
+        "template_url" : "https://qeblade40.rhq.lab.eng.bos.redhat.com/templates/Dev/rhel-x86_64-6Server-cf-tools.xml"},
 
-    {"name" : "rhel5-x86_64",
-    "template_url" : "https://qeblade40.rhq.lab.eng.bos.redhat.com/templates/Dev/rhel-x86_64-5Server-cf-tools.xml"},
+        {"name" : "rhel5-x86_64",
+        "template_url" : "https://qeblade40.rhq.lab.eng.bos.redhat.com/templates/Dev/rhel-x86_64-5Server-cf-tools.xml"},
 
-    {"name" : "rhel5-i386",
-    "template_url" : "https://qeblade40.rhq.lab.eng.bos.redhat.com/templates/Dev/rhel-i386-5Server-cf-tools.xml"}]'''
+        {"name" : "rhel5-i386",
+        "template_url" : "https://qeblade40.rhq.lab.eng.bos.redhat.com/templates/Dev/rhel-i386-5Server-cf-tools.xml"}]
+        '''
         return images
 
     def gen_dep_list(self, deps, hwp, catalogs):
@@ -172,12 +179,12 @@ images_from_url = [
 
 data = Dataset()
 
-data.write_comment('Users and groups')
-
 # user groups
+data.write_class('Admin', 'Define users and groups')
+
 user_group_template = Template('''
-    {"name" : "$name", 
-    "description" : "$description"}''')
+        {"name" : "$name", 
+        "description" : "$description"}''')
 
 user_group_list = data.gen_user_group_list(raw.user_groups)
 user_group_string = data.match_template(user_group_template, user_group_list)
@@ -185,13 +192,13 @@ data.write_dataset("user_groups", user_group_string)
 
 # users
 user_template = Template('''
-    {"fname" : "$fname",
-    "lname" : "$lname",
-    "email" : "$email",
-    "username" : "$username",
-    "passwd" : "$passwd",
-    "max_instances" : "$max_instances",
-    "user_groups" : $user_groups }''')
+        {"fname" : "$fname",
+        "lname" : "$lname",
+        "email" : "$email",
+        "username" : "$username",
+        "passwd" : "$passwd",
+        "max_instances" : "$max_instances",
+        "user_groups" : $user_groups }''')
 
 user_list = data.gen_user_list(raw.user_fname, 
     raw.user_lname, 
@@ -201,24 +208,23 @@ user_string = data.match_template(user_template, user_list)
 data.write_dataset("users", user_string)
 
 # provider accounts
-provider_comment = '''\
-Provider Accounts
-#
-# provider_name string must match conductor
-# valid account types: "ec2", "rhevm", "vsphere"
-# support for Rackspace and Openstack?'''
+data.write_class('Provider', 'Define providers and provider accounts')
 
-data.write_comment(provider_comment)
+provider_comment = '''\
+    # provider_name string must match conductor
+    # valid account types: "ec2", "rhevm", "vsphere"'''
+
+data.write_string(provider_comment)
 data.write_string(data.provider_accounts)
 
 
-data.write_comment('Environments')
+data.write_class('Environment', 'Define environments and pools')
 
 # environments (pool families)
 env_template = Template('''
-    {"name" : "$environment",
-    "max_running_instances" : "$max_inst",
-    "enabled_provider_accounts" : $prov_accts}''')
+        {"name" : "$environment",
+        "max_running_instances" : "$max_inst",
+        "enabled_provider_accounts" : $prov_accts}''')
 
 env_list = data.gen_env_list(raw.environments, raw.provider_accounts)
 env_string = data.match_template(env_template, env_list)
@@ -226,21 +232,21 @@ data.write_dataset("pool_family_environments", env_string)
 
 # pools
 pool_template = Template('''
-    {"name" : "$pool_env",
-    "environment_parent" : $environments,
-    "quota" : "$quota",
-    "enabled" : True}''')
+        {"name" : "$pool_env",
+        "environment_parent" : $environments,
+        "quota" : "$quota",
+        "enabled" : True}''')
 
 pool_list = data.gen_pool_list(raw.pools, raw.environments)
 pool_string = data.match_template(pool_template, pool_list)
 data.write_dataset("pools", pool_string)
 
-data.write_comment('Content')
+data.write_class('Content', 'Define catalogs, images and deployables')
 
 # catalogs
 cat_template = Template('''
-    {"name" : $catalog,
-    "pool_parent" : $pools}''')
+        {"name" : "$catalog",
+        "pool_parent" : $pools}''')
 cat_list = data.gen_cat_list(raw.catalogs, raw.pools)
 cat_string = data.match_template(cat_template, cat_list)
 data.write_dataset("catalogs", cat_string)
@@ -250,9 +256,9 @@ data.write_string(data.images)
 
 # deployables
 dep_template = Template('''
-    {"name" : "$deployable",
-    "hwp" : $hwp,
-    "catalog" : $catalog}''')
+        {"name" : "$deployable",
+        "hwp" : $hwp,
+        "catalog" : $catalog}''')
 
 dep_list = data.gen_dep_list(raw.deployables, raw.hardware_prof, raw.catalogs)
 dep_string = data.match_template(dep_template, dep_list)

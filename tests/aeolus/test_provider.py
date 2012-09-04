@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 
 import pytest
-from unittestzero import Assert
+#from unittestzero import Assert
 from pages.aeolus.home import Home
 from pages.aeolus.aeolus_page import Aeolus
 from data.aeolus_data import Provider
 import time
 from pprint import pprint
-
-# TODO: move hard-coded assert messages
 
 class TestProvider():
 
@@ -19,14 +17,15 @@ class TestProvider():
         test provider connection
         '''
         home_page = Home(mozwebqa)
-        msg = home_page.login()
-        assert msg == "Login successful!"
+        assert home_page.login() == "Login successful!"
 
         page = Aeolus(mozwebqa)
 
         for account in Provider.accounts:
-            msg = page.connection_test_provider(account)
-            assert msg == "Successfully Connected to Provider"
+            assert page.connection_test_provider(account) == \
+                   "Successfully Connected to Provider"
+
+        assert page.logout() == "Aeolus Conductor | Login"
 
     @pytest.mark.provider_admin
     @pytest.mark.aeolus_setup
@@ -35,24 +34,27 @@ class TestProvider():
         Create provider account and test provider account connection
         '''
         home_page = Home(mozwebqa)
-        msg = home_page.login()
-        assert msg == "Login successful!"
+        assert home_page.login() == "Login successful!"
 
         page = Aeolus(mozwebqa)
 
         # create provider account
         for account in Provider.accounts:
-            msg = page.create_provider_account(account)
-            assert msg == "Provider Account updated!"
+            if account["type"] == "ec2":
+                account = page.update_ec2_acct_credentials_from_config(account)
+            assert page.create_provider_account(account) == \
+                   "Account %s was added." % account["provider_account_name"]
 
         # test provider account
         for account in Provider.accounts:
-            msg = page.connection_test_provider_account(account)
-            assert msg == "Test Connection Success: Valid Account Details"
+            assert page.connection_test_provider_account(account) == \
+                   "Test Connection Success: Valid Account Details"
 
         # test cleanup
-        if page.test_cleanup in ['True', 'true', '1']:
+        if page.test_cleanup == True:
             for account in Provider.accounts:
-                msg = page.delete_provider_account(account)
-                assert msg == "Provider account was deleted!"
+                assert page.delete_provider_account(account) == \
+                       "Provider account was deleted!"
+
+        assert page.logout() == "Aeolus Conductor | Login"
 

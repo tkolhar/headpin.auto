@@ -37,6 +37,13 @@ class Base(Page):
         return "".join(random.choice(chars) for x in range(random.randint(4, 6)))
 
     @property
+    def product_ver(self):
+        """
+        Returns product version from arg --product_version
+        """
+        return self.product_version
+
+    @property
     def page_title(self):
         """
         Returns the page's title.
@@ -74,6 +81,10 @@ class Base(Page):
     def click_by_text(self, css, name):
         _text_locator = (By.XPATH, "//%s[text() = '%s']" % (css, name))
         self.selenium.find_element(*_text_locator).click()
+
+    def url_by_text(self, css, name):
+        _text_locator = (By.XPATH, "//%s[text() = '%s']" % (css, name))
+        return self.selenium.find_element(*_text_locator).get_attribute("href")
     
     def send_characters(self, text, *locator):
         WebDriverWait(self.selenium, 60).until(lambda s: s.find_element(*locator).is_enabled())
@@ -226,7 +237,7 @@ class Base(Page):
         self.selenium.get(url)
     def go_to_page_view(self, view):
         """
-        go to view
+        go to page view by direct nav 
         for example 'system' for base_url/system
         """
         self.selenium.get(self.base_url + "/" + view)
@@ -292,7 +303,7 @@ class Base(Page):
         return self.selenium.find_element(*self._amo_logo_image_locator).get_attribute('src')
     '''
 
-    # UI elements    
+    # UI elements
     def is_footer_version_text_visible(self):
         """
         Return True if the Footer version Text is visible.

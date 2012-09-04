@@ -2,9 +2,25 @@
 
 from pages.base import Base
 from pages.aeolus.locators import *
-import time
+import time, re
 
 class Aeolus(Base):
+
+    def logout(self):
+        self.go_to_page_view("logout")
+        return self.selenium.title
+
+    def get_user_id(self, username):
+        self.go_to_page_view("users")
+        url = self.url_by_text("a", username)
+        user_id = re.search(".+/(\d+)$", url)
+        return user_id.group(1)
+
+    def get_user_group_id(self, user_group):
+        self.go_to_page_view("user_groups")
+        url = self.url_by_text("a", user_group)
+        user_group_id = re.search(".+/(\d+)$", url)
+        return user_group_id.group(1)
 
     def create_user(self, user):
         '''
@@ -177,4 +193,17 @@ class Aeolus(Base):
         '''
         self.go_to_page_view("")
         self.click_by_text("a", "From URL")
+
+    def update_ec2_acct_credentials_from_config(self, account):
+        '''
+        add in private data from data/.ini file
+        '''
+        config_file = 'data/private_data.ini'
+        from ConfigParser import SafeConfigParser
+
+        parser = SafeConfigParser()
+        parser.read(config_file)
+        for (key, val) in parser.items('ec2_credentials'):
+            account[key] = val
+        return account
 

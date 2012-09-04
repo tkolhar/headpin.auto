@@ -9,6 +9,7 @@ def pytest_runtest_setup(item):
     pytest_mozwebqa = py.test.config.pluginmanager.getplugin("mozwebqa")
     pytest_mozwebqa.TestSetup.project = item.config.option.project
     pytest_mozwebqa.TestSetup.org = item.config.option.org
+    pytest_mozwebqa.TestSetup.product_version = item.config.option.product_version
     pytest_mozwebqa.TestSetup.test_cleanup = item.config.option.test_cleanup
 
 def pytest_addoption(parser):
@@ -30,6 +31,12 @@ def pytest_addoption(parser):
                      default="ACME_Corporation",
                      help="Specify an organization to use for testing, Default: ACME_Corporation")
 
+    parser.addoption("--product_version",
+                     action="store",
+                     dest='product_version',
+                     metavar='str',
+                     default='1.1',
+                     help="Product version number (string). Default: 1.1")
 
     parser.addoption("--test_cleanup",
                      action="store",

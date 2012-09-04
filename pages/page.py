@@ -114,6 +114,10 @@ class Page(object):
         self.timeout = testsetup.timeout
         self.project = testsetup.project
         self.org = testsetup.org
-        self.test_cleanup = testsetup.test_cleanup
+        self.product_version = testsetup.product_version
+        self.test_cleanup = self.is_test_cleanup(testsetup.test_cleanup)
 
+    def is_test_cleanup(self, cleanup):
+        if cleanup in ['True', 'true', '1']:
+            return True
 

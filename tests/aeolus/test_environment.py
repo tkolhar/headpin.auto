@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import pytest
-from unittestzero import Assert
+#from unittestzero import Assert
 from pages.aeolus.home import Home
 from pages.aeolus.aeolus_page import Aeolus
 from data.aeolus_data import Environment
@@ -17,57 +17,54 @@ class TestEnvironment():
         create new environments or pool families
         '''
         home_page = Home(mozwebqa)
-        msg = home_page.login()
-        assert msg == "Login successful!"
+        assert home_page.login() == "Login successful!"
 
         page = Aeolus(mozwebqa)
 
         for environment in Environment.pool_family_environments:
-            msg = page.new_environment(environment)
-            assert msg == "Pool family was added."
+            assert page.new_environment(environment) == "Pool family was added."
 
         # test cleanup
-        if page.test_cleanup in ['True', 'true', '1']:
+        if page.test_cleanup == True:
             for environment in Environment.pool_family_environments:
-                msg = page.delete_environment(environment)
-                assert msg == "Pool Family was deleted!"
+                assert page.delete_environment(environment) == \
+                       "Pool Family was deleted!"
+        assert page.logout() == "Aeolus Conductor | Login"
 
     def test_new_pool(self, mozwebqa):
         '''
         create new pools
         '''
         home_page = Home(mozwebqa)
-        msg = home_page.login()
-        assert msg == "Login successful!"
+        assert home_page.login() == "Login successful!"
 
         page = Aeolus(mozwebqa)
 
         for pool in Environment.pools:
-            msg = page.new_pool(pool)
-            assert msg == "Pool added."
+            assert page.new_pool(pool) == "Pool added."
 
        # test cleanup
-        if page.test_cleanup in ['True', 'true', '1']:
+        if page.test_cleanup == True:
             for pool in Environment.pools:
-                msg = page.delete_pool(pool)
-                assert msg == "Pool %s was deleted." % pool["name"]
+                assert page.delete_pool(pool) == \
+                       "Pool %s was deleted." % pool["name"]
 
     def test_new_catalog(self, mozwebqa):
         '''
         create new catalogs
         '''
         home_page = Home(mozwebqa)
-        msg = home_page.login()
-        assert msg == "Login successful!"
+        assert home_page.login() == "Login successful!"
 
         page = Aeolus(mozwebqa)
 
         for catalog in Environment.catalogs:
-            msg = page.new_catalog(catalog)
-            assert msg == "Catalog created!"
+            assert page.new_catalog(catalog) == "Catalog created!"
 
         # test cleanup
-        if page.test_cleanup in ['True', 'true', '1']:
+        if page.test_cleanup == True:
             for catalog in Environment.catalogs:
-                msg = page.delete_catalog(catalog)
-                assert msg == "Catalog deleted!"
+                assert page.delete_catalog(catalog) == "Catalog deleted!"
+
+        assert page.logout() == "Aeolus Conductor | Login"
+

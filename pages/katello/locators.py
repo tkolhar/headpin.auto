@@ -14,6 +14,13 @@ password_text_field = (By.ID, "password-input")
 login_locator = (By.NAME, "commit")
 switcher_button = (By.CSS_SELECTOR, "a#switcherButton")
 logout_locator = (By.XPATH, "//a[normalize-space(.)='Logout']")
+
+# confirmation message locators
+# katellos are different for each locator
+msg_sys_template_create = (By.XPATH, "//ul[@class='system_templates__create']")
+msg_sys_template_destroy = (By.XPATH, "//ul[@class='system_templates__destroy']")
+msg_org_create = (By.XPATH, "//ul[@class='organizations__create']")
+
 # Dashboard locators
 dashboard_dropbutton_locator = (By.XPATH, "//div[contains(@class, 'dropbutton')]")
 dashboard_subscriptions_locator = (By.XPATH, "//div[@id='dashboard_subscriptions']")
